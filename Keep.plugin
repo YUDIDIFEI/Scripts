@@ -16,25 +16,16 @@
 #!icon = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Kickstarter.png
 
 [Rewrite]
-# > 屏蔽部分启动弹窗
 ^https?:\/\/api\.gotokeep\.com\/kprime\/v\d\/popups\/primeGuide url reject
-# > 屏蔽开屏广告请求
 ^https?:\/\/kad\.gotokeep\.com\/op-engine-webapp\/v\d\/ad url reject
-# > 屏蔽青少年弹窗
-^https?:\/\/api.gotokeep.com/cauchy/growth/init url reject
-# > 屏蔽搜索栏自动填充词
+https://api.gotokeep.com/cauchy/user/notice/growth/guide url reject-dict
+^https?:\/\/api.gotokeep.com/cauchy/growth/init url reject-dict
 ^https?:\/\/api\.gotokeep\.com\/search\/v\d\/default\/keyword\/list url reject
-# > 屏蔽热词
 ^https?:\/\/api\.gotokeep\.com\/search\/v\d\/hotword\/list url reject
-# > 屏蔽hotCourse
 ^https?:\/\/api\.gotokeep\.com\/search\/v\d\/hotCourse\/list url reject
-# > 屏蔽adwebapp
 ^https?:\/\/api\.gotokeep\.com\/op-engine-webapp\/v\d\/ad url reject
-# > 屏蔽广告预加载
 ^https?:\/\/api\.gotokeep\.com\/ads\/v\d\/ads\/preload url reject
-# > 屏蔽adbox
 ^https?:\/\/api\.gotokeep\.com\/training\/box\/config url reject
-# > 屏蔽更新
 ^https?:\/\/api\.gotokeep\.com\/anno\/v\d\/upgrade\/check url reject
 
 
