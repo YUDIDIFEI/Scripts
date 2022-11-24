@@ -1,0 +1,47 @@
+/***********************************
+
+> 应用名称：KeepStyle
+> 脚本功能：超级净化，具体功能请参考[ # > ]
+> 脚本作者：Cuttlefish
+> 微信账号：墨鱼手记
+> 更新时间：2022-11-12
+> 通知频道：https://t.me/ddgksf2021
+> 投稿助手：https://t.me/ddgksf2013_bot
+> 问题反馈：📮 ddgksf2013@163.com 📮
+
+[Rewrite]
+# > 屏蔽部分启动弹窗
+^https?:\/\/api\.gotokeep\.com\/kprime\/v\d\/popups\/primeGuide reject
+# > 屏蔽开屏广告请求
+^https?:\/\/kad\.gotokeep\.com\/op-engine-webapp\/v\d\/ad reject
+# > 屏蔽青少年弹窗
+^https?:\/\/api.gotokeep.com/cauchy/growth/init reject
+# > 屏蔽搜索栏自动填充词
+^https?:\/\/api\.gotokeep\.com\/search\/v\d\/default\/keyword\/list reject
+# > 屏蔽热词
+^https?:\/\/api\.gotokeep\.com\/search\/v\d\/hotword\/list reject
+# > 屏蔽hotCourse
+^https?:\/\/api\.gotokeep\.com\/search\/v\d\/hotCourse\/list reject
+# > 屏蔽adwebapp
+^https?:\/\/api\.gotokeep\.com\/op-engine-webapp\/v\d\/ad reject
+# > 屏蔽广告预加载
+^https?:\/\/api\.gotokeep\.com\/ads\/v\d\/ads\/preload reject
+# > 屏蔽adbox
+^https?:\/\/api\.gotokeep\.com\/training\/box\/config reject
+# > 屏蔽更新
+^https?:\/\/api\.gotokeep\.com\/anno\/v\d\/upgrade\/check reject
+
+
+[Script]
+# > 我的页面去推广
+http-response ^https?:\/\/api\.gotokeep\.com\/athena\/v\d\/people\/my script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=我的页面去推广
+# > 底部栏净化
+http-response ^https?:\/\/api\.gotokeep\.com\/config\/v\d\/basic script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=底部栏净化
+# > 发现页只保留顶部
+http-response https://api.gotokeep.com/homepage/v7/tab/find script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=发现页只保留顶部
+# > 课程预览页广告
+http-response https://api.gotokeep.com/nuocha/course/v2/\w+/preview script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=课程预览页广告
+# > 我的运动页面去除下方推荐
+http-response https://api.gotokeep.com/sportpage/sport/v3/mysport script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=我的运动页面去除下方推荐
+
+hostname=api.gotokeep.com, kad.gotokeep.com
