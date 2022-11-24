@@ -13,8 +13,7 @@
 #!desc = KEEP超级净化
 #!openUrl = 
 #!author = ddgksf2021
-#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/main/Tool/Loon/Plugin
-#!icon = https://gitlab.com/lodepuly/vpn_tool/-/raw/main/Resource/Icon/80px/Keep.png
+#!icon = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Kickstarter.png
 
 [Rewrite]
 # > 屏蔽部分启动弹窗
