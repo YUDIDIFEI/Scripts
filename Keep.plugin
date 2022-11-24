@@ -60,12 +60,12 @@ http-response https://api.gotokeep.com/nuocha/course/v2/\w+/preview script-path=
 http-response https://api.gotokeep.com/sportpage/sport/v3/mysport script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=我的运动页面去除下方推荐
 
 # > jingdong
-http-response ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=hotWords url script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/jd_json.js, requires-body=true, tag=京东广告1
-http-response ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=hotSearchTerms url script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/jd_json.js, requires-body=true, tag=京东广告2
+http-response ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=hotWords script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/jd_json.js, requires-body=true, tag=京东广告1
+http-response ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=hotSearchTerms script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/jd_json.js, requires-body=true, tag=京东广告2
 # > XiaoHongShu@ddgksf2013
-http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/splash_config url script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/xiaohongshu.js, requires-body=true, tag=唯品会广告1
-http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/homefeed\? url script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/xiaohongshu.js, requires-body=true, tag=唯品会广告2
-http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/config\? url script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/xiaohongshu.js, requires-body=true, tag=唯品会广告3
+http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/splash_config script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/xiaohongshu.js, requires-body=true, tag=唯品会广告1
+http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/homefeed\? script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/xiaohongshu.js, requires-body=true, tag=唯品会广告2
+http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/config\? script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/xiaohongshu.js, requires-body=true, tag=唯品会广告3
 
 
 hostname=api.gotokeep.com, kad.gotokeep.com
