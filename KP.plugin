@@ -50,7 +50,11 @@ hostname = api.m.mi.com, app.zhuanzhuan.com, api.cloud.189.cn, appwk.baidu.com, 
 ^https?:\/\/mime\.baidu\.com\/v\d\/activity\/advertisement url reject
 # > baiduwenku
 ^https?:\/\/appwk\.baidu\.com\/xpage\/interface\/wknaad url reject
-
+# > baiduwangpan
+^https?:\/\/pan\.baidu\.com\/act\/v\d\/bchannel\/list url reject-200
+^https?:\/\/pan\.baidu\.com\/act\/v\d\/welfare\/list url reject-200
+^https?:\/\/pan\.baidu\.com\/rest\/2\.0\/pcs\/ad url reject-200
+^https?:\/\/pan\.baidu\.com\/act\/api\/activityentry url reject-200
 
 # ======= C ======= #
 # > chelaile@ddgksf2013
