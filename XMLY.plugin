@@ -2,7 +2,7 @@
 #!desc = 喜马拉雅广告
 #!openUrl = 
 #!author = ddgksf2021
-#!homepage = https://ddgksf2013.notion.site/Cuttlefish-37a8a0cfac2247609d408db3d963c6d2
+#!homepage = https://github.com/ddgksf2013/Scripts
 #!icon = https://gitlab.com/lodepuly/vpn_tool/-/raw/main/Resource/Icon/80px/Himalaya.png
 
 
@@ -47,8 +47,8 @@ hostname = *.xima*.*, *.xmcdn.*
 
 [Script]
 # ～ XiMaLaYa_喜马拉雅_屏蔽首页滚动_Ad@ddgksf2013
-http-response ^https?:\/\/.*\.xima.*\.com\/discovery-feed\/v\d\/mix script-path=https://github.com/ddgksf2013/Scripts/raw/master/xmly_json.js, requires-body=true, tag=屏蔽首页滚动
+http-response ^https?:\/\/.*\.xima.*\.com\/discovery-feed\/v\d\/mix script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/xmly_json.js, requires-body=true, tag=屏蔽首页滚动
 # ～ XiMaLaYa_喜马拉雅_屏蔽Tab页滚动_Ad@ddgksf2013
-http-response ^https?:\/\/.*\.xima.*\.com\/discovery-category\/v\d/category script-path=https://github.com/ddgksf2013/Scripts/raw/master/xmly_json.js, requires-body=true, tag=屏蔽Tab页滚动
+http-response ^https?:\/\/.*\.xima.*\.com\/discovery-category\/v\d/category script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/xmly_json.js, requires-body=true, tag=屏蔽Tab页滚动
 # ～ XiMaLaYa_喜马拉雅_去除我的页面Ad_Tag@ddgksf2013
-http-response ^https?:\/\/.*\.xima.*\.com\/mobile-user\/v\d\/homePage script-path=https://github.com/ddgksf2013/Scripts/raw/master/xmly_json.js, requires-body=true, tag=去除我的页面Ad
+http-response ^https?:\/\/.*\.xima.*\.com\/mobile-user\/v\d\/homePage script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/xmly_json.js, requires-body=true, tag=去除我的页面Ad
