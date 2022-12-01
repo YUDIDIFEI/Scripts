@@ -28,8 +28,6 @@ hostname = hostname = ad.12306.cn, 103.91.210.141, js-ad.ayximgs.com, pzoap.moed
 ^https?:\/\/app\.58\.com\/api\/home\/appadv\/ url reject-200
 # > 555
 ^https:\/\/vip7\.fzwdyy\.cn:8083\/api\/getAdvertInfo url reject-200
-# > 12306
-^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/12306.js
 
 
 # ======= A ======= #
@@ -44,8 +42,7 @@ hostname = hostname = ad.12306.cn, 103.91.210.141, js-ad.ayximgs.com, pzoap.moed
 ^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/fusion_switch url reject-img
 # > alibaba
 ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.advertisementservice\.getadv\/ url reject
-# > aliyunpan
-^https?:\/\/api\.aliyundrive\.com\/apps\/v\d\/users\/apps\/widgets$ url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/alidrive.js
+
 
 # ======= B ======= #
 # > baiduditu
@@ -105,8 +102,6 @@ https?:\/\/res\.xiaojukeji\.com\/resapi\/activity\/get(Ruled|Preload|PasMultiNot
 ^https?:\/\/rtbapi\.douyucdn\.cn\/japi\/sign\/app\/getinfo url reject
 # > dewu@kyle
 ^https:\/\/app\.dewu\.com\/api\/v1\/app\/advertisement\/ url reject
-# > donghuafeng@NobyDa
-;^https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v\d/(token|m3u8).php\? url script-response-body https://raw.githubusercontent.com/NobyDa/Script/master/Bahamut/BahamutAnimeAds.js
 # > dazhihui
 ^https?://ssp\.dzh\.com\.cn/v2api/adgroupjson url reject
 # > dangdangyuedu
@@ -135,7 +130,6 @@ https?:\/\/res\.xiaojukeji\.com\/resapi\/activity\/get(Ruled|Preload|PasMultiNot
 # > feikechaguan@ddgksf2013
 ^https?:\/\/47\.100\.65\.202\/source\/plugin\/mobile\/mobile\.php\?module=advis url reject
 ^https?:\/\/47\.100\.65\.202\/api\/mobile\/index\.php\?version=\d&mobile=yes&module=basicdata&type=forumlist url response-body adv response-body ddgksf2013
-^https?:\/\/47\.100\.65\.202\/source\/plugin\/mobile\/mobile\.php\?module=threadpost&.+?&page=1 url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/fly.js
 
 
 # ======= G ======= #
@@ -197,14 +191,10 @@ https://fbchina.flipchina.cn/v2/ad/query/* url reject
 # > jingdongdushu
 https://jdread-api.jd.com/jdread/api/channel/module/opens url reject-200
 https://jdread-api.jd.com/jdread/api/popup url reject-200
-# > jingxi
-^https?:\/\/api\.m\.jd\.com\/api\?functionId=delivery_show url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/startup.js
 # > jingdong
 ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start url reject-dict
 ^https?:\/\/api\.m\.jd.com\/client\.action\?functionId=queryMaterialAdverts url reject
 ^https?:\/\/(bdsp-x|dsp-x)\.jd\.com\/adx\/ url reject
-^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=hotWords url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/jd_json.js
-^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=hotSearchTerms url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/jd_json.js
 # > jingdongjinrong
 ^https?:\/\/ms\.jr\.jd\.com\/gw\/generic\/aladdin\/(new)?na\/m\/getLoadingPicture url reject
 # > jingdonglite
@@ -253,13 +243,7 @@ https://api.gotokeep.com/cauchy/user/notice/growth/guide url reject-dict
 ^https?:\/\/api\.gotokeep\.com\/ads\/v\d\/ads\/preload url reject
 ^https?:\/\/api\.gotokeep\.com\/training\/box\/config url reject
 ^https?:\/\/api\.gotokeep\.com\/anno\/v\d\/upgrade\/check url reject
-^https?:\/\/api\.gotokeep\.com\/athena\/v\d\/people\/my url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/keepStyle.js
-^https?:\/\/api\.gotokeep\.com\/config\/v\d\/basic url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/keepStyle.js
-https://api.gotokeep.com/homepage/v7/tab/find url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/keepStyle.js
-https://api.gotokeep.com/nuocha/course/v2/\w+/preview url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/keepStyle.js
-https://api.gotokeep.com/sportpage/sport/v3/mysport url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/keepStyle.js
 # > kuan@kk pp
-^https?:\/\/api\.coolapk\.com\/v6\/(feed\/(replyList|detail)|main\/indexV8|dataList) url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/coolapk.js
 ^https?://api-access\.pangolin-sdk-toutiao\.com/api/ad/union/sdk url reject
 # > kuan@ddgksf2013
 ^https?:\/\/api\.coolapk\.com\/v6\/search\?.*type=hotSearch url reject-dict
@@ -374,8 +358,6 @@ https://homefront.qunar.com/front/splash/ad url reject
 https://ios.sspai.com/api/v3/recommend/page/get\?ad.*ios_home_modal url reject
 # > ShunFengYouXuan
 ^https://mapi.sfbest.com\/brokerservice-server\/cms\/getPositionById.* url reject
-# > spotify pro@app2smile
-^https:\/\/spclient\.wg\.spotify\.com\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$ url script-response-body https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-proto.js
 # > spotify@ddgksf2013
 ^https?://spclient.wg.spotify.com/ad-logic/* url reject-img
 ^https?://spclient.wg.spotify.com/ads/* url reject-img
@@ -392,15 +374,12 @@ https://ios.sspai.com/api/v3/recommend/page/get\?ad.*ios_home_modal url reject
 https://apis.lifeweek.com.cn/api/baseConfig/getIosNewConfig url reject
 # > ShunFeng@ddgksf2013
 ^https?:\/\/ccsp-egmas\.sf-express\.com\/cx-app-base\/base\/app\/appVersion\/detectionUpgrade url reject-dict
-https://ccsp-egmas.sf-express.com/cx-app-base/base/app/ad/queryInfoFlow url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/shunfeng_json.js
 https://ccsp-egmas.sf-express.com/cx-app-base/base/app/ad/queryAdImages url reject-dict
 ^https?:\/\/shopic\.sf-express\.com\/crm\/mobile\/common\/flashscreen url reject
 # > ShanDongCMCC@ddgksf2013
 https?:\/\/m\.sd\.10086\.cn\/zapi\/app_common\/homeWelcome\/welcome.do url reject-dict
 # > Soul@kyle
 ^https:\/\/data-collector\.soulapp\.cn\/api\/data\/report$ url reject
-# > Stay@ddgksf2013
-^https?:\/\/api\.shenyin\.name\/stay-fork\/browse\/featured$ url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/stay.js
 # > suning
 ^https?:\/\/mpcs\.suning\.com\/mpcs\/dm\/getDmInfo url reject
 
@@ -463,8 +442,6 @@ https://support.you.163.com/appversync/check.do url reject
 ^https?+:\/\/support\.you\.163\.com\/xhr\/boot\/getBootMedia\.json url reject
 ^https?:\/\/yanxuan.nosdn.127.net\/(static-union\/)?.*\.gif url reject
 https:\/\/yanxuan.nosdn.127.net\/.*\.mp4 url reject-dict
-# > WeChat110@zZPiglet
-^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\? url script-response-body https://raw.githubusercontent.com/zZPiglet/Task/master/asset/UnblockURLinWeChat.js
 # > weixindaihuo@RuCu6
 ^https?:\/\/mp\.weixin\.qq\.com\/mp\/cps_product_info url reject-200
 # > WeChat
@@ -484,9 +461,6 @@ https:\/\/yanxuan.nosdn.127.net\/.*\.mp4 url reject-dict
 # > xinyue
 ^https?:\/\/bgw\.xinyue\.qq\.com\/xyapi\.PageService\/GetIndexPopFlash url reject-200
 # > XiaoHongShu@ddgksf2013
-^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/splash_config url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/xiaohongshu.js
-^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/homefeed\? url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/xiaohongshu.js
-^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/config\? url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/xiaohongshu.js
 ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/search\/hot_list url response-body items":\[.+\] response-body items":[]
 ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/search\/trending url response-body queries":\[.+\] response-body queries":[]
 ^https?:\/\/www\.xiaohongshu\.com\/api\/sns\/v\d\/tag\/ads_engage url reject-dict
@@ -561,22 +535,34 @@ https://new-app-api.ylyk.com/v1/user/myinfo/adviser url reject
 ^https?+:\/\/ih2\.ireader\.com\/zycl\/api\/ad url reject
 
 [Script]
-http-response ^https?:\/\/api\.aliyundrive\.com\/apps\/v\d\/users\/apps\/widgets$ script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/alidrive.js, requires-body=true, tag=阿里云盘优化首页
-http-response ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v\d/(token|m3u8).php\? script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Bahamut/BahamutAnimeAds.js, requires-body=true, tag=动画疯屏蔽播放广告
-http-response ^https?:\/\/47\.100\.65\.202\/source\/plugin\/mobile\/mobile\.php\?module=threadpost&.+?&page=1 script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Crack/fly.js, requires-body=true, tag=fly
-http-response ^https?:\/\/api\.m\.jd\.com\/api\?functionId=delivery_show script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/startup.js, requires-body=true, tag=startup
-http-response ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=hotWords script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/jd_json.js, requires-body=true, tag=京东搜索页面优化
-http-response ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=hotSearchTerms script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/jd_json.js, requires-body=true, tag=京东搜索页面优化1
-http-response ^https?:\/\/api\.gotokeep\.com\/athena\/v\d\/people\/my script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=我的页面去推广
-http-response ^https?:\/\/api\.gotokeep\.com\/config\/v\d\/basic script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=底部栏净化
-http-response https://api.gotokeep.com/homepage/v7/tab/find script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=发现页只保留顶部
-http-response https://api.gotokeep.com/nuocha/course/v2/\w+/preview script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=课程预览页广告
-http-response https://api.gotokeep.com/sportpage/sport/v3/mysport script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/keepStyle.js, requires-body=true, tag=我的运动页面去除下方推荐
-http-response ^https?:\/\/api\.coolapk\.com\/v6\/(feed\/(replyList|detail)|main\/indexV8|dataList) script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/coolapk.js, requires-body=true, tag=酷安去首页广告
-http-response ^https:\/\/spclient\.wg\.spotify\.com\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$ script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-proto.js, requires-body=true, tag=spotify解锁
-http-response https://ccsp-egmas.sf-express.com/cx-app-base/base/app/ad/queryInfoFlow script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/shunfeng_json.js, requires-body=true, tag=顺丰
-http-response ^https?:\/\/api\.shenyin\.name\/stay-fork\/browse\/featured$ script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/stay.js, requires-body=true, tag=Stay去除仓库广告
-http-response ^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\? script-path=https://raw.githubusercontent.com/zZPiglet/Task/master/asset/UnblockURLinWeChat.js, requires-body=true, tag=微信链接解锁
-http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/splash_config script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/xiaohongshu.js, requires-body=true, tag=小红书去开屏广告
-http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/homefeed\? script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/xiaohongshu.js, requires-body=true, tag=瀑布流广告
-http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/config\? script-path=https://ocd0522.tk/ddgksf2013/Cuttlefish/raw/branch/master/Script/xiaohongshu.js, requires-body=true, tag=启动广告
+# > 12306
+http-response ^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/12306.js, requires-body=true, tag=12306
+# > aliyunpan
+http-response ^https?:\/\/api\.aliyundrive\.com\/apps\/v\d\/users\/apps\/widgets$ script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/alidrive.js, requires-body=true, tag=aliyunpan
+# > donghuafeng@NobyDa
+http-response ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v\d/(token|m3u8).php\? script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Bahamut/BahamutAnimeAds.js, requires-body=true, tag=donghuafeng
+# > feikechaguan@ddgksf2013
+http-response ^https?:\/\/47\.100\.65\.202\/source\/plugin\/mobile\/mobile\.php\?module=threadpost&.+?&page=1 script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/fly.js, requires-body=true, tag=feikechaguan
+# > jingxi
+http-response ^https?:\/\/api\.m\.jd\.com\/api\?functionId=delivery_show script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/startup.js, requires-body=true, tag=feikechaguan
+# > jingdong
+http-response ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=hotWords script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/jd_json.js, requires-body=true, tag=JD
+http-response ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=hotSearchTerms script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/jd_json.js, requires-body=true, tag=JD
+# > Keep@ddgksf2013
+http-response ^https?:\/\/api\.gotokeep\.com\/athena\/v\d\/people\/my script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/keepStyle.js, requires-body=true, tag=KEEP
+http-response ^https?:\/\/api\.gotokeep\.com\/config\/v\d\/basic script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/keepStyle.js, requires-body=true, tag=KEEP
+http-response https://api.gotokeep.com/homepage/v7/tab/find script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/keepStyle.js, requires-body=true, tag=KEEP
+http-response https://api.gotokeep.com/nuocha/course/v2/\w+/preview script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/keepStyle.js, requires-body=true, tag=KEEP
+http-response https://api.gotokeep.com/sportpage/sport/v3/mysport script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/keepStyle.js, requires-body=true, tag=KEEP
+# > kuan@kk pp
+http-response ^https?:\/\/api\.coolapk\.com\/v6\/(feed\/(replyList|detail)|main\/indexV8|dataList) script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/coolapk.js, requires-body=true, tag=Kuan
+# > spotify pro@app2smile
+http-response ^https:\/\/spclient\.wg\.spotify\.com\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$ script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/spotify-proto.js, requires-body=true, tag=spotify
+# > ShunFeng@ddgksf2013
+http-response https://ccsp-egmas.sf-express.com/cx-app-base/base/app/ad/queryInfoFlow script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/shunfeng_json.js, requires-body=true, tag=ShunFeng
+# > WeChat110@zZPiglet
+http-response ^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\? script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/UnblockURLinWeChat.js, requires-body=true, tag=WeChat110
+# > XiaoHongShu@ddgksf2013
+http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/splash_config script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/xiaohongshu.js, requires-body=true, tag=XiaoHongshu
+http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/homefeed\? script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/xiaohongshu.js, requires-body=true, tag=XiaoHongshu
+http-response ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/config\? script-path=https://github.com/YUDIDIFEI/Scripts/blob/master/xiaohongshu.js, requires-body=true, tag=XiaoHongshu
