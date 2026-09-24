@@ -1,0 +1,402 @@
+{
+  "name": "Foreign AI",
+  "updated": "2026-09-24",
+  "description": "常用国外 AI 服务的域名分流；不是全量网络依赖白名单。",
+  "services": [
+    {
+      "id": "openai",
+      "name": "OpenAI / ChatGPT / Codex / Sora",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/openai",
+        "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml",
+        "https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps"
+      ],
+      "domains": [
+        "openaiapi-site.azureedge.net",
+        "openaiassets.blob.core.windows.net",
+        "openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net",
+        "openaicom.imgix.net",
+        "openaicomproductionae4b.blob.core.windows.net",
+        "production-openaicom-storage.azureedge.net",
+        "openai-api.arkoselabs.com",
+        "cdn.openaimerge.com"
+      ],
+      "suffixes": [
+        "chat.com",
+        "chatgpt.com",
+        "oaistatic.com",
+        "oaistatsig.com",
+        "oaiusercontent.com",
+        "openai.com",
+        "sora.com",
+        "openai.com.cdn.cloudflare.net",
+        "chatgpt.livekit.cloud",
+        "host.livekit.cloud",
+        "turn.livekit.cloud"
+      ]
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic / Claude",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/anthropic"
+      ],
+      "domains": [
+        "servd-anthropic-website.b-cdn.net"
+      ],
+      "suffixes": [
+        "anthropic.com",
+        "clau.de",
+        "claude.ai",
+        "claude.com",
+        "claudemcpclient.com",
+        "claudemcpcontent.com",
+        "claudeusercontent.com"
+      ]
+    },
+    {
+      "id": "google-deepmind",
+      "name": "Google Gemini / AI Studio / NotebookLM / Code Assist",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/google-deepmind"
+      ],
+      "domains": [
+        "ai.google.dev",
+        "alkalicore-pa.clients6.google.com",
+        "alkalimakersuite-pa.clients6.google.com",
+        "webchannel-alkalimakersuite-pa.clients6.google.com",
+        "cloudaicompanion.googleapis.com",
+        "cloudcode-pa.googleapis.com",
+        "daily-cloudcode-pa.googleapis.com",
+        "notebooklm-pa.googleapis.com",
+        "notebooklm.googleapis.com",
+        "antigravity-pa.googleapis.com",
+        "antigravity.googleapis.com"
+      ],
+      "suffixes": [
+        "deepmind.com",
+        "deepmind.google",
+        "geller-pa.googleapis.com",
+        "generativelanguage.googleapis.com",
+        "proactivebackend-pa.googleapis.com",
+        "robinfrontend-pa.googleapis.com",
+        "generativeai.google",
+        "makersuite.google.com",
+        "ai.studio",
+        "aistudio.google.com",
+        "bard.google.com",
+        "gemini.google",
+        "gemini.google.com",
+        "gemini.gstatic.com",
+        "notebook.google",
+        "notebook.google.com",
+        "notebooklm.google",
+        "notebooklm.google.com",
+        "jules.google",
+        "jules.google.com",
+        "labs.google",
+        "labs.google.com",
+        "flow.google",
+        "flow.google.com",
+        "aisandbox-pa.googleapis.com",
+        "aicode.googleapis.com",
+        "aida.googleapis.com",
+        "opal.google",
+        "opal.google.com",
+        "antigravity.google",
+        "antigravity-unleash.goog",
+        "stitch.withgoogle.com"
+      ]
+    },
+    {
+      "id": "github-copilot",
+      "name": "GitHub Copilot",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/github-copilot",
+        "https://docs.github.com/en/copilot/reference/copilot-allowlist-reference"
+      ],
+      "domains": [
+        "copilot-proxy.githubusercontent.com",
+        "copilot-workspace.githubnext.com",
+        "copilotprodattachments.blob.core.windows.net",
+        "origin-tracker.githubusercontent.com"
+      ],
+      "suffixes": [
+        "githubcopilot.com"
+      ]
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/perplexity"
+      ],
+      "domains": [
+        "ppl-ai-file-upload.s3.amazonaws.com",
+        "pplx-res.cloudinary.com"
+      ],
+      "suffixes": [
+        "perplexity.ai",
+        "perplexity.com",
+        "pplx.ai"
+      ]
+    },
+    {
+      "id": "xai",
+      "name": "xAI / Grok",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/xai"
+      ],
+      "domains": [],
+      "suffixes": [
+        "grok.com",
+        "grok.x.com",
+        "x.ai"
+      ]
+    },
+    {
+      "id": "poe",
+      "name": "Poe",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/poe"
+      ],
+      "domains": [],
+      "suffixes": [
+        "poe.com",
+        "poecdn.net"
+      ]
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/cursor",
+        "https://prod.cursor.com/docs/enterprise/network-configuration",
+        "https://prod.cursor.com/docs/grok-bot/proxies"
+      ],
+      "domains": [],
+      "suffixes": [
+        "cursor-cdn.com",
+        "cursor.com",
+        "cursor.sh",
+        "cursorapi.com",
+        "cursorvm.com"
+      ]
+    },
+    {
+      "id": "windsurf",
+      "name": "Windsurf / Codeium",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/windsurf"
+      ],
+      "domains": [],
+      "suffixes": [
+        "codeium.com",
+        "codeiumdata.com",
+        "windsurf.build",
+        "windsurf.com"
+      ]
+    },
+    {
+      "id": "jetbrains-ai",
+      "name": "JetBrains AI",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/jetbrains-ai"
+      ],
+      "domains": [],
+      "suffixes": [
+        "grazie.ai",
+        "grazie.aws.intellij.net",
+        "jetbrains.ai"
+      ]
+    },
+    {
+      "id": "huggingface",
+      "name": "Hugging Face",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/huggingface"
+      ],
+      "domains": [],
+      "suffixes": [
+        "hf.co",
+        "hf.space",
+        "huggingface.co"
+      ]
+    },
+    {
+      "id": "groq",
+      "name": "Groq",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/groq"
+      ],
+      "domains": [],
+      "suffixes": [
+        "groq.com"
+      ]
+    },
+    {
+      "id": "cerebras",
+      "name": "Cerebras",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/cerebras"
+      ],
+      "domains": [],
+      "suffixes": [
+        "cerebras.ai"
+      ]
+    },
+    {
+      "id": "elevenlabs",
+      "name": "ElevenLabs",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/elevenlabs"
+      ],
+      "domains": [],
+      "suffixes": [
+        "elevenlabs.com",
+        "elevenlabs.io"
+      ]
+    },
+    {
+      "id": "microsoft-copilot",
+      "name": "Microsoft Copilot",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn",
+        "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml"
+      ],
+      "domains": [
+        "sydney.bing.com",
+        "edgeservices.bing.com",
+        "services.bingapis.com",
+        "gateway.bingviz.microsoft.net",
+        "gateway.bingviz.microsoftapp.net"
+      ],
+      "suffixes": [
+        "copilot-stg.com",
+        "copilot.cloud.microsoft",
+        "copilot.com",
+        "copilot.microsoft.com"
+      ]
+    },
+    {
+      "id": "mistral",
+      "name": "Mistral / Le Chat",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn"
+      ],
+      "domains": [],
+      "suffixes": [
+        "mistral.ai"
+      ]
+    },
+    {
+      "id": "cohere",
+      "name": "Cohere",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn"
+      ],
+      "domains": [],
+      "suffixes": [
+        "cohere.ai",
+        "cohere.com"
+      ]
+    },
+    {
+      "id": "midjourney",
+      "name": "Midjourney",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn"
+      ],
+      "domains": [],
+      "suffixes": [
+        "midjourney.com"
+      ]
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn"
+      ],
+      "domains": [],
+      "suffixes": [
+        "openrouter.ai"
+      ]
+    },
+    {
+      "id": "meta-ai",
+      "name": "Meta AI",
+      "sources": [
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn"
+      ],
+      "domains": [],
+      "suffixes": [
+        "meta.ai"
+      ]
+    },
+    {
+      "id": "civitai",
+      "name": "Civitai",
+      "sources": [
+        "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Civitai/Civitai.yaml"
+      ],
+      "domains": [],
+      "suffixes": [
+        "civitai.com"
+      ]
+    },
+    {
+      "id": "suno",
+      "name": "Suno",
+      "sources": [
+        "https://suno.com/"
+      ],
+      "domains": [],
+      "suffixes": [
+        "suno.com",
+        "suno.ai"
+      ]
+    },
+    {
+      "id": "runway",
+      "name": "Runway",
+      "sources": [
+        "https://runway.com/"
+      ],
+      "domains": [],
+      "suffixes": [
+        "runway.com",
+        "runwayml.com"
+      ]
+    },
+    {
+      "id": "character-ai",
+      "name": "Character.AI",
+      "sources": [
+        "https://character.ai/"
+      ],
+      "domains": [],
+      "suffixes": [
+        "character.ai"
+      ]
+    },
+    {
+      "id": "stability-ai",
+      "name": "Stability AI",
+      "sources": [
+        "https://stability.ai/"
+      ],
+      "domains": [],
+      "suffixes": [
+        "stability.ai"
+      ]
+    }
+  ],
+  "notes": [
+    "只导出 DOMAIN 和 DOMAIN-SUFFIX；忽略上游 ads 标记、正则、IP、ASN、宽泛关键字。",
+    "未收录国外分类里混入的国内 AI 品牌；排除缺少充分服务归属依据的 crixet.com、chatgpt.site，以及非核心对话服务 grokipedia.com。",
+    "host.livekit.cloud 和 turn.livekit.cloud 是上游 OpenAI 语音规则包含的共享 LiveKit 子域，其他使用这些子域的应用也可能匹配。",
+    "普通 Google/Microsoft/GitHub 登录、通用 CAPTCHA/支付/CDN 域名沿用用户现有分流。AI 规则不按 URL 路径区分共享域名。",
+    "ChatGPT 的动态 Azure WebPubSub 正则和语音 IP 未纳入域名集；相关连接沿用现有兜底，未进行真机验证。"
+  ]
+}
