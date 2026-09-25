@@ -1,0 +1,91 @@
+{
+  "updated": "2026-09-25",
+  "description": "常用境外流媒体及应用域名分流；AI 保留独立聚合规则。",
+  "groups": [
+    {
+      "id": "YouTube", "name": "YouTube", "tier": "individual", "source": "youtube",
+      "domains": ["youtube-ui.l.google.com", "youtube.googleapis.com"],
+      "suffixes": ["googlevideo.com", "withyoutube.com", "youtu.be", "youtube-nocookie.com", "youtube.com", "youtubeeducation.com", "youtubei.googleapis.com", "youtubekids.com", "yt.be", "ytimg.com"]
+    },
+    {
+      "id": "Netflix", "name": "Netflix", "tier": "individual", "source": "netflix",
+      "domains": ["netflix.com.edgesuite.net"],
+      "suffixes": ["fast.com", "netflix.com", "netflix.net", "nflxext.com", "nflximg.com", "nflximg.net", "nflxsearch.net", "nflxso.net", "nflxvideo.net"]
+    },
+    {
+      "id": "DisneyPlus", "name": "Disney+", "tier": "individual", "source": "disney",
+      "domains": ["disney.api.edge.bamgrid.com"],
+      "suffixes": ["disney-plus.net", "disney.com", "disneyplus.com", "disneystreaming.com", "dssott.com"]
+    },
+    {
+      "id": "Max", "name": "Max / HBO", "tier": "individual", "source": "hbo",
+      "domains": ["hbomax-images.warnermediacdn.com", "hbomaxdash.s.llnwi.net"],
+      "suffixes": ["hbo.com", "hbogo.com", "hbomax.com", "hbomaxcdn.com", "hbonow.com", "max.com", "maxgo.com"]
+    },
+    {
+      "id": "PrimeVideo", "name": "Prime Video", "tier": "individual", "source": "primevideo",
+      "domains": [],
+      "suffixes": ["aiv-cdn.net", "amazonvideo.com", "prime-video.com", "primevideo.com", "primevideo.tv"]
+    },
+    {
+      "id": "Spotify", "name": "Spotify", "tier": "individual", "source": "spotify",
+      "domains": ["audio-ak-spotify-com.akamaized.net", "audio4-ak-spotify-com.akamaized.net", "heads-ak-spotify-com.akamaized.net", "heads4-ak-spotify-com.akamaized.net", "spotify.com.edgesuite.net"],
+      "suffixes": ["pscdn.co", "scdn.co", "spoti.fi", "spotify.com", "spotify.link", "spotifycdn.com", "spotifycdn.net"]
+    },
+    {
+      "id": "TikTok", "name": "TikTok", "tier": "individual", "source": "tiktok",
+      "domains": ["p16-tiktokcdn-com.akamaized.net"],
+      "suffixes": ["muscdn.com", "musical.ly", "tik-tokapi.com", "tiktok.com", "tiktokcdn-eu.com", "tiktokcdn-us.com", "tiktokcdn.com", "tiktokd.net", "tiktokv.com", "tiktokv.eu", "tiktokv.us", "tiktokw.eu", "tiktokw.us", "ttcdn-us.com", "ttlivecdn.com", "ttwstatic.com"]
+    },
+    {
+      "id": "Telegram", "name": "Telegram", "tier": "individual", "source": "telegram",
+      "domains": [],
+      "suffixes": ["cdn-telegram.org", "t.me", "tdesktop.com", "telegra.ph", "telegram-cdn.org", "telegram.dog", "telegram.me", "telegram.org", "telesco.pe", "tg.dev"]
+    },
+    {
+      "id": "X", "name": "X / Twitter", "tier": "individual", "source": "twitter",
+      "domains": [],
+      "suffixes": ["pscp.tv", "t.co", "tweetdeck.com", "twimg.com", "twitter.com", "twitter.jp", "twitpic.com", "twttr.com", "twvid.com", "x.com"]
+    },
+    {
+      "id": "Facebook", "name": "Facebook", "tier": "individual", "source": "facebook",
+      "domains": [],
+      "suffixes": ["facebook.com", "facebook.net", "fb.com"]
+    },
+    {
+      "id": "Instagram", "name": "Instagram", "tier": "individual", "source": "instagram",
+      "domains": [],
+      "suffixes": ["cdninstagram.com", "ig.me", "igcdn.com", "igtv.com", "instagram.com"]
+    },
+    {
+      "id": "WhatsApp", "name": "WhatsApp", "tier": "individual", "source": "whatsapp",
+      "domains": [],
+      "suffixes": ["wa.me", "whatsapp.com", "whatsapp.net", "whatsapp.org"]
+    },
+    {
+      "id": "GitHub", "name": "GitHub", "tier": "individual", "source": "github",
+      "domains": ["github-api.arkoselabs.com"],
+      "suffixes": ["ghcr.io", "github.com", "github.dev", "github.io", "githubassets.com", "githubusercontent.com", "githubstatus.com", "githubsupport.com"]
+    },
+    {
+      "id": "Google", "name": "Google 通用服务", "tier": "individual", "source": "google",
+      "domains": [],
+      "suffixes": ["gmail.com", "google.com", "googleapis.com", "gstatic.com", "googleusercontent.com", "gvt1.com"]
+    },
+    {
+      "id": "Microsoft", "name": "Microsoft 通用服务", "tier": "individual", "source": "microsoft",
+      "domains": [],
+      "suffixes": ["bing.com", "live.com", "microsoft.com", "microsoftonline.com", "msauth.net", "msftauth.net", "office.com", "office365.com", "outlook.com"]
+    },
+    {
+      "id": "Discord", "name": "Discord", "tier": "individual", "source": "discord",
+      "domains": ["discord-attachments-uploads-prd.storage.googleapis.com"],
+      "suffixes": ["dis.gd", "discord.com", "discord.gg", "discord.gift", "discord.media", "discordapp.com", "discordapp.net", "discordcdn.com"]
+    },
+    {
+      "id": "Common", "name": "常见境外流媒体与应用", "tier": "combined", "source": "common",
+      "domains": ["hls-amt.itunes.apple.com", "hls.itunes.apple.com", "hulu.playback.edge.bamgrid.com", "np-edge.itunes.apple.com", "play-edge.itunes.apple.com", "uts-api.itunes.apple.com"],
+      "suffixes": ["fbcdn.net", "fbsbx.com", "hulu.com", "hulu.jp", "hulu.tv", "twitch.tv", "twitchcdn.net", "jtvnw.net", "ttvnw.net", "reddit.com", "redd.it", "redditmedia.com", "redditstatic.com", "pinterest.com", "pinimg.com", "pin.it", "tv.apple.com", "paramountplus.com", "pplusstatic.com", "peacocktv.com", "steamcommunity.com", "steampowered.com", "steamstatic.com", "steamcontent.com", "paypal.com", "paypalobjects.com", "zoom.us", "zoom.com", "vimeo.com", "vimeocdn.com", "soundcloud.com", "sndcdn.com"]
+    }
+  ]
+}

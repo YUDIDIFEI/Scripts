@@ -1,0 +1,15 @@
+# Netflix - overseas routing rules
+# Updated: 2026-09-25 | Rules: 10
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+payload:
+  - DOMAIN,netflix.com.edgesuite.net
+  - DOMAIN-SUFFIX,fast.com
+  - DOMAIN-SUFFIX,netflix.com
+  - DOMAIN-SUFFIX,netflix.net
+  - DOMAIN-SUFFIX,nflxext.com
+  - DOMAIN-SUFFIX,nflximg.com
+  - DOMAIN-SUFFIX,nflximg.net
+  - DOMAIN-SUFFIX,nflxsearch.net
+  - DOMAIN-SUFFIX,nflxso.net
+  - DOMAIN-SUFFIX,nflxvideo.net

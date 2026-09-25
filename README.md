@@ -1,6 +1,31 @@
-# 国外 AI 分流规则
+# 境外 AI、流媒体与应用分流规则
 
-为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **25 类服务、126 条域名规则**。更新日期：2026-09-24。
+## 流媒体与其他应用
+
+AI 维持一份聚合规则，不按平台拆分。新增 16 份主流服务独立规则，以及一份 `Common` 常见服务合并规则；五种客户端各有独立格式，目录为 `rule/<客户端>/<规则名>/<规则名>.<扩展名>`。Clash、Stash、Egern 使用 `.yaml`，Loon、Shadowrocket 使用 `.list`。服务名与次序如下：
+
+| 类别 | 独立规则名 |
+|---|---|
+| 流媒体 | YouTube、Netflix、DisneyPlus、Max、PrimeVideo、Spotify、TikTok |
+| 社交与通讯 | Telegram、X、Facebook、Instagram、WhatsApp、Discord |
+| 开发与通用平台 | GitHub、Google、Microsoft |
+
+`Common` 合并 Hulu、Twitch、Reddit、Pinterest、Apple TV+、Paramount+、Peacock、Steam、PayPal、Zoom、Vimeo、SoundCloud，以及部分 Meta 共用 CDN。各规则可单独指定不同策略；共用 CDN 不能可靠地区分 Facebook、Instagram 与 WhatsApp，因此放在 `Common`。
+
+五端接入片段分别在 [Clash](config/Clash/Routing.yaml)、[Stash](config/Stash/Routing.yaml)、[Loon](config/Loon/Routing.lcf)、[Shadowrocket](config/Shadowrocket/Routing.conf)、[Egern](config/Egern/Routing.yaml)。将片段合并到现有配置，`PROXY` 必须是已经存在的代理策略；可以把独立规则行的策略改成各自的策略组。规则顺序是 **AI → 独立服务 → Common → 中国 IP 直连 → 其余代理**。Clash / Stash 使用 `MATCH,PROXY` 作为最终规则，Loon / Shadowrocket 使用 `FINAL,PROXY`，Egern 使用 `default: policy: PROXY`。已有的宽泛规则及兜底必须检查顺序，不能让它们提前截获这些服务。
+
+清单见 [sources/foreign-services.json](sources/foreign-services.json)，生成命令：
+
+```sh
+python scripts/build_service_rules.py
+python scripts/build_service_rules.py --check
+```
+
+这些是常用服务域名清单，并非完整网络依赖白名单。未将整个云厂商、共享 CDN、ASN、动态 IP 或关键词强制代理；没有节点、DNS 或客户端真机联网验证。流媒体能否解锁还取决于节点地区和服务账号。`GEOIP,CN,DIRECT` 只按目的 IP 判断，不能代替国内域名规则；若现有配置已有国内域名直连规则，应放在兜底之前。来源主要为 [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community/tree/master/data) 中相应服务清单、各平台官网及用户提供的五端格式样例，许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。2026-09-25 已核对五端 90 份新增文件的格式与内容一致性、21 个代表性命中案例及规则顺序，并通过重复生成检查；未进行真机导入。
+
+## AI 聚合规则
+
+为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **25 类服务、127 条域名规则**。更新日期：2026-09-24。
 
 ## 下载与分类
 
@@ -19,7 +44,7 @@
 | 服务 | 域名规则数 |
 |---|---:|
 | OpenAI / ChatGPT / Codex / Sora | 19 |
-| Anthropic / Claude | 8 |
+| Anthropic / Claude | 9 |
 | Google Gemini / AI Studio / NotebookLM / Code Assist | 43 |
 | GitHub Copilot | 5 |
 | Perplexity | 5 |
@@ -121,6 +146,7 @@ rules:
 
 ## 规则范围
 
+- blackmatrix7 的 OpenAI 清单标为 35 条，其中 14 条所列主机或根域已由本规则匹配；其余包含 16 条共享第三方域名、1 条现已属于其他服务的 `ai.com`，以及关键词、IP、ASN 共 4 条。上游的部分后缀规则比本清单中的精确域名匹配更宽，不能直接按条数比较覆盖范围。
 - 只使用精确域名和域名后缀；未加入共享云厂商 ASN、整个 Google/Microsoft/GitHub 域名空间、通用关键字或宽泛 IP 段。
 - 未把第三方清单中混入的国内 AI 服务纳入本组；这是一份常用国外 AI 清单，并非全球所有 AI 服务的穷尽列表。
 - Google、Microsoft、GitHub 的通用登录，以及通用验证码、支付、客服、遥测和 CDN 仍按现有配置分流。仅靠域名无法把同一主机上的 AI 与非 AI 路径完全分开。
@@ -135,6 +161,7 @@ rules:
 - [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script/tree/master/rule)：OpenAI、Claude、Gemini、Copilot、Civitai 分类。
 - [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community)：按服务补充域名，经过范围筛选；许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 - [OpenAI 网络要求](https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps)、[GitHub Copilot 网络域名](https://docs.github.com/en/copilot/reference/copilot-allowlist-reference)、[Cursor 网络配置](https://prod.cursor.com/docs/enterprise/network-configuration)，以及清单中列出的服务官网。
+- [Claude Desktop 网络要求](https://code.claude.com/docs/en/desktop#network-access-requirements)：补充 `claude.app`，覆盖官方列出的桌面版主域名和子域名。
 
 格式依据：[Mihomo](https://wiki.metacubex.one/config/rule-providers/content/)、[Stash](https://stash.wiki/en/rules/rule-set)、[Egern](https://egernapp.com/docs/configuration/rules/)、[Loon 官方示例](https://github.com/Loon0x00/LoonExampleConfig/blob/master/Rule/ExampleRule.list)、[用户提供的 Shadowrocket 配置](https://lowertop.github.io/Shadowrocket/lazy_group.conf)。
 
@@ -149,6 +176,6 @@ python scripts/build_ai_rules.py --check
 
 ## 验证状态
 
-2026-09-24 已通过：3 份 YAML 严格解析、2 份文本格式检查、五端 126 条规则语义一致性、无重复/冗余覆盖、可重复生成、接入片段及路径检查。每端执行 42 个应匹配案例和 33 个不应匹配案例，共 375 个匹配断言通过。
+2026-09-24 已通过：3 份 YAML 严格解析、2 份文本格式检查、五端 127 条规则语义一致性、无重复/冗余覆盖、可重复生成、接入片段及路径检查。每端执行 56 个应匹配案例和 33 个不应匹配案例，共 445 个匹配断言通过。
 
-每份包含 31 条精确域名规则、95 条域名后缀规则。未进行五个客户端的真机导入、节点联网或所有服务登录/语音测试。
+每份包含 31 条精确域名规则、96 条域名后缀规则。未进行五个客户端的真机导入、节点联网或所有服务登录/语音测试。

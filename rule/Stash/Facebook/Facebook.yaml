@@ -1,0 +1,8 @@
+# Facebook - overseas routing rules
+# Updated: 2026-09-25 | Rules: 3
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+payload:
+  - DOMAIN-SUFFIX,facebook.com
+  - DOMAIN-SUFFIX,facebook.net
+  - DOMAIN-SUFFIX,fb.com

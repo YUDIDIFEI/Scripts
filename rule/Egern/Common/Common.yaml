@@ -1,0 +1,44 @@
+# 常见境外流媒体与应用 - overseas routing rules
+# Updated: 2026-09-25 | Rules: 38
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+domain_set:
+  - hls-amt.itunes.apple.com
+  - hls.itunes.apple.com
+  - hulu.playback.edge.bamgrid.com
+  - np-edge.itunes.apple.com
+  - play-edge.itunes.apple.com
+  - uts-api.itunes.apple.com
+domain_suffix_set:
+  - fbcdn.net
+  - fbsbx.com
+  - hulu.com
+  - hulu.jp
+  - hulu.tv
+  - jtvnw.net
+  - paramountplus.com
+  - paypal.com
+  - paypalobjects.com
+  - peacocktv.com
+  - pin.it
+  - pinimg.com
+  - pinterest.com
+  - pplusstatic.com
+  - redd.it
+  - reddit.com
+  - redditmedia.com
+  - redditstatic.com
+  - sndcdn.com
+  - soundcloud.com
+  - steamcommunity.com
+  - steamcontent.com
+  - steampowered.com
+  - steamstatic.com
+  - ttvnw.net
+  - tv.apple.com
+  - twitch.tv
+  - twitchcdn.net
+  - vimeo.com
+  - vimeocdn.com
+  - zoom.com
+  - zoom.us

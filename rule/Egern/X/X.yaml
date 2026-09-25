@@ -1,0 +1,15 @@
+# X / Twitter - overseas routing rules
+# Updated: 2026-09-25 | Rules: 10
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+domain_suffix_set:
+  - pscp.tv
+  - t.co
+  - tweetdeck.com
+  - twimg.com
+  - twitpic.com
+  - twitter.com
+  - twitter.jp
+  - twttr.com
+  - twvid.com
+  - x.com

@@ -1,0 +1,18 @@
+# YouTube - overseas routing rules
+# Updated: 2026-09-25 | Rules: 12
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+domain_set:
+  - youtube-ui.l.google.com
+  - youtube.googleapis.com
+domain_suffix_set:
+  - googlevideo.com
+  - withyoutube.com
+  - youtu.be
+  - youtube-nocookie.com
+  - youtube.com
+  - youtubeeducation.com
+  - youtubei.googleapis.com
+  - youtubekids.com
+  - yt.be
+  - ytimg.com

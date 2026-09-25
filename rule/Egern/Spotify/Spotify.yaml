@@ -1,0 +1,18 @@
+# Spotify - overseas routing rules
+# Updated: 2026-09-25 | Rules: 12
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+domain_set:
+  - audio-ak-spotify-com.akamaized.net
+  - audio4-ak-spotify-com.akamaized.net
+  - heads-ak-spotify-com.akamaized.net
+  - heads4-ak-spotify-com.akamaized.net
+  - spotify.com.edgesuite.net
+domain_suffix_set:
+  - pscdn.co
+  - scdn.co
+  - spoti.fi
+  - spotify.com
+  - spotify.link
+  - spotifycdn.com
+  - spotifycdn.net

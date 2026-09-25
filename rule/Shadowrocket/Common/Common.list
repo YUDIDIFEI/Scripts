@@ -1,0 +1,42 @@
+# 常见境外流媒体与应用 - overseas routing rules
+# Updated: 2026-09-25 | Rules: 38
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+DOMAIN,hls-amt.itunes.apple.com
+DOMAIN,hls.itunes.apple.com
+DOMAIN,hulu.playback.edge.bamgrid.com
+DOMAIN,np-edge.itunes.apple.com
+DOMAIN,play-edge.itunes.apple.com
+DOMAIN,uts-api.itunes.apple.com
+DOMAIN-SUFFIX,fbcdn.net
+DOMAIN-SUFFIX,fbsbx.com
+DOMAIN-SUFFIX,hulu.com
+DOMAIN-SUFFIX,hulu.jp
+DOMAIN-SUFFIX,hulu.tv
+DOMAIN-SUFFIX,jtvnw.net
+DOMAIN-SUFFIX,paramountplus.com
+DOMAIN-SUFFIX,paypal.com
+DOMAIN-SUFFIX,paypalobjects.com
+DOMAIN-SUFFIX,peacocktv.com
+DOMAIN-SUFFIX,pin.it
+DOMAIN-SUFFIX,pinimg.com
+DOMAIN-SUFFIX,pinterest.com
+DOMAIN-SUFFIX,pplusstatic.com
+DOMAIN-SUFFIX,redd.it
+DOMAIN-SUFFIX,reddit.com
+DOMAIN-SUFFIX,redditmedia.com
+DOMAIN-SUFFIX,redditstatic.com
+DOMAIN-SUFFIX,sndcdn.com
+DOMAIN-SUFFIX,soundcloud.com
+DOMAIN-SUFFIX,steamcommunity.com
+DOMAIN-SUFFIX,steamcontent.com
+DOMAIN-SUFFIX,steampowered.com
+DOMAIN-SUFFIX,steamstatic.com
+DOMAIN-SUFFIX,ttvnw.net
+DOMAIN-SUFFIX,tv.apple.com
+DOMAIN-SUFFIX,twitch.tv
+DOMAIN-SUFFIX,twitchcdn.net
+DOMAIN-SUFFIX,vimeo.com
+DOMAIN-SUFFIX,vimeocdn.com
+DOMAIN-SUFFIX,zoom.com
+DOMAIN-SUFFIX,zoom.us

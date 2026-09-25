@@ -1,0 +1,24 @@
+# Merge into existing sections; PROXY must name an existing policy.
+[Remote Rule]
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list, policy=PROXY, tag=AI, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/YouTube/YouTube.list, policy=PROXY, tag=YouTube, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Netflix/Netflix.list, policy=PROXY, tag=Netflix, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/DisneyPlus/DisneyPlus.list, policy=PROXY, tag=DisneyPlus, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Max/Max.list, policy=PROXY, tag=Max, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/PrimeVideo/PrimeVideo.list, policy=PROXY, tag=PrimeVideo, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Spotify/Spotify.list, policy=PROXY, tag=Spotify, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/TikTok/TikTok.list, policy=PROXY, tag=TikTok, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Telegram/Telegram.list, policy=PROXY, tag=Telegram, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/X/X.list, policy=PROXY, tag=X, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Facebook/Facebook.list, policy=PROXY, tag=Facebook, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Instagram/Instagram.list, policy=PROXY, tag=Instagram, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/WhatsApp/WhatsApp.list, policy=PROXY, tag=WhatsApp, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/GitHub/GitHub.list, policy=PROXY, tag=GitHub, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Discord/Discord.list, policy=PROXY, tag=Discord, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Google/Google.list, policy=PROXY, tag=Google, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Microsoft/Microsoft.list, policy=PROXY, tag=Microsoft, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Common/Common.list, policy=PROXY, tag=Common, enabled=true
+
+[Rule]
+GEOIP,CN,DIRECT
+FINAL,PROXY

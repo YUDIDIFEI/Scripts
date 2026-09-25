@@ -39,7 +39,9 @@
       "id": "anthropic",
       "name": "Anthropic / Claude",
       "sources": [
-        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/anthropic"
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/anthropic",
+        "https://code.claude.com/docs/en/desktop#network-access-requirements",
+        "https://code.claude.com/docs/en/network-config#network-access-requirements"
       ],
       "domains": [
         "servd-anthropic-website.b-cdn.net"
@@ -48,6 +50,7 @@
         "anthropic.com",
         "clau.de",
         "claude.ai",
+        "claude.app",
         "claude.com",
         "claudemcpclient.com",
         "claudemcpcontent.com",

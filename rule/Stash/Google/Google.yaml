@@ -1,0 +1,11 @@
+# Google 通用服务 - overseas routing rules
+# Updated: 2026-09-25 | Rules: 6
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+payload:
+  - DOMAIN-SUFFIX,gmail.com
+  - DOMAIN-SUFFIX,google.com
+  - DOMAIN-SUFFIX,googleapis.com
+  - DOMAIN-SUFFIX,googleusercontent.com
+  - DOMAIN-SUFFIX,gstatic.com
+  - DOMAIN-SUFFIX,gvt1.com

@@ -1,0 +1,12 @@
+# Disney+ - overseas routing rules
+# Updated: 2026-09-25 | Rules: 6
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+domain_set:
+  - disney.api.edge.bamgrid.com
+domain_suffix_set:
+  - disney-plus.net
+  - disney.com
+  - disneyplus.com
+  - disneystreaming.com
+  - dssott.com

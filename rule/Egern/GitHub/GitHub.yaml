@@ -1,0 +1,15 @@
+# GitHub - overseas routing rules
+# Updated: 2026-09-25 | Rules: 9
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+domain_set:
+  - github-api.arkoselabs.com
+domain_suffix_set:
+  - ghcr.io
+  - github.com
+  - github.dev
+  - github.io
+  - githubassets.com
+  - githubstatus.com
+  - githubsupport.com
+  - githubusercontent.com

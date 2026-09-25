@@ -1,0 +1,14 @@
+# Discord - overseas routing rules
+# Updated: 2026-09-25 | Rules: 9
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+payload:
+  - DOMAIN,discord-attachments-uploads-prd.storage.googleapis.com
+  - DOMAIN-SUFFIX,dis.gd
+  - DOMAIN-SUFFIX,discord.com
+  - DOMAIN-SUFFIX,discord.gg
+  - DOMAIN-SUFFIX,discord.gift
+  - DOMAIN-SUFFIX,discord.media
+  - DOMAIN-SUFFIX,discordapp.com
+  - DOMAIN-SUFFIX,discordapp.net
+  - DOMAIN-SUFFIX,discordcdn.com

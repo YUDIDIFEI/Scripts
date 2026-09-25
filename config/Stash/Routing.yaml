@@ -1,0 +1,133 @@
+# Merge these entries into existing rule-providers and rules sections.
+# Replace PROXY with an existing proxy policy group if needed.
+rule-providers:
+  AI:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/AI/AI.yaml
+    path: ./ruleset/AI.yaml
+    interval: 86400
+  YouTube:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/YouTube/YouTube.yaml
+    path: ./ruleset/YouTube.yaml
+    interval: 86400
+  Netflix:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Netflix/Netflix.yaml
+    path: ./ruleset/Netflix.yaml
+    interval: 86400
+  DisneyPlus:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/DisneyPlus/DisneyPlus.yaml
+    path: ./ruleset/DisneyPlus.yaml
+    interval: 86400
+  Max:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Max/Max.yaml
+    path: ./ruleset/Max.yaml
+    interval: 86400
+  PrimeVideo:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/PrimeVideo/PrimeVideo.yaml
+    path: ./ruleset/PrimeVideo.yaml
+    interval: 86400
+  Spotify:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Spotify/Spotify.yaml
+    path: ./ruleset/Spotify.yaml
+    interval: 86400
+  TikTok:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/TikTok/TikTok.yaml
+    path: ./ruleset/TikTok.yaml
+    interval: 86400
+  Telegram:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Telegram/Telegram.yaml
+    path: ./ruleset/Telegram.yaml
+    interval: 86400
+  X:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/X/X.yaml
+    path: ./ruleset/X.yaml
+    interval: 86400
+  Facebook:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Facebook/Facebook.yaml
+    path: ./ruleset/Facebook.yaml
+    interval: 86400
+  Instagram:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Instagram/Instagram.yaml
+    path: ./ruleset/Instagram.yaml
+    interval: 86400
+  WhatsApp:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/WhatsApp/WhatsApp.yaml
+    path: ./ruleset/WhatsApp.yaml
+    interval: 86400
+  GitHub:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/GitHub/GitHub.yaml
+    path: ./ruleset/GitHub.yaml
+    interval: 86400
+  Discord:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Discord/Discord.yaml
+    path: ./ruleset/Discord.yaml
+    interval: 86400
+  Google:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Google/Google.yaml
+    path: ./ruleset/Google.yaml
+    interval: 86400
+  Microsoft:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Microsoft/Microsoft.yaml
+    path: ./ruleset/Microsoft.yaml
+    interval: 86400
+  Common:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Common/Common.yaml
+    path: ./ruleset/Common.yaml
+    interval: 86400
+
+rules:
+  - RULE-SET,AI,PROXY
+  - RULE-SET,YouTube,PROXY
+  - RULE-SET,Netflix,PROXY
+  - RULE-SET,DisneyPlus,PROXY
+  - RULE-SET,Max,PROXY
+  - RULE-SET,PrimeVideo,PROXY
+  - RULE-SET,Spotify,PROXY
+  - RULE-SET,TikTok,PROXY
+  - RULE-SET,Telegram,PROXY
+  - RULE-SET,X,PROXY
+  - RULE-SET,Facebook,PROXY
+  - RULE-SET,Instagram,PROXY
+  - RULE-SET,WhatsApp,PROXY
+  - RULE-SET,GitHub,PROXY
+  - RULE-SET,Discord,PROXY
+  - RULE-SET,Google,PROXY
+  - RULE-SET,Microsoft,PROXY
+  - RULE-SET,Common,PROXY
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY

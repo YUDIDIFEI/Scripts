@@ -1,12 +1,12 @@
 # 第三方来源与许可
 
-本项目的服务域名清单经过人工筛选、补充和格式转换。每组具体来源记录在 sources/foreign-ai.json；文件中的服务域名并不代表与服务商存在关联。
+本项目的服务域名清单经过人工筛选、补充和格式转换。AI 每组具体来源记录在 sources/foreign-ai.json；流媒体及应用来源记录在 sources/foreign-services.json 的 source 字段，主要对应 v2fly/domain-list-community 的 data/<source> 文件。Common 融合多个服务清单及相应平台官网。文件中的服务域名并不代表与服务商存在关联。
 
 ## v2fly/domain-list-community
 
 来源：https://github.com/v2fly/domain-list-community
 
-使用了相关服务的域名条目，原许可保留如下：
+使用了相关 AI、流媒体及应用的域名条目，原许可保留如下：
 
 MIT License
 

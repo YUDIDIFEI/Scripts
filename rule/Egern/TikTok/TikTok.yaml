@@ -1,0 +1,23 @@
+# TikTok - overseas routing rules
+# Updated: 2026-09-25 | Rules: 17
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+domain_set:
+  - p16-tiktokcdn-com.akamaized.net
+domain_suffix_set:
+  - muscdn.com
+  - musical.ly
+  - tik-tokapi.com
+  - tiktok.com
+  - tiktokcdn-eu.com
+  - tiktokcdn-us.com
+  - tiktokcdn.com
+  - tiktokd.net
+  - tiktokv.com
+  - tiktokv.eu
+  - tiktokv.us
+  - tiktokw.eu
+  - tiktokw.us
+  - ttcdn-us.com
+  - ttlivecdn.com
+  - ttwstatic.com

@@ -1,0 +1,9 @@
+# WhatsApp - overseas routing rules
+# Updated: 2026-09-25 | Rules: 4
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+payload:
+  - DOMAIN-SUFFIX,wa.me
+  - DOMAIN-SUFFIX,whatsapp.com
+  - DOMAIN-SUFFIX,whatsapp.net
+  - DOMAIN-SUFFIX,whatsapp.org

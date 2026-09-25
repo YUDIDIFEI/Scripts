@@ -1,0 +1,10 @@
+# Instagram - overseas routing rules
+# Updated: 2026-09-25 | Rules: 5
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+payload:
+  - DOMAIN-SUFFIX,cdninstagram.com
+  - DOMAIN-SUFFIX,ig.me
+  - DOMAIN-SUFFIX,igcdn.com
+  - DOMAIN-SUFFIX,igtv.com
+  - DOMAIN-SUFFIX,instagram.com

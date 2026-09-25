@@ -1,0 +1,13 @@
+# Max / HBO - overseas routing rules
+# Updated: 2026-09-25 | Rules: 9
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+DOMAIN,hbomax-images.warnermediacdn.com
+DOMAIN,hbomaxdash.s.llnwi.net
+DOMAIN-SUFFIX,hbo.com
+DOMAIN-SUFFIX,hbogo.com
+DOMAIN-SUFFIX,hbomax.com
+DOMAIN-SUFFIX,hbomaxcdn.com
+DOMAIN-SUFFIX,hbonow.com
+DOMAIN-SUFFIX,max.com
+DOMAIN-SUFFIX,maxgo.com
