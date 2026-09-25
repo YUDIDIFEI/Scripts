@@ -7,6 +7,13 @@ proxy-groups:
     proxies: [DIRECT, PROXY]
 
 rule-providers:
+  LAN:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/LAN/LAN.yaml
+    path: ./ruleset/LAN.yaml
+    interval: 86400
   AI:
     type: http
     behavior: classical
@@ -140,8 +147,16 @@ rule-providers:
     url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Common/Common.yaml
     path: ./ruleset/Common.yaml
     interval: 86400
+  CN:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/CN/CN.yaml
+    path: ./ruleset/CN.yaml
+    interval: 86400
 
 rules:
+  - RULE-SET,LAN,DIRECT
   - RULE-SET,AI,PROXY
   - RULE-SET,YouTube,PROXY
   - RULE-SET,Netflix,PROXY
@@ -161,5 +176,5 @@ rules:
   - RULE-SET,Google,PROXY
   - RULE-SET,Microsoft,PROXY
   - RULE-SET,Common,PROXY
-  - GEOIP,CN,国内分流
+  - RULE-SET,CN,国内分流
   - MATCH,PROXY

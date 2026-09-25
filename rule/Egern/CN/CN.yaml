@@ -1,0 +1,3 @@
+# China GeoIP; assign 国内分流 in the calling profile.
+geoip_set:
+  - CN

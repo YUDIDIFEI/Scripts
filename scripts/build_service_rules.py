@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build separate overseas service lists and five routing include examples."""
+"""Build service and LAN/CN lists plus five routing include examples."""
 
 import argparse
 import json
@@ -11,20 +11,11 @@ BASE = "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master"
 CLIENTS = ("Clash", "Stash", "Loon", "Shadowrocket", "Egern")
 PAYPAL_POLICY = "美国手动"
 CN_POLICY = "国内分流"
-LOON_LAN_RULES = (
-    "DOMAIN-SUFFIX,local",
-    "IP-CIDR,10.0.0.0/8,no-resolve",
-    "IP-CIDR,100.64.0.0/10,no-resolve",
-    "IP-CIDR,127.0.0.0/8,no-resolve",
-    "IP-CIDR,169.254.0.0/16,no-resolve",
-    "IP-CIDR,172.16.0.0/12,no-resolve",
-    "IP-CIDR,192.0.0.0/24,no-resolve",
-    "IP-CIDR,192.168.0.0/16,no-resolve",
-    "IP-CIDR,198.18.0.0/15,no-resolve",
-    "IP-CIDR6,::1/128,no-resolve",
-    "IP-CIDR6,fc00::/7,no-resolve",
-    "IP-CIDR6,fe80::/10,no-resolve",
+LAN_IPV4 = (
+    "10.0.0.0/8", "100.64.0.0/10", "127.0.0.0/8", "169.254.0.0/16",
+    "172.16.0.0/12", "192.0.0.0/24", "192.168.0.0/16", "198.18.0.0/15",
 )
+LAN_IPV6 = ("::1/128", "fc00::/7", "fe80::/10")
 DOMAIN = re.compile(r"(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
 
 
@@ -75,15 +66,34 @@ def policy_for(name):
 
 def output_files(data):
     files = {}
-    files["rule/Loon/LAN/LAN.list"] = (
-        "# Loon LAN and special-purpose addresses; assign DIRECT in the calling profile.\n"
-        "# Includes the existing local bypasses and the screenshot's LAN ranges.\n"
-        + "\n".join(LOON_LAN_RULES) + "\n"
-    )
-    files["rule/Loon/CN/CN.list"] = (
-        "# Loon China GeoIP; assign the 国内分流 policy in the calling profile.\n"
-        "GEOIP,CN\n"
-    )
+    for client in CLIENTS:
+        # The Clash/Stash profiles use 198.18.0.1/16 for Fake IP answers.
+        ipv4 = [network for network in LAN_IPV4
+                if network != "198.18.0.0/15" or client not in ("Clash", "Stash")]
+        if client == "Egern":
+            files["rule/Egern/LAN/LAN.yaml"] = (
+                "# LAN and special-purpose addresses; assign DIRECT in the calling profile.\n"
+                "no_resolve: true\n"
+                "domain_suffix_set:\n  - local\n"
+                "ip_cidr_set:\n" + "\n".join(f"  - {network}" for network in ipv4) + "\n"
+                "ip_cidr6_set:\n" + "\n".join(f'  - "{network}"' for network in LAN_IPV6) + "\n"
+            )
+            files["rule/Egern/CN/CN.yaml"] = "# China GeoIP; assign 国内分流 in the calling profile.\ngeoip_set:\n  - CN\n"
+            continue
+        ipv6_kind = "IP-CIDR" if client == "Shadowrocket" else "IP-CIDR6"
+        lan_rules = (["DOMAIN-SUFFIX,local"]
+                     + [f"IP-CIDR,{network},no-resolve" for network in ipv4]
+                     + [f"{ipv6_kind},{network},no-resolve" for network in LAN_IPV6])
+        header = f"# {client} LAN and special-purpose addresses; assign DIRECT in the calling profile.\n"
+        if client == "Loon":
+            header += "# Includes the existing local bypasses and the screenshot's LAN ranges.\n"
+        if client in ("Clash", "Stash"):
+            files[f"rule/{client}/LAN/LAN.yaml"] = header + "payload:\n" + "\n".join(f"  - {rule}" for rule in lan_rules) + "\n"
+            files[f"rule/{client}/CN/CN.yaml"] = f"# {client} China GeoIP; assign 国内分流 in the calling profile.\npayload:\n  - GEOIP,CN\n"
+        else:
+            files[f"rule/{client}/LAN/LAN.list"] = header + "\n".join(lan_rules) + "\n"
+            if client == "Loon":
+                files["rule/Loon/CN/CN.list"] = "# Loon China GeoIP; assign the 国内分流 policy in the calling profile.\nGEOIP,CN\n"
     for group in data["groups"]:
         name = group["id"]
         rule_lines = rules_for(group)
@@ -120,16 +130,16 @@ def output_files(data):
                          "    type: select",
                          "    proxies: [DIRECT, PROXY]",
                          "", "rule-providers:"]
-            for name, target in [("AI", ai_url)] + [(g["id"], url(g["id"])) for g in order]:
+            for name, target in [("LAN", url("LAN")), ("AI", ai_url)] + [(g["id"], url(g["id"])) for g in order] + [("CN", url("CN"))]:
                 providers.append(f"  {name}:")
                 if client == "Clash":
                     providers.append("    type: http")
                 providers.extend(["    behavior: classical", "    format: yaml",
                                   f"    url: {target}", f"    path: ./ruleset/{name}.yaml",
                                   "    interval: 86400"])
-            providers += ["", "rules:"]
+            providers += ["", "rules:", "  - RULE-SET,LAN,DIRECT"]
             providers += [f"  - RULE-SET,{g},{policy_for(g)}" for g in ["AI"] + [x["id"] for x in order]]
-            providers += [f"  - GEOIP,CN,{CN_POLICY}", "  - MATCH,PROXY"]
+            providers += [f"  - RULE-SET,CN,{CN_POLICY}", "  - MATCH,PROXY"]
             files[f"config/{client}/Routing.yaml"] = "\n".join(providers) + "\n"
         elif client == "Loon":
             lines = ["# Merge into existing sections; PROXY must name an existing policy.",
@@ -146,7 +156,7 @@ def output_files(data):
             lines = ["# Merge into the existing [Rule] section; PROXY must name an existing policy.",
                      "# PayPal requires an existing 美国手动 policy group with a US node.",
                      "[Proxy Group]", f"{CN_POLICY} = select,DIRECT,PROXY,policy-select-name=DIRECT", "",
-                     "[Rule]"]
+                     "[Rule]", f"RULE-SET,{url('LAN')},DIRECT"]
             lines += [f"RULE-SET,{u},{policy_for(name)}" for name, u in
                       [("AI", ai_url)] + [(g["id"], url(g["id"])) for g in order]]
             lines += [f"GEOIP,CN,{CN_POLICY}", "FINAL,PROXY"]
@@ -156,11 +166,13 @@ def output_files(data):
                      "# PROXY and 美国手动 must name existing Egern policies; select a US node for PayPal.",
                      "policy_groups:", "  - select:", f"      name: {CN_POLICY}",
                      "      policies: [DIRECT, PROXY]", "rules:"]
-            for name, target in [("AI", ai_url)] + [(g["id"], url(g["id"])) for g in order]:
+            entries = [("LAN", url("LAN"), "DIRECT"), ("AI", ai_url, "PROXY")]
+            entries += [(g["id"], url(g["id"]), policy_for(g["id"])) for g in order]
+            entries.append(("CN", url("CN"), CN_POLICY))
+            for name, target, policy in entries:
                 lines += ["  - rule_set:", f"      name: {name}", f"      match: {target}",
-                          f"      policy: {policy_for(name)}", "      update_interval: 86400", "      disabled: false"]
-            lines += ["  - geoip:", "      match: CN", f"      policy: {CN_POLICY}",
-                      "  - default:", "      policy: PROXY"]
+                          f"      policy: {policy}", "      update_interval: 86400", "      disabled: false"]
+            lines += ["  - default:", "      policy: PROXY"]
             files["config/Egern/Routing.yaml"] = "\n".join(lines) + "\n"
     return files
 

@@ -159,6 +159,14 @@ proxy-groups:
     use: [Nodes]
 
 rule-providers:
+  LAN:
+    type: http
+    proxy: PROXY
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/LAN/LAN.yaml
+    path: ./ruleset/LAN.yaml
+    interval: 86400
   AI:
     type: http
     proxy: PROXY
@@ -311,17 +319,17 @@ rule-providers:
     url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Common/Common.yaml
     path: ./ruleset/Common.yaml
     interval: 86400
+  CN:
+    type: http
+    proxy: PROXY
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/CN/CN.yaml
+    path: ./ruleset/CN.yaml
+    interval: 86400
 
 rules:
-  - DOMAIN-SUFFIX,local,DIRECT
-  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
-  - IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
-  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
-  - IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
-  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
-  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
-  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
-  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
+  - RULE-SET,LAN,DIRECT
   - RULE-SET,AI,AI
   - RULE-SET,YouTube,YouTube
   - RULE-SET,Netflix,Netflix
@@ -341,5 +349,5 @@ rules:
   - RULE-SET,Google,Google
   - RULE-SET,Microsoft,Microsoft
   - RULE-SET,Common,Common
-  - GEOIP,CN,国内分流
+  - RULE-SET,CN,国内分流
   - MATCH,PROXY

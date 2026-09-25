@@ -15,16 +15,6 @@ REGIONS = (
     ("美国", r"(?i)(🇺🇸|美国|美國|洛杉矶|洛杉磯|纽约|紐約|西雅图|西雅圖|United[ -]?States|(^|[^A-Za-z])(US|USA)[0-9]*($|[^A-Za-z]))"),
 )
 REGION_GROUPS = tuple(f"{region}手动" for region, _ in REGIONS)
-PRIVATE_IPS = (
-    ("IP-CIDR", "10.0.0.0/8"),
-    ("IP-CIDR", "100.64.0.0/10"),
-    ("IP-CIDR", "127.0.0.0/8"),
-    ("IP-CIDR", "169.254.0.0/16"),
-    ("IP-CIDR", "172.16.0.0/12"),
-    ("IP-CIDR", "192.168.0.0/16"),
-    ("IP-CIDR6", "fc00::/7"),
-    ("IP-CIDR6", "fe80::/10"),
-)
 SUBSCRIPTION = "https://subscription.example.invalid/REPLACE_WITH_YOUR_SUBSCRIPTION"
 TEST_URL = "https://www.gstatic.com/generate_204"
 
@@ -139,7 +129,7 @@ def yaml_profile(client):
         if group != "PayPal":
             lines.append("    use: [Nodes]")
     lines += ["", "rule-providers:"]
-    for name in names():
+    for name in ("LAN", *names(), "CN"):
         lines += [f"  {name}:"]
         if not stash:
             lines += ["    type: http", "    proxy: PROXY"]
@@ -150,12 +140,10 @@ def yaml_profile(client):
             f"    path: ./ruleset/{name}.yaml",
             "    interval: 86400",
         ]
-    lines += ["", "rules:", "  - DOMAIN-SUFFIX,local,DIRECT"]
-    for kind, value in PRIVATE_IPS:
-        lines.append(f"  - {kind},{value},DIRECT,no-resolve")
+    lines += ["", "rules:", "  - RULE-SET,LAN,DIRECT"]
     for name in names():
         lines.append(f"  - RULE-SET,{name},{name}")
-    lines += [f"  - GEOIP,CN,{CN_POLICY}", "  - MATCH,PROXY"]
+    lines += [f"  - RULE-SET,CN,{CN_POLICY}", "  - MATCH,PROXY"]
     return "\n".join(lines) + "\n"
 
 
@@ -220,10 +208,7 @@ def shadowrocket_profile():
     for group in names():
         choices = choices_for(group)
         lines.append(f"{group} = select,{','.join(choices)},policy-select-name={choices[0]}")
-    lines += ["", "[Rule]", "DOMAIN-SUFFIX,local,DIRECT"]
-    for kind, value in PRIVATE_IPS:
-        # Shadowrocket's IP-CIDR rule accepts both IPv4 and IPv6 addresses.
-        lines.append(f"IP-CIDR,{value},DIRECT,no-resolve")
+    lines += ["", "[Rule]", f"RULE-SET,{target('Shadowrocket', 'LAN')},DIRECT"]
     for name in names():
         lines.append(f"RULE-SET,{target('Shadowrocket', name)},{name}")
     lines += [f"GEOIP,CN,{CN_POLICY}", "FINAL,PROXY"]
@@ -297,20 +282,17 @@ def egern_profile():
             f"      name: {group}",
             f"      policies: [{', '.join(choices_for(group))}]",
         ]
-    lines += ["rules:", "  - domain_suffix:", "      match: local", "      policy: DIRECT"]
-    for kind, value in PRIVATE_IPS:
-        rule = "ip_cidr6" if kind == "IP-CIDR6" else "ip_cidr"
-        lines += [f"  - {rule}:", f"      match: {value}", "      policy: DIRECT", "      no_resolve: true"]
-    for name in names():
+    lines += ["rules:"]
+    for name in ("LAN", *names(), "CN"):
+        policy = "DIRECT" if name == "LAN" else CN_POLICY if name == "CN" else name
         lines += [
             "  - rule_set:",
             f"      name: {name}",
             f"      match: {target('Egern', name)}",
-            f"      policy: {name}",
+            f"      policy: {policy}",
             "      update_interval: 86400",
         ]
-    lines += ["  - geoip:", "      match: CN", f"      policy: {CN_POLICY}",
-              "  - default:", "      policy: PROXY"]
+    lines += ["  - default:", "      policy: PROXY"]
     return "\n".join(lines) + "\n"
 
 

@@ -1,0 +1,3 @@
+# Clash China GeoIP; assign 国内分流 in the calling profile.
+payload:
+  - GEOIP,CN

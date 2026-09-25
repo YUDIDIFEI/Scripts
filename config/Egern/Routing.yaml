@@ -6,6 +6,12 @@ policy_groups:
       policies: [DIRECT, PROXY]
 rules:
   - rule_set:
+      name: LAN
+      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/LAN/LAN.yaml
+      policy: DIRECT
+      update_interval: 86400
+      disabled: false
+  - rule_set:
       name: AI
       match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/AI/AI.yaml
       policy: PROXY
@@ -119,8 +125,11 @@ rules:
       policy: PROXY
       update_interval: 86400
       disabled: false
-  - geoip:
-      match: CN
+  - rule_set:
+      name: CN
+      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/CN/CN.yaml
       policy: 国内分流
+      update_interval: 86400
+      disabled: false
   - default:
       policy: PROXY
