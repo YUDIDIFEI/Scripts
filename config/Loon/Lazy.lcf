@@ -1,0 +1,56 @@
+# 完整分流配置。导入前将 Nodes 订阅占位链接换成你的 Loon 节点订阅。
+# 无需远程解析器、脚本、证书或 MITM。
+[General]
+dns-server = system
+allow-wifi-access = false
+skip-proxy = 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,localhost,*.local
+
+[Proxy]
+
+[Remote Proxy]
+Nodes = https://subscription.example.invalid/REPLACE_WITH_YOUR_SUBSCRIPTION,enabled=true
+
+[Proxy Group]
+AUTO = url-test,Nodes,url=https://www.gstatic.com/generate_204,interval=600,tolerance=100
+PROXY = select,AUTO,Nodes,REJECT
+AI = select,PROXY,DIRECT
+YouTube = select,PROXY,DIRECT
+Netflix = select,PROXY,DIRECT
+DisneyPlus = select,PROXY,DIRECT
+Max = select,PROXY,DIRECT
+PrimeVideo = select,PROXY,DIRECT
+Spotify = select,PROXY,DIRECT
+TikTok = select,PROXY,DIRECT
+
+[Rule]
+DOMAIN-SUFFIX,local,DIRECT
+IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
+IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+IP-CIDR6,fc00::/7,DIRECT,no-resolve
+IP-CIDR6,fe80::/10,DIRECT,no-resolve
+GEOIP,CN,DIRECT
+FINAL,PROXY
+
+[Remote Rule]
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list,policy=AI,tag=AI,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/YouTube/YouTube.list,policy=YouTube,tag=YouTube,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Netflix/Netflix.list,policy=Netflix,tag=Netflix,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/DisneyPlus/DisneyPlus.list,policy=DisneyPlus,tag=DisneyPlus,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Max/Max.list,policy=Max,tag=Max,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/PrimeVideo/PrimeVideo.list,policy=PrimeVideo,tag=PrimeVideo,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Spotify/Spotify.list,policy=Spotify,tag=Spotify,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/TikTok/TikTok.list,policy=TikTok,tag=TikTok,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Telegram/Telegram.list,policy=PROXY,tag=Telegram,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/X/X.list,policy=PROXY,tag=X,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Facebook/Facebook.list,policy=PROXY,tag=Facebook,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Instagram/Instagram.list,policy=PROXY,tag=Instagram,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/WhatsApp/WhatsApp.list,policy=PROXY,tag=WhatsApp,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/GitHub/GitHub.list,policy=PROXY,tag=GitHub,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Discord/Discord.list,policy=PROXY,tag=Discord,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Google/Google.list,policy=PROXY,tag=Google,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Microsoft/Microsoft.list,policy=PROXY,tag=Microsoft,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Common/Common.list,policy=PROXY,tag=Common,enabled=true

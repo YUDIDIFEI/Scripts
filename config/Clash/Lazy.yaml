@@ -1,0 +1,221 @@
+# 完整分流配置。导入前只需将下面的订阅占位链接换成你自己的节点订阅。
+# 订阅必须输出与本客户端兼容的节点格式；不要把私人订阅提交到公开仓库。
+mode: rule
+log-level: warning
+ipv6: false
+mixed-port: 7890
+allow-lan: false
+external-controller: 127.0.0.1:9090
+
+proxy-providers:
+  Nodes:
+    type: http
+    url: https://subscription.example.invalid/REPLACE_WITH_YOUR_SUBSCRIPTION
+    path: ./providers/Nodes.yaml
+    interval: 86400
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 600
+
+proxy-groups:
+  - name: AUTO
+    type: url-test
+    proxies: [REJECT]
+    use: [Nodes]
+    url: https://www.gstatic.com/generate_204
+    interval: 600
+  - name: PROXY
+    type: select
+    proxies: [AUTO, REJECT]
+  - name: AI
+    type: select
+    proxies: [PROXY, DIRECT]
+    use: [Nodes]
+  - name: YouTube
+    type: select
+    proxies: [PROXY, DIRECT]
+    use: [Nodes]
+  - name: Netflix
+    type: select
+    proxies: [PROXY, DIRECT]
+    use: [Nodes]
+  - name: DisneyPlus
+    type: select
+    proxies: [PROXY, DIRECT]
+    use: [Nodes]
+  - name: Max
+    type: select
+    proxies: [PROXY, DIRECT]
+    use: [Nodes]
+  - name: PrimeVideo
+    type: select
+    proxies: [PROXY, DIRECT]
+    use: [Nodes]
+  - name: Spotify
+    type: select
+    proxies: [PROXY, DIRECT]
+    use: [Nodes]
+  - name: TikTok
+    type: select
+    proxies: [PROXY, DIRECT]
+    use: [Nodes]
+
+rule-providers:
+  AI:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/AI/AI.yaml
+    path: ./ruleset/AI.yaml
+    interval: 86400
+  YouTube:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/YouTube/YouTube.yaml
+    path: ./ruleset/YouTube.yaml
+    interval: 86400
+  Netflix:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Netflix/Netflix.yaml
+    path: ./ruleset/Netflix.yaml
+    interval: 86400
+  DisneyPlus:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/DisneyPlus/DisneyPlus.yaml
+    path: ./ruleset/DisneyPlus.yaml
+    interval: 86400
+  Max:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Max/Max.yaml
+    path: ./ruleset/Max.yaml
+    interval: 86400
+  PrimeVideo:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/PrimeVideo/PrimeVideo.yaml
+    path: ./ruleset/PrimeVideo.yaml
+    interval: 86400
+  Spotify:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Spotify/Spotify.yaml
+    path: ./ruleset/Spotify.yaml
+    interval: 86400
+  TikTok:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/TikTok/TikTok.yaml
+    path: ./ruleset/TikTok.yaml
+    interval: 86400
+  Telegram:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Telegram/Telegram.yaml
+    path: ./ruleset/Telegram.yaml
+    interval: 86400
+  X:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/X/X.yaml
+    path: ./ruleset/X.yaml
+    interval: 86400
+  Facebook:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Facebook/Facebook.yaml
+    path: ./ruleset/Facebook.yaml
+    interval: 86400
+  Instagram:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Instagram/Instagram.yaml
+    path: ./ruleset/Instagram.yaml
+    interval: 86400
+  WhatsApp:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/WhatsApp/WhatsApp.yaml
+    path: ./ruleset/WhatsApp.yaml
+    interval: 86400
+  GitHub:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/GitHub/GitHub.yaml
+    path: ./ruleset/GitHub.yaml
+    interval: 86400
+  Discord:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Discord/Discord.yaml
+    path: ./ruleset/Discord.yaml
+    interval: 86400
+  Google:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Google/Google.yaml
+    path: ./ruleset/Google.yaml
+    interval: 86400
+  Microsoft:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Microsoft/Microsoft.yaml
+    path: ./ruleset/Microsoft.yaml
+    interval: 86400
+  Common:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Clash/Common/Common.yaml
+    path: ./ruleset/Common.yaml
+    interval: 86400
+
+rules:
+  - DOMAIN-SUFFIX,local,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
+  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
+  - RULE-SET,AI,AI
+  - RULE-SET,YouTube,YouTube
+  - RULE-SET,Netflix,Netflix
+  - RULE-SET,DisneyPlus,DisneyPlus
+  - RULE-SET,Max,Max
+  - RULE-SET,PrimeVideo,PrimeVideo
+  - RULE-SET,Spotify,Spotify
+  - RULE-SET,TikTok,TikTok
+  - RULE-SET,Telegram,PROXY
+  - RULE-SET,X,PROXY
+  - RULE-SET,Facebook,PROXY
+  - RULE-SET,Instagram,PROXY
+  - RULE-SET,WhatsApp,PROXY
+  - RULE-SET,GitHub,PROXY
+  - RULE-SET,Discord,PROXY
+  - RULE-SET,Google,PROXY
+  - RULE-SET,Microsoft,PROXY
+  - RULE-SET,Common,PROXY
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY

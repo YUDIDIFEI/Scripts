@@ -1,5 +1,23 @@
 # 境外 AI、流媒体与应用分流规则
 
+## 五端懒人完整配置
+
+以下文件是可整份导入的配置，已经包含策略组、AI 聚合分流、七个流媒体独立策略组、其他应用分流、局域网直连、中国 IP 直连和其余流量代理。Clash、Stash、Loon、Egern 默认自动选择节点；Shadowrocket 使用首页所选节点。AI 与各流媒体也能单独改选策略。已有 `Routing.*` 文件仍是供现有配置合并的接入片段。
+
+| 客户端 | 完整配置直链 | 导入前的唯一节点步骤 |
+|---|---|---|
+| Clash / Mihomo | [Lazy.yaml](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/config/Clash/Lazy.yaml) | 将 `proxy-providers.Nodes.url` 改为 Clash / Mihomo 格式节点订阅 |
+| Stash | [Lazy.yaml](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/config/Stash/Lazy.yaml) | 将 `proxy-providers.Nodes.url` 改为 Stash 能读取的 YAML 节点订阅 |
+| Loon | [Lazy.lcf](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/config/Loon/Lazy.lcf) | 将 `[Remote Proxy]` 的 `Nodes` 地址改为 Loon 节点订阅 |
+| Shadowrocket | [Lazy.conf](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/config/Shadowrocket/Lazy.conf) | 在应用首页导入自己的节点订阅并选中可用节点 |
+| Egern | [Lazy.yaml](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/config/Egern/Lazy.yaml) | 将 `policy_groups` 内 `Nodes.urls` 改为 Egern 兼容节点订阅 |
+
+四份带 `subscription.example.invalid` 的公开配置是**待填订阅的成品模板**，该地址故意不可用；必须在本机替换后再导入，不能直接把公开直链当成有节点的配置使用。Shadowrocket 配置可直接导入，但仍需自行添加节点。这里没有免费节点，也没有把私人订阅放进公开仓库或交给第三方转换服务。不同客户端所需的订阅输出格式可能不同，不能保证同一条订阅链接在五端通用。
+
+策略组 `PROXY` 默认走 `AUTO`；Clash / Stash 的流媒体及 AI 组可单独选订阅内节点，Loon / Egern 可通过各自的 `PROXY` / `Nodes` 策略调整，Shadowrocket 的 `PROXY` 使用首页所选节点。规则顺序为私网直连 → AI → 主流服务 → Common → `GEOIP,CN,DIRECT` → 其余代理。分流会从本仓库的远程规则集定期更新；首次使用必须能读取这些规则链接。流媒体地区解锁由节点出口和账号决定，自动测速不保证解锁。
+
+完整配置由 `python scripts/build_lazy_configs.py` 生成，`python scripts/build_lazy_configs.py --check` 检查是否与清单同步。未复制示例模板中的 MITM 证书、重写、脚本、外部转换器或对局域网开放的控制端口。
+
 ## 流媒体与其他应用
 
 AI 维持一份聚合规则，不按平台拆分。新增 16 份主流服务独立规则，以及一份 `Common` 常见服务合并规则；五种客户端各有独立格式，目录为 `rule/<客户端>/<规则名>/<规则名>.<扩展名>`。Clash、Stash、Egern 使用 `.yaml`，Loon、Shadowrocket 使用 `.list`。服务名与次序如下：
