@@ -4,6 +4,7 @@
 国内分流 = select,DIRECT,PROXY
 
 [Remote Rule]
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/LAN/LAN.list, policy=DIRECT, tag=LAN, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list, policy=PROXY, tag=AI, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/YouTube/YouTube.list, policy=PROXY, tag=YouTube, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Netflix/Netflix.list, policy=PROXY, tag=Netflix, enabled=true
@@ -23,7 +24,7 @@ https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/PayPal/PayP
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Google/Google.list, policy=PROXY, tag=Google, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Microsoft/Microsoft.list, policy=PROXY, tag=Microsoft, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Common/Common.list, policy=PROXY, tag=Common, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/CN/CN.list, policy=国内分流, tag=CN, enabled=true
 
 [Rule]
-GEOIP,CN,国内分流
 FINAL,PROXY

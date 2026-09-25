@@ -11,6 +11,20 @@ BASE = "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master"
 CLIENTS = ("Clash", "Stash", "Loon", "Shadowrocket", "Egern")
 PAYPAL_POLICY = "美国手动"
 CN_POLICY = "国内分流"
+LOON_LAN_RULES = (
+    "DOMAIN-SUFFIX,local",
+    "IP-CIDR,10.0.0.0/8,no-resolve",
+    "IP-CIDR,100.64.0.0/10,no-resolve",
+    "IP-CIDR,127.0.0.0/8,no-resolve",
+    "IP-CIDR,169.254.0.0/16,no-resolve",
+    "IP-CIDR,172.16.0.0/12,no-resolve",
+    "IP-CIDR,192.0.0.0/24,no-resolve",
+    "IP-CIDR,192.168.0.0/16,no-resolve",
+    "IP-CIDR,198.18.0.0/15,no-resolve",
+    "IP-CIDR6,::1/128,no-resolve",
+    "IP-CIDR6,fc00::/7,no-resolve",
+    "IP-CIDR6,fe80::/10,no-resolve",
+)
 DOMAIN = re.compile(r"(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
 
 
@@ -61,6 +75,15 @@ def policy_for(name):
 
 def output_files(data):
     files = {}
+    files["rule/Loon/LAN/LAN.list"] = (
+        "# Loon LAN and special-purpose addresses; assign DIRECT in the calling profile.\n"
+        "# Includes the existing local bypasses and the screenshot's LAN ranges.\n"
+        + "\n".join(LOON_LAN_RULES) + "\n"
+    )
+    files["rule/Loon/CN/CN.list"] = (
+        "# Loon China GeoIP; assign the 国内分流 policy in the calling profile.\n"
+        "GEOIP,CN\n"
+    )
     for group in data["groups"]:
         name = group["id"]
         rule_lines = rules_for(group)
@@ -112,10 +135,12 @@ def output_files(data):
             lines = ["# Merge into existing sections; PROXY must name an existing policy.",
                      "# PayPal requires an existing 美国手动 policy group with a US node.",
                      "[Proxy Group]", f"{CN_POLICY} = select,DIRECT,PROXY", "",
-                     "[Remote Rule]"]
+                     "[Remote Rule]",
+                     f"{url('LAN')}, policy=DIRECT, tag=LAN, enabled=true"]
             lines += [f"{u}, policy={policy_for(name)}, tag={name}, enabled=true" for name, u in
                       [("AI", ai_url)] + [(g["id"], url(g["id"])) for g in order]]
-            lines += ["", "[Rule]", f"GEOIP,CN,{CN_POLICY}", "FINAL,PROXY"]
+            lines += [f"{url('CN')}, policy={CN_POLICY}, tag=CN, enabled=true",
+                      "", "[Rule]", "FINAL,PROXY"]
             files["config/Loon/Routing.lcf"] = "\n".join(lines) + "\n"
         elif client == "Shadowrocket":
             lines = ["# Merge into the existing [Rule] section; PROXY must name an existing policy.",

@@ -16,7 +16,7 @@
 
 五端均提供 `香港手动`、`台湾手动`、`日本手动`、`新加坡手动`、`美国手动` 五个地区组，按订阅节点名称中的国旗、中文地名或常见英文缩写筛选。AI、其他 16 个主流服务和 `Common` 各有分流组，可选择这五个地区组；PayPal 有独立分流组，仅可选择 `美国手动` 或 `REJECT`。Clash / Stash / Loon / Egern 的 `PROXY` 也可选择地区组。地区组把 `REJECT` 放在首位，避免尚未选定该地区节点时默认直连或跨区；使用前请进入组内手动选择具体节点。筛选只看节点名称，不能验证真实出口地区；若某个地区没有匹配节点，请检查订阅节点名称。
 
-Clash / Stash / Loon 的 `PROXY` 默认走 `AUTO`，Egern 的 `PROXY` 默认走 `Nodes` 自动测速，Shadowrocket 的内置 `PROXY` 使用首页所选节点。19 个应用分流组中，PayPal 默认选 `美国手动`，其余 18 个默认选 `PROXY`；Clash / Stash 的非 PayPal 分流组还可直接选订阅内节点。新增的 `国内分流` 组默认选 `DIRECT`，也可手动选 `PROXY` 或五个地区组，`GEOIP,CN` 指向该组；私网及局域网规则继续直接 `DIRECT`。PayPal 要正常联网，必须先在 `美国手动` 组中选中实际美国节点。规则顺序为私网直连 → AI → 主流服务（含 PayPal）→ Common → `GEOIP,CN,国内分流` → 其余代理。分流会从本仓库的远程规则集定期更新；首次使用必须能读取这些规则链接。流媒体地区解锁由节点出口和账号决定，自动测速不保证解锁。
+Clash / Stash / Loon 的 `PROXY` 默认走 `AUTO`，Egern 的 `PROXY` 默认走 `Nodes` 自动测速，Shadowrocket 的内置 `PROXY` 使用首页所选节点。19 个应用分流组中，PayPal 默认选 `美国手动`，其余 18 个默认选 `PROXY`；Clash / Stash 的非 PayPal 分流组还可直接选订阅内节点。`国内分流` 组默认选 `DIRECT`，也可手动选 `PROXY` 或五个地区组，`GEOIP,CN` 指向该组；私网及局域网规则继续直接 `DIRECT`。Loon 的 [LAN.list](rule/Loon/LAN/LAN.list) 和 [CN.list](rule/Loon/CN/CN.list) 分别作为 `DIRECT` 与 `国内分流` 的远程规则集加载，其他四端沿用原有本地规则。PayPal 要正常联网，必须先在 `美国手动` 组中选中实际美国节点。规则顺序为私网直连 → AI → 主流服务（含 PayPal）→ Common → 中国 IP 分流 → 其余代理。分流会从本仓库的远程规则集定期更新；首次使用必须能读取这些规则链接。流媒体地区解锁由节点出口和账号决定，自动测速不保证解锁。
 
 五端配置已对照用户提供的模板检查。Loon 配置明确设置 IP 优先级、DNS、连通性检测、UDP 失效策略及局域网旁路；Shadowrocket 配置加入 DNS 备用、IPv6、私网解析与 TUN 旁路；Clash / Stash 配置加入 DNS 与 Fake IP，并让 `.local` / `.lan` 使用系统 DNS；Clash 的远程规则集更新通过 `PROXY`。Egern 配置加入 DNS、测速地址及局域网旁路。Clash 的系统代理或 TUN 开关仍由所用客户端和操作系统管理，配置不强制启用 TUN。未复制示例模板中的 MITM 证书、重写、脚本、外部订阅转换器或对局域网开放的控制端口。
 
@@ -35,7 +35,7 @@ AI 维持一份聚合规则，不按平台拆分。提供 17 份主流服务独�
 
 PayPal 独立规则包含 `paypal.com`、`paypalobjects.com`、`paypal.me` 及已核实的 `paypal.com.cn`、`paypal.com.hk`、`paypal.com.sg`、`paypal.jp` 地区入口；匹配到这份规则的流量在五端完整配置中默认走 `美国手动`，不回退到其他地区或直连。`Common` 合并 Hulu、Twitch、Reddit、Pinterest、Apple TV+、Paramount+、Peacock、Steam、Zoom、Vimeo、SoundCloud，以及部分 Meta 共用 CDN。共用 CDN 不能可靠地区分 Facebook、Instagram 与 WhatsApp，因此放在 `Common`。
 
-五端接入片段分别在 [Clash](config/Clash/Routing.yaml)、[Stash](config/Stash/Routing.yaml)、[Loon](config/Loon/Routing.lcf)、[Shadowrocket](config/Shadowrocket/Routing.conf)、[Egern](config/Egern/Routing.yaml)。将片段中的 `国内分流` 组及规则合并到现有配置，`PROXY` 必须是已经存在的代理策略；片段中的 `国内分流` 默认 `DIRECT`，可改选 `PROXY`。PayPal 行使用 `美国手动`，现有配置也必须有这个组并选中美国节点。规则顺序是 **AI → 独立服务（含 PayPal）→ Common → 中国 IP 分流 → 其余代理**。Clash / Stash 使用 `MATCH,PROXY` 作为最终规则，Loon / Shadowrocket 使用 `FINAL,PROXY`，Egern 使用 `default: policy: PROXY`。已有的宽泛规则及兜底必须检查顺序，不能让它们提前截获这些服务。
+五端接入片段分别在 [Clash](config/Clash/Routing.yaml)、[Stash](config/Stash/Routing.yaml)、[Loon](config/Loon/Routing.lcf)、[Shadowrocket](config/Shadowrocket/Routing.conf)、[Egern](config/Egern/Routing.yaml)。将片段中的 `国内分流` 组及规则合并到现有配置，`PROXY` 必须是已经存在的代理策略；片段中的 `国内分流` 默认 `DIRECT`，可改选 `PROXY`。Loon 片段还包含 LAN 远程直连规则，合并时将它放在应用规则之前、中国 IP 规则之前。PayPal 行使用 `美国手动`，现有配置也必须有这个组并选中美国节点。规则顺序是 **局域网直连（Loon）→ AI → 独立服务（含 PayPal）→ Common → 中国 IP 分流 → 其余代理**。Clash / Stash 使用 `MATCH,PROXY` 作为最终规则，Loon / Shadowrocket 使用 `FINAL,PROXY`，Egern 使用 `default: policy: PROXY`。已有的宽泛规则及兜底必须检查顺序，不能让它们提前截获这些服务。
 
 清单见 [sources/foreign-services.json](sources/foreign-services.json)，生成命令：
 
@@ -44,7 +44,7 @@ python scripts/build_service_rules.py
 python scripts/build_service_rules.py --check
 ```
 
-这些是常用服务域名清单，并非完整网络依赖白名单。未将整个云厂商、共享 CDN、ASN、动态 IP 或关键词强制代理；没有节点、DNS 或客户端真机联网验证。流媒体能否解锁还取决于节点地区和服务账号。`GEOIP,CN,国内分流` 只按目的 IP 判断，不能代替国内域名规则；你提供的 Loon 模板还使用了远程 `CN REGION` 规则，本仓库此次只为现有 `GEOIP,CN` 增加可手动选择的策略组。若现有配置已有国内域名直连规则，应放在兜底之前。来源主要为 [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community/tree/master/data) 中相应服务清单、各平台官网及用户提供的五端格式样例，许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。2026-09-25 已核对五端 PayPal 规则及五端 `国内分流` 的组引用、默认策略与规则顺序，并通过 95 份服务生成文件和 5 份完整配置的重复生成检查；未进行真机导入。
+这些是常用服务域名清单，并非完整网络依赖白名单。未将整个云厂商、共享 CDN、ASN、动态 IP 或关键词强制代理；没有节点、DNS 或客户端真机联网验证。流媒体能否解锁还取决于节点地区和服务账号。中国 IP 分流只按目的 IP 判断，不能代替国内域名规则；Loon 的 `CN.list` 只包含 `GEOIP,CN`，由 `国内分流` 组选择实际策略。Loon 的 LAN 远程规则在原有直连范围之外还包含截图中的 `192.0.0.0/24`、`198.18.0.0/15` 和 `::1/128`；`198.18.0.0/15` 未复制到使用 Fake IP 的 Clash / Stash。若现有配置已有国内域名直连规则，应放在兜底之前。来源主要为 [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community/tree/master/data) 中相应服务清单、各平台官网及用户提供的五端格式样例，许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。2026-09-25 已核对五端 PayPal 规则及五端 `国内分流` 的组引用、默认策略与规则顺序，并通过 97 份分流生成文件和 5 份完整配置的重复生成检查；未进行真机导入。
 
 ## AI 聚合规则
 

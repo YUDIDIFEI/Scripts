@@ -1,0 +1,2 @@
+# Loon China GeoIP; assign the 国内分流 policy in the calling profile.
+GEOIP,CN

@@ -190,12 +190,11 @@ def loon_profile():
     lines.append(f"{CN_POLICY} = select,{','.join(('DIRECT', 'PROXY', *REGION_GROUPS))}")
     for group in names():
         lines.append(f"{group} = select,{','.join(choices_for(group))}")
-    lines += ["", "[Rule]", "DOMAIN-SUFFIX,local,DIRECT"]
-    for kind, value in PRIVATE_IPS:
-        lines.append(f"{kind},{value},DIRECT,no-resolve")
-    lines += [f"GEOIP,CN,{CN_POLICY}", "FINAL,PROXY", "", "[Remote Rule]"]
+    lines += ["", "[Rule]", "FINAL,PROXY", "", "[Remote Rule]",
+              f"{target('Loon', 'LAN')},policy=DIRECT,tag=LAN,enabled=true"]
     for name in names():
         lines.append(f"{target('Loon', name)},policy={name},tag={name},enabled=true")
+    lines.append(f"{target('Loon', 'CN')},policy={CN_POLICY},tag=CN,enabled=true")
     return "\n".join(lines) + "\n"
 
 
