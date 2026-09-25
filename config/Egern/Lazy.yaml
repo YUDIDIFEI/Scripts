@@ -69,6 +69,9 @@ policy_groups:
       name: PROXY
       policies: [Nodes, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, REJECT]
   - select:
+      name: 国内分流
+      policies: [DIRECT, PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动]
+  - select:
       name: AI
       policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
   - select:
@@ -258,6 +261,6 @@ rules:
       update_interval: 86400
   - geoip:
       match: CN
-      policy: DIRECT
+      policy: 国内分流
   - default:
       policy: PROXY

@@ -1,5 +1,8 @@
 # Merge into existing sections; PROXY must name an existing policy.
 # PayPal requires an existing 美国手动 policy group with a US node.
+[Proxy Group]
+国内分流 = select,DIRECT,PROXY
+
 [Remote Rule]
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list, policy=PROXY, tag=AI, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/YouTube/YouTube.list, policy=PROXY, tag=YouTube, enabled=true
@@ -22,5 +25,5 @@ https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Microsoft/M
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Common/Common.list, policy=PROXY, tag=Common, enabled=true
 
 [Rule]
-GEOIP,CN,DIRECT
+GEOIP,CN,国内分流
 FINAL,PROXY

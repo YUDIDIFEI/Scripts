@@ -4,7 +4,7 @@
 import argparse
 from pathlib import Path
 
-from build_service_rules import BASE, PAYPAL_POLICY, load, ordered_groups
+from build_service_rules import BASE, CN_POLICY, PAYPAL_POLICY, load, ordered_groups
 
 ROOT = Path(__file__).resolve().parents[1]
 REGIONS = (
@@ -125,6 +125,9 @@ def yaml_profile(client):
         "  - name: PROXY",
         "    type: select",
         f"    proxies: [{', '.join(('AUTO', *REGION_GROUPS, 'REJECT'))}]",
+        f"  - name: {CN_POLICY}",
+        "    type: select",
+        f"    proxies: [{', '.join(('DIRECT', 'PROXY', *REGION_GROUPS))}]",
     ]
     for group in names():
         choices = choices_for(group)
@@ -152,7 +155,7 @@ def yaml_profile(client):
         lines.append(f"  - {kind},{value},DIRECT,no-resolve")
     for name in names():
         lines.append(f"  - RULE-SET,{name},{name}")
-    lines += ["  - GEOIP,CN,DIRECT", "  - MATCH,PROXY"]
+    lines += [f"  - GEOIP,CN,{CN_POLICY}", "  - MATCH,PROXY"]
     return "\n".join(lines) + "\n"
 
 
@@ -184,12 +187,13 @@ def loon_profile():
     for region, _ in REGIONS:
         lines.append(f"{region}手动 = select,REJECT,{region}节点")
     lines.append(f"PROXY = select,{','.join(('AUTO', 'Nodes', *REGION_GROUPS, 'REJECT'))}")
+    lines.append(f"{CN_POLICY} = select,{','.join(('DIRECT', 'PROXY', *REGION_GROUPS))}")
     for group in names():
         lines.append(f"{group} = select,{','.join(choices_for(group))}")
     lines += ["", "[Rule]", "DOMAIN-SUFFIX,local,DIRECT"]
     for kind, value in PRIVATE_IPS:
         lines.append(f"{kind},{value},DIRECT,no-resolve")
-    lines += ["GEOIP,CN,DIRECT", "FINAL,PROXY", "", "[Remote Rule]"]
+    lines += [f"GEOIP,CN,{CN_POLICY}", "FINAL,PROXY", "", "[Remote Rule]"]
     for name in names():
         lines.append(f"{target('Loon', name)},policy={name},tag={name},enabled=true")
     return "\n".join(lines) + "\n"
@@ -213,6 +217,7 @@ def shadowrocket_profile():
     ]
     for region, pattern in REGIONS:
         lines.append(f"{region}手动 = select,REJECT,policy-regex-filter={pattern}|^REJECT$,policy-select-name=REJECT")
+    lines.append(f"{CN_POLICY} = select,{','.join(('DIRECT', 'PROXY', *REGION_GROUPS))},policy-select-name=DIRECT")
     for group in names():
         choices = choices_for(group)
         lines.append(f"{group} = select,{','.join(choices)},policy-select-name={choices[0]}")
@@ -222,7 +227,7 @@ def shadowrocket_profile():
         lines.append(f"IP-CIDR,{value},DIRECT,no-resolve")
     for name in names():
         lines.append(f"RULE-SET,{target('Shadowrocket', name)},{name}")
-    lines += ["GEOIP,CN,DIRECT", "FINAL,PROXY"]
+    lines += [f"GEOIP,CN,{CN_POLICY}", "FINAL,PROXY"]
     return "\n".join(lines) + "\n"
 
 
@@ -283,6 +288,9 @@ def egern_profile():
         "  - select:",
         "      name: PROXY",
         f"      policies: [{', '.join(('Nodes', *REGION_GROUPS, 'REJECT'))}]",
+        "  - select:",
+        f"      name: {CN_POLICY}",
+        f"      policies: [{', '.join(('DIRECT', 'PROXY', *REGION_GROUPS))}]",
     ]
     for group in names():
         lines += [
@@ -302,7 +310,7 @@ def egern_profile():
             f"      policy: {name}",
             "      update_interval: 86400",
         ]
-    lines += ["  - geoip:", "      match: CN", "      policy: DIRECT",
+    lines += ["  - geoip:", "      match: CN", f"      policy: {CN_POLICY}",
               "  - default:", "      policy: PROXY"]
     return "\n".join(lines) + "\n"
 

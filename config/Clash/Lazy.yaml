@@ -79,6 +79,9 @@ proxy-groups:
   - name: PROXY
     type: select
     proxies: [AUTO, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, REJECT]
+  - name: 国内分流
+    type: select
+    proxies: [DIRECT, PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动]
   - name: AI
     type: select
     proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
@@ -338,5 +341,5 @@ rules:
   - RULE-SET,Google,Google
   - RULE-SET,Microsoft,Microsoft
   - RULE-SET,Common,Common
-  - GEOIP,CN,DIRECT
+  - GEOIP,CN,国内分流
   - MATCH,PROXY

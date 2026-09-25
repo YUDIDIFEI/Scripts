@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master"
 CLIENTS = ("Clash", "Stash", "Loon", "Shadowrocket", "Egern")
 PAYPAL_POLICY = "美国手动"
+CN_POLICY = "国内分流"
 DOMAIN = re.compile(r"(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
 
 
@@ -88,10 +89,14 @@ def output_files(data):
         url = lambda name: f"{BASE}/rule/{client}/{name}/{name}.{ext}"
         ai_url = f"{BASE}/rule/{client}/AI/AI.{ext}"
         if client in ("Clash", "Stash"):
-            providers = ["# Merge these entries into existing rule-providers and rules sections.",
+            providers = ["# Merge these entries into existing proxy-groups, rule-providers and rules sections.",
                          "# Replace PROXY with an existing proxy policy group if needed.",
                          "# PayPal requires an existing 美国手动 policy group with a US node.",
-                         "rule-providers:"]
+                         "proxy-groups:",
+                         f"  - name: {CN_POLICY}",
+                         "    type: select",
+                         "    proxies: [DIRECT, PROXY]",
+                         "", "rule-providers:"]
             for name, target in [("AI", ai_url)] + [(g["id"], url(g["id"])) for g in order]:
                 providers.append(f"  {name}:")
                 if client == "Clash":
@@ -101,31 +106,35 @@ def output_files(data):
                                   "    interval: 86400"])
             providers += ["", "rules:"]
             providers += [f"  - RULE-SET,{g},{policy_for(g)}" for g in ["AI"] + [x["id"] for x in order]]
-            providers += ["  - GEOIP,CN,DIRECT", "  - MATCH,PROXY"]
+            providers += [f"  - GEOIP,CN,{CN_POLICY}", "  - MATCH,PROXY"]
             files[f"config/{client}/Routing.yaml"] = "\n".join(providers) + "\n"
         elif client == "Loon":
             lines = ["# Merge into existing sections; PROXY must name an existing policy.",
                      "# PayPal requires an existing 美国手动 policy group with a US node.",
+                     "[Proxy Group]", f"{CN_POLICY} = select,DIRECT,PROXY", "",
                      "[Remote Rule]"]
             lines += [f"{u}, policy={policy_for(name)}, tag={name}, enabled=true" for name, u in
                       [("AI", ai_url)] + [(g["id"], url(g["id"])) for g in order]]
-            lines += ["", "[Rule]", "GEOIP,CN,DIRECT", "FINAL,PROXY"]
+            lines += ["", "[Rule]", f"GEOIP,CN,{CN_POLICY}", "FINAL,PROXY"]
             files["config/Loon/Routing.lcf"] = "\n".join(lines) + "\n"
         elif client == "Shadowrocket":
             lines = ["# Merge into the existing [Rule] section; PROXY must name an existing policy.",
                      "# PayPal requires an existing 美国手动 policy group with a US node.",
+                     "[Proxy Group]", f"{CN_POLICY} = select,DIRECT,PROXY,policy-select-name=DIRECT", "",
                      "[Rule]"]
             lines += [f"RULE-SET,{u},{policy_for(name)}" for name, u in
                       [("AI", ai_url)] + [(g["id"], url(g["id"])) for g in order]]
-            lines += ["GEOIP,CN,DIRECT", "FINAL,PROXY"]
+            lines += [f"GEOIP,CN,{CN_POLICY}", "FINAL,PROXY"]
             files["config/Shadowrocket/Routing.conf"] = "\n".join(lines) + "\n"
         else:
-            lines = ["# Merge these items into your existing rules list.",
-                     "# PROXY and 美国手动 must name existing Egern policies; select a US node for PayPal.", "rules:"]
+            lines = ["# Merge these items into your existing policy_groups and rules lists.",
+                     "# PROXY and 美国手动 must name existing Egern policies; select a US node for PayPal.",
+                     "policy_groups:", "  - select:", f"      name: {CN_POLICY}",
+                     "      policies: [DIRECT, PROXY]", "rules:"]
             for name, target in [("AI", ai_url)] + [(g["id"], url(g["id"])) for g in order]:
                 lines += ["  - rule_set:", f"      name: {name}", f"      match: {target}",
                           f"      policy: {policy_for(name)}", "      update_interval: 86400", "      disabled: false"]
-            lines += ["  - geoip:", "      match: CN", "      policy: DIRECT",
+            lines += ["  - geoip:", "      match: CN", f"      policy: {CN_POLICY}",
                       "  - default:", "      policy: PROXY"]
             files["config/Egern/Routing.yaml"] = "\n".join(lines) + "\n"
     return files

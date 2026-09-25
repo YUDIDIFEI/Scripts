@@ -1,6 +1,11 @@
-# Merge these entries into existing rule-providers and rules sections.
+# Merge these entries into existing proxy-groups, rule-providers and rules sections.
 # Replace PROXY with an existing proxy policy group if needed.
 # PayPal requires an existing 美国手动 policy group with a US node.
+proxy-groups:
+  - name: 国内分流
+    type: select
+    proxies: [DIRECT, PROXY]
+
 rule-providers:
   AI:
     type: http
@@ -156,5 +161,5 @@ rules:
   - RULE-SET,Google,PROXY
   - RULE-SET,Microsoft,PROXY
   - RULE-SET,Common,PROXY
-  - GEOIP,CN,DIRECT
+  - GEOIP,CN,国内分流
   - MATCH,PROXY

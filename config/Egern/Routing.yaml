@@ -1,5 +1,9 @@
-# Merge these items into your existing rules list.
+# Merge these items into your existing policy_groups and rules lists.
 # PROXY and 美国手动 must name existing Egern policies; select a US node for PayPal.
+policy_groups:
+  - select:
+      name: 国内分流
+      policies: [DIRECT, PROXY]
 rules:
   - rule_set:
       name: AI
@@ -117,6 +121,6 @@ rules:
       disabled: false
   - geoip:
       match: CN
-      policy: DIRECT
+      policy: 国内分流
   - default:
       policy: PROXY

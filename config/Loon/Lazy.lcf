@@ -32,6 +32,7 @@ AUTO = url-test,Nodes,url=https://www.gstatic.com/generate_204,interval=600,tole
 新加坡手动 = select,REJECT,新加坡节点
 美国手动 = select,REJECT,美国节点
 PROXY = select,AUTO,Nodes,香港手动,台湾手动,日本手动,新加坡手动,美国手动,REJECT
+国内分流 = select,DIRECT,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动
 AI = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
 YouTube = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
 Netflix = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
@@ -62,7 +63,7 @@ IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
 IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
 IP-CIDR6,fc00::/7,DIRECT,no-resolve
 IP-CIDR6,fe80::/10,DIRECT,no-resolve
-GEOIP,CN,DIRECT
+GEOIP,CN,国内分流
 FINAL,PROXY
 
 [Remote Rule]
