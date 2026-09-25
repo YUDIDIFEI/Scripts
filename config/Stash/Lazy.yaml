@@ -37,40 +37,105 @@ proxy-groups:
     use: [Nodes]
     url: https://www.gstatic.com/generate_204
     interval: 600
+  - name: 香港手动
+    type: select
+    proxies: [REJECT]
+    use: [Nodes]
+    filter: '(?i)(🇭🇰|香港|Hong[ -]?Kong|(^|[^A-Za-z])(HK|HKG)[0-9]*($|[^A-Za-z]))|^REJECT$'
+  - name: 台湾手动
+    type: select
+    proxies: [REJECT]
+    use: [Nodes]
+    filter: '(?i)(🇹🇼|台湾|台灣|台北|Taiwan|(^|[^A-Za-z])(TW|TWN)[0-9]*($|[^A-Za-z]))|^REJECT$'
+  - name: 日本手动
+    type: select
+    proxies: [REJECT]
+    use: [Nodes]
+    filter: '(?i)(🇯🇵|日本|东京|東京|大阪|Japan|Tokyo|Osaka|(^|[^A-Za-z])(JP|JPN)[0-9]*($|[^A-Za-z]))|^REJECT$'
+  - name: 新加坡手动
+    type: select
+    proxies: [REJECT]
+    use: [Nodes]
+    filter: '(?i)(🇸🇬|新加坡|狮城|獅城|Singapore|(^|[^A-Za-z])(SG|SGP)[0-9]*($|[^A-Za-z]))|^REJECT$'
+  - name: 美国手动
+    type: select
+    proxies: [REJECT]
+    use: [Nodes]
+    filter: '(?i)(🇺🇸|美国|美國|洛杉矶|洛杉磯|纽约|紐約|西雅图|西雅圖|United[ -]?States|(^|[^A-Za-z])(US|USA)[0-9]*($|[^A-Za-z]))|^REJECT$'
   - name: PROXY
     type: select
-    proxies: [AUTO, REJECT]
+    proxies: [AUTO, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, REJECT]
   - name: AI
     type: select
-    proxies: [PROXY, DIRECT]
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
   - name: YouTube
     type: select
-    proxies: [PROXY, DIRECT]
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
   - name: Netflix
     type: select
-    proxies: [PROXY, DIRECT]
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
   - name: DisneyPlus
     type: select
-    proxies: [PROXY, DIRECT]
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
   - name: Max
     type: select
-    proxies: [PROXY, DIRECT]
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
   - name: PrimeVideo
     type: select
-    proxies: [PROXY, DIRECT]
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
   - name: Spotify
     type: select
-    proxies: [PROXY, DIRECT]
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
   - name: TikTok
     type: select
-    proxies: [PROXY, DIRECT]
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
+    use: [Nodes]
+  - name: Telegram
+    type: select
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
+    use: [Nodes]
+  - name: X
+    type: select
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
+    use: [Nodes]
+  - name: Facebook
+    type: select
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
+    use: [Nodes]
+  - name: Instagram
+    type: select
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
+    use: [Nodes]
+  - name: WhatsApp
+    type: select
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
+    use: [Nodes]
+  - name: GitHub
+    type: select
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
+    use: [Nodes]
+  - name: Discord
+    type: select
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
+    use: [Nodes]
+  - name: Google
+    type: select
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
+    use: [Nodes]
+  - name: Microsoft
+    type: select
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
+    use: [Nodes]
+  - name: Common
+    type: select
+    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
 
 rule-providers:
@@ -201,15 +266,15 @@ rules:
   - RULE-SET,PrimeVideo,PrimeVideo
   - RULE-SET,Spotify,Spotify
   - RULE-SET,TikTok,TikTok
-  - RULE-SET,Telegram,PROXY
-  - RULE-SET,X,PROXY
-  - RULE-SET,Facebook,PROXY
-  - RULE-SET,Instagram,PROXY
-  - RULE-SET,WhatsApp,PROXY
-  - RULE-SET,GitHub,PROXY
-  - RULE-SET,Discord,PROXY
-  - RULE-SET,Google,PROXY
-  - RULE-SET,Microsoft,PROXY
-  - RULE-SET,Common,PROXY
+  - RULE-SET,Telegram,Telegram
+  - RULE-SET,X,X
+  - RULE-SET,Facebook,Facebook
+  - RULE-SET,Instagram,Instagram
+  - RULE-SET,WhatsApp,WhatsApp
+  - RULE-SET,GitHub,GitHub
+  - RULE-SET,Discord,Discord
+  - RULE-SET,Google,Google
+  - RULE-SET,Microsoft,Microsoft
+  - RULE-SET,Common,Common
   - GEOIP,CN,DIRECT
   - MATCH,PROXY

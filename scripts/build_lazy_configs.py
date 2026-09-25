@@ -7,8 +7,14 @@ from pathlib import Path
 from build_service_rules import BASE, load, ordered_groups
 
 ROOT = Path(__file__).resolve().parents[1]
-STREAMING = ("YouTube", "Netflix", "DisneyPlus", "Max", "PrimeVideo", "Spotify", "TikTok")
-DEDICATED = ("AI",) + STREAMING
+REGIONS = (
+    ("香港", r"(?i)(🇭🇰|香港|Hong[ -]?Kong|(^|[^A-Za-z])(HK|HKG)[0-9]*($|[^A-Za-z]))"),
+    ("台湾", r"(?i)(🇹🇼|台湾|台灣|台北|Taiwan|(^|[^A-Za-z])(TW|TWN)[0-9]*($|[^A-Za-z]))"),
+    ("日本", r"(?i)(🇯🇵|日本|东京|東京|大阪|Japan|Tokyo|Osaka|(^|[^A-Za-z])(JP|JPN)[0-9]*($|[^A-Za-z]))"),
+    ("新加坡", r"(?i)(🇸🇬|新加坡|狮城|獅城|Singapore|(^|[^A-Za-z])(SG|SGP)[0-9]*($|[^A-Za-z]))"),
+    ("美国", r"(?i)(🇺🇸|美国|美國|洛杉矶|洛杉磯|纽约|紐約|西雅图|西雅圖|United[ -]?States|(^|[^A-Za-z])(US|USA)[0-9]*($|[^A-Za-z]))"),
+)
+REGION_GROUPS = tuple(f"{region}手动" for region, _ in REGIONS)
 PRIVATE_IPS = (
     ("IP-CIDR", "10.0.0.0/8"),
     ("IP-CIDR", "100.64.0.0/10"),
@@ -102,15 +108,25 @@ def yaml_profile(client):
         "    use: [Nodes]",
         f"    url: {TEST_URL}",
         "    interval: 600",
+    ]
+    for region, pattern in REGIONS:
+        lines += [
+            f"  - name: {region}手动",
+            "    type: select",
+            "    proxies: [REJECT]",
+            "    use: [Nodes]",
+            f"    filter: '{pattern}|^REJECT$'",
+        ]
+    lines += [
         "  - name: PROXY",
         "    type: select",
-        "    proxies: [AUTO, REJECT]",
+        f"    proxies: [{', '.join(('AUTO', *REGION_GROUPS, 'REJECT'))}]",
     ]
-    for group in DEDICATED:
+    for group in names():
         lines += [
             f"  - name: {group}",
             "    type: select",
-            "    proxies: [PROXY, DIRECT]",
+            f"    proxies: [{', '.join(('PROXY', *REGION_GROUPS, 'DIRECT'))}]",
             "    use: [Nodes]",
         ]
     lines += ["", "rule-providers:"]
@@ -129,8 +145,7 @@ def yaml_profile(client):
     for kind, value in PRIVATE_IPS:
         lines.append(f"  - {kind},{value},DIRECT,no-resolve")
     for name in names():
-        policy = name if name in DEDICATED else "PROXY"
-        lines.append(f"  - RULE-SET,{name},{policy}")
+        lines.append(f"  - RULE-SET,{name},{name}")
     lines += ["  - GEOIP,CN,DIRECT", "  - MATCH,PROXY"]
     return "\n".join(lines) + "\n"
 
@@ -152,19 +167,25 @@ def loon_profile():
         "bypass-tun = 10.0.0.0/8,100.64.0.0/10,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,169.254.0.0/16,localhost,*.local",
         "", "[Proxy]", "", "[Remote Proxy]",
         f"Nodes = {SUBSCRIPTION},enabled=true",
+        "", "[Remote Filter]",
+    ]
+    for region, pattern in REGIONS:
+        lines.append(f'{region}节点 = NameRegex,Nodes,FilterKey="{pattern}"')
+    lines += [
         "", "[Proxy Group]",
         f"AUTO = url-test,Nodes,url={TEST_URL},interval=600,tolerance=100",
-        "PROXY = select,AUTO,Nodes,REJECT",
     ]
-    for group in DEDICATED:
-        lines.append(f"{group} = select,PROXY,DIRECT")
+    for region, _ in REGIONS:
+        lines.append(f"{region}手动 = select,REJECT,{region}节点")
+    lines.append(f"PROXY = select,{','.join(('AUTO', 'Nodes', *REGION_GROUPS, 'REJECT'))}")
+    for group in names():
+        lines.append(f"{group} = select,{','.join(('PROXY', *REGION_GROUPS, 'DIRECT'))}")
     lines += ["", "[Rule]", "DOMAIN-SUFFIX,local,DIRECT"]
     for kind, value in PRIVATE_IPS:
         lines.append(f"{kind},{value},DIRECT,no-resolve")
     lines += ["GEOIP,CN,DIRECT", "FINAL,PROXY", "", "[Remote Rule]"]
     for name in names():
-        policy = name if name in DEDICATED else "PROXY"
-        lines.append(f"{target('Loon', name)},policy={policy},tag={name},enabled=true")
+        lines.append(f"{target('Loon', name)},policy={name},tag={name},enabled=true")
     return "\n".join(lines) + "\n"
 
 
@@ -184,15 +205,16 @@ def shadowrocket_profile():
         "tun-excluded-routes = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16",
         "", "[Proxy]", "", "[Proxy Group]",
     ]
-    for group in DEDICATED:
-        lines.append(f"{group} = select,PROXY,DIRECT")
+    for region, pattern in REGIONS:
+        lines.append(f"{region}手动 = select,REJECT,policy-regex-filter={pattern}|^REJECT$,policy-select-name=REJECT")
+    for group in names():
+        lines.append(f"{group} = select,{','.join(('PROXY', *REGION_GROUPS, 'DIRECT'))},policy-select-name=PROXY")
     lines += ["", "[Rule]", "DOMAIN-SUFFIX,local,DIRECT"]
     for kind, value in PRIVATE_IPS:
         # Shadowrocket's IP-CIDR rule accepts both IPv4 and IPv6 addresses.
         lines.append(f"IP-CIDR,{value},DIRECT,no-resolve")
     for name in names():
-        policy = name if name in DEDICATED else "PROXY"
-        lines.append(f"RULE-SET,{target('Shadowrocket', name)},{policy}")
+        lines.append(f"RULE-SET,{target('Shadowrocket', name)},{name}")
     lines += ["GEOIP,CN,DIRECT", "FINAL,PROXY"]
     return "\n".join(lines) + "\n"
 
@@ -241,27 +263,36 @@ def egern_profile():
         f"        - {SUBSCRIPTION}",
         "      update_interval: 86400",
         "      interval: 600",
+    ]
+    for region, pattern in REGIONS:
+        lines += [
+            "  - select:",
+            f"      name: {region}手动",
+            "      policies: [REJECT, Nodes]",
+            "      flatten: true",
+            f"      filter: '{pattern}|^REJECT$'",
+        ]
+    lines += [
         "  - select:",
         "      name: PROXY",
-        "      policies: [Nodes, REJECT]",
+        f"      policies: [{', '.join(('Nodes', *REGION_GROUPS, 'REJECT'))}]",
     ]
-    for group in DEDICATED:
+    for group in names():
         lines += [
             "  - select:",
             f"      name: {group}",
-            "      policies: [PROXY, DIRECT]",
+            f"      policies: [{', '.join(('PROXY', *REGION_GROUPS, 'DIRECT'))}]",
         ]
     lines += ["rules:", "  - domain_suffix:", "      match: local", "      policy: DIRECT"]
     for kind, value in PRIVATE_IPS:
         rule = "ip_cidr6" if kind == "IP-CIDR6" else "ip_cidr"
         lines += [f"  - {rule}:", f"      match: {value}", "      policy: DIRECT", "      no_resolve: true"]
     for name in names():
-        policy = name if name in DEDICATED else "PROXY"
         lines += [
             "  - rule_set:",
             f"      name: {name}",
             f"      match: {target('Egern', name)}",
-            f"      policy: {policy}",
+            f"      policy: {name}",
             "      update_interval: 86400",
         ]
     lines += ["  - geoip:", "      match: CN", "      policy: DIRECT",

@@ -17,17 +17,39 @@ bypass-tun = 10.0.0.0/8,100.64.0.0/10,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,1
 [Remote Proxy]
 Nodes = https://subscription.example.invalid/REPLACE_WITH_YOUR_SUBSCRIPTION,enabled=true
 
+[Remote Filter]
+香港节点 = NameRegex,Nodes,FilterKey="(?i)(🇭🇰|香港|Hong[ -]?Kong|(^|[^A-Za-z])(HK|HKG)[0-9]*($|[^A-Za-z]))"
+台湾节点 = NameRegex,Nodes,FilterKey="(?i)(🇹🇼|台湾|台灣|台北|Taiwan|(^|[^A-Za-z])(TW|TWN)[0-9]*($|[^A-Za-z]))"
+日本节点 = NameRegex,Nodes,FilterKey="(?i)(🇯🇵|日本|东京|東京|大阪|Japan|Tokyo|Osaka|(^|[^A-Za-z])(JP|JPN)[0-9]*($|[^A-Za-z]))"
+新加坡节点 = NameRegex,Nodes,FilterKey="(?i)(🇸🇬|新加坡|狮城|獅城|Singapore|(^|[^A-Za-z])(SG|SGP)[0-9]*($|[^A-Za-z]))"
+美国节点 = NameRegex,Nodes,FilterKey="(?i)(🇺🇸|美国|美國|洛杉矶|洛杉磯|纽约|紐約|西雅图|西雅圖|United[ -]?States|(^|[^A-Za-z])(US|USA)[0-9]*($|[^A-Za-z]))"
+
 [Proxy Group]
 AUTO = url-test,Nodes,url=https://www.gstatic.com/generate_204,interval=600,tolerance=100
-PROXY = select,AUTO,Nodes,REJECT
-AI = select,PROXY,DIRECT
-YouTube = select,PROXY,DIRECT
-Netflix = select,PROXY,DIRECT
-DisneyPlus = select,PROXY,DIRECT
-Max = select,PROXY,DIRECT
-PrimeVideo = select,PROXY,DIRECT
-Spotify = select,PROXY,DIRECT
-TikTok = select,PROXY,DIRECT
+香港手动 = select,REJECT,香港节点
+台湾手动 = select,REJECT,台湾节点
+日本手动 = select,REJECT,日本节点
+新加坡手动 = select,REJECT,新加坡节点
+美国手动 = select,REJECT,美国节点
+PROXY = select,AUTO,Nodes,香港手动,台湾手动,日本手动,新加坡手动,美国手动,REJECT
+AI = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+YouTube = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+Netflix = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+DisneyPlus = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+Max = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+PrimeVideo = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+Spotify = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+TikTok = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+Telegram = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+X = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+Facebook = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+Instagram = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+WhatsApp = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+GitHub = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+Discord = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+Google = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+Microsoft = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+Common = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
 
 [Rule]
 DOMAIN-SUFFIX,local,DIRECT
@@ -51,13 +73,13 @@ https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Max/Max.lis
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/PrimeVideo/PrimeVideo.list,policy=PrimeVideo,tag=PrimeVideo,enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Spotify/Spotify.list,policy=Spotify,tag=Spotify,enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/TikTok/TikTok.list,policy=TikTok,tag=TikTok,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Telegram/Telegram.list,policy=PROXY,tag=Telegram,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/X/X.list,policy=PROXY,tag=X,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Facebook/Facebook.list,policy=PROXY,tag=Facebook,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Instagram/Instagram.list,policy=PROXY,tag=Instagram,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/WhatsApp/WhatsApp.list,policy=PROXY,tag=WhatsApp,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/GitHub/GitHub.list,policy=PROXY,tag=GitHub,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Discord/Discord.list,policy=PROXY,tag=Discord,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Google/Google.list,policy=PROXY,tag=Google,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Microsoft/Microsoft.list,policy=PROXY,tag=Microsoft,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Common/Common.list,policy=PROXY,tag=Common,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Telegram/Telegram.list,policy=Telegram,tag=Telegram,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/X/X.list,policy=X,tag=X,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Facebook/Facebook.list,policy=Facebook,tag=Facebook,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Instagram/Instagram.list,policy=Instagram,tag=Instagram,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/WhatsApp/WhatsApp.list,policy=WhatsApp,tag=WhatsApp,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/GitHub/GitHub.list,policy=GitHub,tag=GitHub,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Discord/Discord.list,policy=Discord,tag=Discord,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Google/Google.list,policy=Google,tag=Google,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Microsoft/Microsoft.list,policy=Microsoft,tag=Microsoft,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Common/Common.list,policy=Common,tag=Common,enabled=true
