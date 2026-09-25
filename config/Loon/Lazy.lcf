@@ -34,24 +34,8 @@ AUTO = url-test,Nodes,url=https://www.gstatic.com/generate_204,interval=600,tole
 PROXY = select,AUTO,Nodes,香港手动,台湾手动,日本手动,新加坡手动,美国手动,REJECT
 国内分流 = select,DIRECT,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动
 AI = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-YouTube = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-Netflix = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-DisneyPlus = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-Max = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-PrimeVideo = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-Spotify = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-TikTok = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-Telegram = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-X = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-Facebook = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-Instagram = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-WhatsApp = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-GitHub = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-Discord = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
 PayPal = select,美国手动,REJECT
-Google = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-Microsoft = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
-Common = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+GitHub = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
 
 [Rule]
 FINAL,PROXY
@@ -59,22 +43,6 @@ FINAL,PROXY
 [Remote Rule]
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/LAN/LAN.list,policy=DIRECT,tag=LAN,enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list,policy=AI,tag=AI,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/YouTube/YouTube.list,policy=YouTube,tag=YouTube,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Netflix/Netflix.list,policy=Netflix,tag=Netflix,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/DisneyPlus/DisneyPlus.list,policy=DisneyPlus,tag=DisneyPlus,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Max/Max.list,policy=Max,tag=Max,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/PrimeVideo/PrimeVideo.list,policy=PrimeVideo,tag=PrimeVideo,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Spotify/Spotify.list,policy=Spotify,tag=Spotify,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/TikTok/TikTok.list,policy=TikTok,tag=TikTok,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Telegram/Telegram.list,policy=Telegram,tag=Telegram,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/X/X.list,policy=X,tag=X,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Facebook/Facebook.list,policy=Facebook,tag=Facebook,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Instagram/Instagram.list,policy=Instagram,tag=Instagram,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/WhatsApp/WhatsApp.list,policy=WhatsApp,tag=WhatsApp,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/GitHub/GitHub.list,policy=GitHub,tag=GitHub,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Discord/Discord.list,policy=Discord,tag=Discord,enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/PayPal/PayPal.list,policy=PayPal,tag=PayPal,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Google/Google.list,policy=Google,tag=Google,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Microsoft/Microsoft.list,policy=Microsoft,tag=Microsoft,enabled=true
-https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Common/Common.list,policy=Common,tag=Common,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/GitHub/GitHub.list,policy=GitHub,tag=GitHub,enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/CN/CN.list,policy=国内分流,tag=CN,enabled=true

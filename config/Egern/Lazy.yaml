@@ -75,58 +75,10 @@ policy_groups:
       name: AI
       policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
   - select:
-      name: YouTube
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: Netflix
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: DisneyPlus
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: Max
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: PrimeVideo
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: Spotify
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: TikTok
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: Telegram
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: X
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: Facebook
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: Instagram
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: WhatsApp
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: GitHub
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: Discord
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
       name: PayPal
       policies: [美国手动, REJECT]
   - select:
-      name: Google
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: Microsoft
-      policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-  - select:
-      name: Common
+      name: GitHub
       policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
 rules:
   - rule_set:
@@ -140,94 +92,14 @@ rules:
       policy: AI
       update_interval: 86400
   - rule_set:
-      name: YouTube
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/YouTube/YouTube.yaml
-      policy: YouTube
-      update_interval: 86400
-  - rule_set:
-      name: Netflix
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Netflix/Netflix.yaml
-      policy: Netflix
-      update_interval: 86400
-  - rule_set:
-      name: DisneyPlus
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/DisneyPlus/DisneyPlus.yaml
-      policy: DisneyPlus
-      update_interval: 86400
-  - rule_set:
-      name: Max
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Max/Max.yaml
-      policy: Max
-      update_interval: 86400
-  - rule_set:
-      name: PrimeVideo
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/PrimeVideo/PrimeVideo.yaml
-      policy: PrimeVideo
-      update_interval: 86400
-  - rule_set:
-      name: Spotify
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Spotify/Spotify.yaml
-      policy: Spotify
-      update_interval: 86400
-  - rule_set:
-      name: TikTok
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/TikTok/TikTok.yaml
-      policy: TikTok
-      update_interval: 86400
-  - rule_set:
-      name: Telegram
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Telegram/Telegram.yaml
-      policy: Telegram
-      update_interval: 86400
-  - rule_set:
-      name: X
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/X/X.yaml
-      policy: X
-      update_interval: 86400
-  - rule_set:
-      name: Facebook
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Facebook/Facebook.yaml
-      policy: Facebook
-      update_interval: 86400
-  - rule_set:
-      name: Instagram
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Instagram/Instagram.yaml
-      policy: Instagram
-      update_interval: 86400
-  - rule_set:
-      name: WhatsApp
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/WhatsApp/WhatsApp.yaml
-      policy: WhatsApp
-      update_interval: 86400
-  - rule_set:
-      name: GitHub
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/GitHub/GitHub.yaml
-      policy: GitHub
-      update_interval: 86400
-  - rule_set:
-      name: Discord
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Discord/Discord.yaml
-      policy: Discord
-      update_interval: 86400
-  - rule_set:
       name: PayPal
       match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/PayPal/PayPal.yaml
       policy: PayPal
       update_interval: 86400
   - rule_set:
-      name: Google
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Google/Google.yaml
-      policy: Google
-      update_interval: 86400
-  - rule_set:
-      name: Microsoft
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Microsoft/Microsoft.yaml
-      policy: Microsoft
-      update_interval: 86400
-  - rule_set:
-      name: Common
-      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Common/Common.yaml
-      policy: Common
+      name: GitHub
+      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/GitHub/GitHub.yaml
+      policy: GitHub
       update_interval: 86400
   - rule_set:
       name: CN

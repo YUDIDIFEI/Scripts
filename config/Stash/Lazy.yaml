@@ -72,74 +72,10 @@ proxy-groups:
     type: select
     proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
-  - name: YouTube
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: Netflix
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: DisneyPlus
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: Max
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: PrimeVideo
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: Spotify
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: TikTok
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: Telegram
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: X
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: Facebook
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: Instagram
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: WhatsApp
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: GitHub
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: Discord
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
   - name: PayPal
     type: select
     proxies: [美国手动, REJECT]
-  - name: Google
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: Microsoft
-    type: select
-    proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
-    use: [Nodes]
-  - name: Common
+  - name: GitHub
     type: select
     proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
@@ -157,113 +93,17 @@ rule-providers:
     url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/AI/AI.yaml
     path: ./ruleset/AI.yaml
     interval: 86400
-  YouTube:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/YouTube/YouTube.yaml
-    path: ./ruleset/YouTube.yaml
-    interval: 86400
-  Netflix:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Netflix/Netflix.yaml
-    path: ./ruleset/Netflix.yaml
-    interval: 86400
-  DisneyPlus:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/DisneyPlus/DisneyPlus.yaml
-    path: ./ruleset/DisneyPlus.yaml
-    interval: 86400
-  Max:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Max/Max.yaml
-    path: ./ruleset/Max.yaml
-    interval: 86400
-  PrimeVideo:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/PrimeVideo/PrimeVideo.yaml
-    path: ./ruleset/PrimeVideo.yaml
-    interval: 86400
-  Spotify:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Spotify/Spotify.yaml
-    path: ./ruleset/Spotify.yaml
-    interval: 86400
-  TikTok:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/TikTok/TikTok.yaml
-    path: ./ruleset/TikTok.yaml
-    interval: 86400
-  Telegram:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Telegram/Telegram.yaml
-    path: ./ruleset/Telegram.yaml
-    interval: 86400
-  X:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/X/X.yaml
-    path: ./ruleset/X.yaml
-    interval: 86400
-  Facebook:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Facebook/Facebook.yaml
-    path: ./ruleset/Facebook.yaml
-    interval: 86400
-  Instagram:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Instagram/Instagram.yaml
-    path: ./ruleset/Instagram.yaml
-    interval: 86400
-  WhatsApp:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/WhatsApp/WhatsApp.yaml
-    path: ./ruleset/WhatsApp.yaml
-    interval: 86400
-  GitHub:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/GitHub/GitHub.yaml
-    path: ./ruleset/GitHub.yaml
-    interval: 86400
-  Discord:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Discord/Discord.yaml
-    path: ./ruleset/Discord.yaml
-    interval: 86400
   PayPal:
     behavior: classical
     format: yaml
     url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/PayPal/PayPal.yaml
     path: ./ruleset/PayPal.yaml
     interval: 86400
-  Google:
+  GitHub:
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Google/Google.yaml
-    path: ./ruleset/Google.yaml
-    interval: 86400
-  Microsoft:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Microsoft/Microsoft.yaml
-    path: ./ruleset/Microsoft.yaml
-    interval: 86400
-  Common:
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Common/Common.yaml
-    path: ./ruleset/Common.yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/GitHub/GitHub.yaml
+    path: ./ruleset/GitHub.yaml
     interval: 86400
   CN:
     behavior: classical
@@ -275,23 +115,7 @@ rule-providers:
 rules:
   - RULE-SET,LAN,DIRECT
   - RULE-SET,AI,AI
-  - RULE-SET,YouTube,YouTube
-  - RULE-SET,Netflix,Netflix
-  - RULE-SET,DisneyPlus,DisneyPlus
-  - RULE-SET,Max,Max
-  - RULE-SET,PrimeVideo,PrimeVideo
-  - RULE-SET,Spotify,Spotify
-  - RULE-SET,TikTok,TikTok
-  - RULE-SET,Telegram,Telegram
-  - RULE-SET,X,X
-  - RULE-SET,Facebook,Facebook
-  - RULE-SET,Instagram,Instagram
-  - RULE-SET,WhatsApp,WhatsApp
-  - RULE-SET,GitHub,GitHub
-  - RULE-SET,Discord,Discord
   - RULE-SET,PayPal,PayPal
-  - RULE-SET,Google,Google
-  - RULE-SET,Microsoft,Microsoft
-  - RULE-SET,Common,Common
+  - RULE-SET,GitHub,GitHub
   - RULE-SET,CN,国内分流
   - MATCH,PROXY

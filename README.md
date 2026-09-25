@@ -2,7 +2,7 @@
 
 ## 五端懒人完整配置
 
-以下文件是可整份导入的配置，已经包含策略组、AI 聚合分流、七个流媒体独立策略组、其他应用分流、局域网直连、中国 IP 分流（默认直连）和其余流量代理。Clash、Stash、Loon、Egern 默认自动选择节点；Shadowrocket 使用首页所选节点。AI、流媒体及其他应用都能单独改选策略。已有 `Routing.*` 文件仍是供现有配置合并的接入片段。
+以下文件是可整份导入的精简配置，只预置 AI、PayPal、GitHub 三个应用分流，以及局域网直连、中国 IP 分流（默认直连）和其余流量代理。Clash、Stash、Loon、Egern 默认自动选择节点；Shadowrocket 使用首页所选节点。三个应用都能单独改选策略。其他服务的独立规则仍保留，供你按需手动添加；`Routing.*` 是包含这些服务的可选接入片段，不会自动加载到懒人配置中。
 
 | 客户端 | 完整配置直链 | 导入前的唯一节点步骤 |
 |---|---|---|
@@ -14,9 +14,9 @@
 
 四份带 `subscription.example.invalid` 的公开配置是**待填订阅的成品模板**，该地址故意不可用；必须在本机替换后再导入，不能直接把公开直链当成有节点的配置使用。Shadowrocket 配置可直接导入，但仍需自行添加节点。这里没有免费节点，也没有把私人订阅放进公开仓库或交给第三方转换服务。不同客户端所需的订阅输出格式可能不同，不能保证同一条订阅链接在五端通用。
 
-五端均提供 `香港手动`、`台湾手动`、`日本手动`、`新加坡手动`、`美国手动` 五个地区组，按订阅节点名称中的国旗、中文地名或常见英文缩写筛选。AI、其他 16 个主流服务和 `Common` 各有分流组，可选择这五个地区组；PayPal 有独立分流组，仅可选择 `美国手动` 或 `REJECT`。Clash / Stash / Loon / Egern 的 `PROXY` 也可选择地区组。地区组把 `REJECT` 放在首位，避免尚未选定该地区节点时默认直连或跨区；使用前请进入组内手动选择具体节点。筛选只看节点名称，不能验证真实出口地区；若某个地区没有匹配节点，请检查订阅节点名称。
+五端均提供 `香港手动`、`台湾手动`、`日本手动`、`新加坡手动`、`美国手动` 五个地区组，按订阅节点名称中的国旗、中文地名或常见英文缩写筛选。AI 和 GitHub 各有分流组，可选择这五个地区组；PayPal 有独立分流组，仅可选择 `美国手动` 或 `REJECT`。Clash / Stash / Loon / Egern 的 `PROXY` 也可选择地区组。地区组把 `REJECT` 放在首位，避免尚未选定该地区节点时默认直连或跨区；使用前请进入组内手动选择具体节点。筛选只看节点名称，不能验证真实出口地区；若某个地区没有匹配节点，请检查订阅节点名称。
 
-Clash / Stash / Loon 的 `PROXY` 默认走 `AUTO`，Egern 的 `PROXY` 默认走 `Nodes` 自动测速，Shadowrocket 的内置 `PROXY` 使用首页所选节点。19 个应用分流组中，PayPal 默认选 `美国手动`，其余 18 个默认选 `PROXY`；Clash / Stash 的非 PayPal 分流组还可直接选订阅内节点。`国内分流` 组默认选 `DIRECT`，也可手动选 `PROXY` 或五个地区组。五端的 LAN 直连规则均由本仓库远程规则集加载；Clash / Mihomo、Stash、Loon、Egern 的 CN GeoIP 匹配也使用各自格式的远程规则集，Shadowrocket 保留本地 `GEOIP,CN,国内分流`。LAN 仍固定 `DIRECT`，CN 走可选的 `国内分流` 组。PayPal 要正常联网，必须先在 `美国手动` 组中选中实际美国节点。规则顺序为 LAN 直连 → AI → 主流服务（含 PayPal）→ Common → 中国 IP 分流 → 其余代理。分流会从本仓库的远程规则集定期更新；首次使用必须能读取这些规则链接。流媒体地区解锁由节点出口和账号决定，自动测速不保证解锁。
+Clash / Stash / Loon 的 `PROXY` 默认走 `AUTO`，Egern 的 `PROXY` 默认走 `Nodes` 自动测速，Shadowrocket 的内置 `PROXY` 使用首页所选节点。PayPal 默认选 `美国手动`，AI 和 GitHub 默认选 `PROXY`；Clash / Stash 的 AI 和 GitHub 分流组还可直接选订阅内节点。`国内分流` 组默认选 `DIRECT`，也可手动选 `PROXY` 或五个地区组。五端的 LAN 直连规则均由本仓库远程规则集加载；Clash / Mihomo、Stash、Loon、Egern 的 CN GeoIP 匹配也使用各自格式的远程规则集，Shadowrocket 保留本地 `GEOIP,CN,国内分流`。LAN 仍固定 `DIRECT`，CN 走可选的 `国内分流` 组。PayPal 要正常联网，必须先在 `美国手动` 组中选中实际美国节点。懒人配置的规则顺序为 LAN 直连 → AI → PayPal → GitHub → 中国 IP 分流 → 其余代理。分流会从本仓库的远程规则集定期更新；首次使用必须能读取这些规则链接。
 
 五端配置已对照用户提供的模板检查。Loon 配置明确设置 IP 优先级、DNS、连通性检测、UDP 失效策略及局域网旁路；Shadowrocket 配置加入 DNS 备用、IPv6、私网解析与 TUN 旁路；Clash / Stash 配置加入 DNS 与 Fake IP，并让 `.local` / `.lan` 使用系统 DNS；Clash 的远程规则集更新通过 `PROXY`。Egern 配置加入 DNS、测速地址及局域网旁路。Clash 的系统代理或 TUN 开关仍由所用客户端和操作系统管理，配置不强制启用 TUN。未复制示例模板中的 MITM 证书、重写、脚本、外部订阅转换器或对局域网开放的控制端口。
 
@@ -24,7 +24,7 @@ Clash / Stash / Loon 的 `PROXY` 默认走 `AUTO`，Egern 的 `PROXY` 默认走 
 
 ## 流媒体与其他应用
 
-AI 维持一份聚合规则，不按平台拆分。提供 17 份主流服务独立规则，以及一份 `Common` 常见服务合并规则；五种客户端各有独立格式，目录为 `rule/<客户端>/<规则名>/<规则名>.<扩展名>`。Clash、Stash、Egern 使用 `.yaml`，Loon、Shadowrocket 使用 `.list`。服务名与次序如下：
+AI 维持一份聚合规则，不按平台拆分。规则库另提供 17 份主流服务独立规则，以及一份 `Common` 常见服务合并规则；除了 PayPal 和 GitHub，其余服务均未预置到懒人配置。五种客户端各有独立格式，目录为 `rule/<客户端>/<规则名>/<规则名>.<扩展名>`。Clash、Stash、Egern 使用 `.yaml`，Loon、Shadowrocket 使用 `.list`。服务名与次序如下：
 
 | 类别 | 独立规则名 |
 |---|---|
@@ -35,7 +35,7 @@ AI 维持一份聚合规则，不按平台拆分。提供 17 份主流服务独�
 
 PayPal 独立规则包含 `paypal.com`、`paypalobjects.com`、`paypal.me` 及已核实的 `paypal.com.cn`、`paypal.com.hk`、`paypal.com.sg`、`paypal.jp` 地区入口；匹配到这份规则的流量在五端完整配置中默认走 `美国手动`，不回退到其他地区或直连。`Common` 合并 Hulu、Twitch、Reddit、Pinterest、Apple TV+、Paramount+、Peacock、Steam、Zoom、Vimeo、SoundCloud，以及部分 Meta 共用 CDN。共用 CDN 不能可靠地区分 Facebook、Instagram 与 WhatsApp，因此放在 `Common`。
 
-五端接入片段分别在 [Clash](config/Clash/Routing.yaml)、[Stash](config/Stash/Routing.yaml)、[Loon](config/Loon/Routing.lcf)、[Shadowrocket](config/Shadowrocket/Routing.conf)、[Egern](config/Egern/Routing.yaml)。将片段中的 `国内分流` 组及规则合并到现有配置，`PROXY` 必须是已经存在的代理策略；片段中的 `国内分流` 默认 `DIRECT`，可改选 `PROXY`。五端片段均包含 LAN 远程直连规则，合并时将它放在应用规则之前、中国 IP 规则之前。PayPal 行使用 `美国手动`，现有配置也必须有这个组并选中美国节点。规则顺序是 **LAN 直连 → AI → 独立服务（含 PayPal）→ Common → 中国 IP 分流 → 其余代理**。Clash / Stash 使用 `MATCH,PROXY` 作为最终规则，Loon / Shadowrocket 使用 `FINAL,PROXY`，Egern 使用 `default: policy: PROXY`。已有的宽泛规则及兜底必须检查顺序，不能让它们提前截获这些服务。
+五端可选接入片段分别在 [Clash](config/Clash/Routing.yaml)、[Stash](config/Stash/Routing.yaml)、[Loon](config/Loon/Routing.lcf)、[Shadowrocket](config/Shadowrocket/Routing.conf)、[Egern](config/Egern/Routing.yaml)。这些片段保留完整服务规则，供手动挑选和合并，不会自动加载到懒人配置中。将需要的规则合并到现有配置时，`PROXY` 必须是已经存在的代理策略；片段中的 `国内分流` 默认 `DIRECT`，可改选 `PROXY`。五端片段均包含 LAN 远程直连规则，合并时将它放在应用规则之前、中国 IP 规则之前。PayPal 行使用 `美国手动`，现有配置也必须有这个组并选中美国节点。片段规则顺序是 **LAN 直连 → AI → 独立服务（含 PayPal）→ Common → 中国 IP 分流 → 其余代理**。Clash / Stash 使用 `MATCH,PROXY` 作为最终规则，Loon / Shadowrocket 使用 `FINAL,PROXY`，Egern 使用 `default: policy: PROXY`。已有的宽泛规则及兜底必须检查顺序，不能让它们提前截获这些服务。
 
 清单见 [sources/foreign-services.json](sources/foreign-services.json)，生成命令：
 

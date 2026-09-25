@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build complete five-client routing profiles from the published rule lists."""
+"""Build minimal five-client routing profiles from the published rule lists."""
 
 import argparse
 from pathlib import Path
 
-from build_service_rules import BASE, CN_POLICY, PAYPAL_POLICY, load, ordered_groups
+from build_service_rules import BASE, CN_POLICY, PAYPAL_POLICY
 
 ROOT = Path(__file__).resolve().parents[1]
 REGIONS = (
@@ -20,7 +20,7 @@ TEST_URL = "https://www.gstatic.com/generate_204"
 
 
 def names():
-    return ["AI"] + [group["id"] for group in ordered_groups(load())]
+    return ("AI", "PayPal", "GitHub")
 
 
 def choices_for(name):
