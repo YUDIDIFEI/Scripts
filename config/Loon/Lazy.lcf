@@ -47,6 +47,7 @@ Instagram = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,
 WhatsApp = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
 GitHub = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
 Discord = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
+PayPal = select,美国手动,REJECT
 Google = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
 Microsoft = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
 Common = select,PROXY,香港手动,台湾手动,日本手动,新加坡手动,美国手动,DIRECT
@@ -80,6 +81,7 @@ https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Instagram/I
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/WhatsApp/WhatsApp.list,policy=WhatsApp,tag=WhatsApp,enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/GitHub/GitHub.list,policy=GitHub,tag=GitHub,enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Discord/Discord.list,policy=Discord,tag=Discord,enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/PayPal/PayPal.list,policy=PayPal,tag=PayPal,enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Google/Google.list,policy=Google,tag=Google,enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Microsoft/Microsoft.list,policy=Microsoft,tag=Microsoft,enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Common/Common.list,policy=Common,tag=Common,enabled=true

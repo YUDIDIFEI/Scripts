@@ -1,0 +1,12 @@
+# PayPal - overseas routing rules
+# Updated: 2026-09-25 | Rules: 7
+# Generated from sources/foreign-services.json; edit the source manifest.
+# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+domain_suffix_set:
+  - paypal.com
+  - paypal.com.cn
+  - paypal.com.hk
+  - paypal.com.sg
+  - paypal.jp
+  - paypal.me
+  - paypalobjects.com

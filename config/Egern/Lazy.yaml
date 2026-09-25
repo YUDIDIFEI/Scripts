@@ -114,6 +114,9 @@ policy_groups:
       name: Discord
       policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
   - select:
+      name: PayPal
+      policies: [美国手动, REJECT]
+  - select:
       name: Google
       policies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
   - select:
@@ -232,6 +235,11 @@ rules:
       name: Discord
       match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Discord/Discord.yaml
       policy: Discord
+      update_interval: 86400
+  - rule_set:
+      name: PayPal
+      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/PayPal/PayPal.yaml
+      policy: PayPal
       update_interval: 86400
   - rule_set:
       name: Google

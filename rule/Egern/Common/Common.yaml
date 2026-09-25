@@ -1,5 +1,5 @@
 # 常见境外流媒体与应用 - overseas routing rules
-# Updated: 2026-09-25 | Rules: 38
+# Updated: 2026-09-25 | Rules: 36
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 domain_set:
@@ -17,8 +17,6 @@ domain_suffix_set:
   - hulu.tv
   - jtvnw.net
   - paramountplus.com
-  - paypal.com
-  - paypalobjects.com
   - peacocktv.com
   - pin.it
   - pinimg.com

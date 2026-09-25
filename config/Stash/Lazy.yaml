@@ -125,6 +125,9 @@ proxy-groups:
     type: select
     proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
     use: [Nodes]
+  - name: PayPal
+    type: select
+    proxies: [美国手动, REJECT]
   - name: Google
     type: select
     proxies: [PROXY, 香港手动, 台湾手动, 日本手动, 新加坡手动, 美国手动, DIRECT]
@@ -229,6 +232,12 @@ rule-providers:
     url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Discord/Discord.yaml
     path: ./ruleset/Discord.yaml
     interval: 86400
+  PayPal:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/PayPal/PayPal.yaml
+    path: ./ruleset/PayPal.yaml
+    interval: 86400
   Google:
     behavior: classical
     format: yaml
@@ -273,6 +282,7 @@ rules:
   - RULE-SET,WhatsApp,WhatsApp
   - RULE-SET,GitHub,GitHub
   - RULE-SET,Discord,Discord
+  - RULE-SET,PayPal,PayPal
   - RULE-SET,Google,Google
   - RULE-SET,Microsoft,Microsoft
   - RULE-SET,Common,Common

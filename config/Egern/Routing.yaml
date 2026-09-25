@@ -1,5 +1,5 @@
 # Merge these items into your existing rules list.
-# PROXY must name an existing Egern policy.
+# PROXY and 美国手动 must name existing Egern policies; select a US node for PayPal.
 rules:
   - rule_set:
       name: AI
@@ -89,6 +89,12 @@ rules:
       name: Discord
       match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/Discord/Discord.yaml
       policy: PROXY
+      update_interval: 86400
+      disabled: false
+  - rule_set:
+      name: PayPal
+      match: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Egern/PayPal/PayPal.yaml
+      policy: 美国手动
       update_interval: 86400
       disabled: false
   - rule_set:

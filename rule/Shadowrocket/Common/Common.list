@@ -1,5 +1,5 @@
 # 常见境外流媒体与应用 - overseas routing rules
-# Updated: 2026-09-25 | Rules: 38
+# Updated: 2026-09-25 | Rules: 36
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 DOMAIN,hls-amt.itunes.apple.com
@@ -15,8 +15,6 @@ DOMAIN-SUFFIX,hulu.jp
 DOMAIN-SUFFIX,hulu.tv
 DOMAIN-SUFFIX,jtvnw.net
 DOMAIN-SUFFIX,paramountplus.com
-DOMAIN-SUFFIX,paypal.com
-DOMAIN-SUFFIX,paypalobjects.com
 DOMAIN-SUFFIX,peacocktv.com
 DOMAIN-SUFFIX,pin.it
 DOMAIN-SUFFIX,pinimg.com

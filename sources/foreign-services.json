@@ -83,9 +83,14 @@
       "suffixes": ["dis.gd", "discord.com", "discord.gg", "discord.gift", "discord.media", "discordapp.com", "discordapp.net", "discordcdn.com"]
     },
     {
+      "id": "PayPal", "name": "PayPal", "tier": "individual", "source": "paypal",
+      "domains": [],
+      "suffixes": ["paypal.com", "paypal.com.cn", "paypal.com.hk", "paypal.com.sg", "paypal.jp", "paypal.me", "paypalobjects.com"]
+    },
+    {
       "id": "Common", "name": "常见境外流媒体与应用", "tier": "combined", "source": "common",
       "domains": ["hls-amt.itunes.apple.com", "hls.itunes.apple.com", "hulu.playback.edge.bamgrid.com", "np-edge.itunes.apple.com", "play-edge.itunes.apple.com", "uts-api.itunes.apple.com"],
-      "suffixes": ["fbcdn.net", "fbsbx.com", "hulu.com", "hulu.jp", "hulu.tv", "twitch.tv", "twitchcdn.net", "jtvnw.net", "ttvnw.net", "reddit.com", "redd.it", "redditmedia.com", "redditstatic.com", "pinterest.com", "pinimg.com", "pin.it", "tv.apple.com", "paramountplus.com", "pplusstatic.com", "peacocktv.com", "steamcommunity.com", "steampowered.com", "steamstatic.com", "steamcontent.com", "paypal.com", "paypalobjects.com", "zoom.us", "zoom.com", "vimeo.com", "vimeocdn.com", "soundcloud.com", "sndcdn.com"]
+      "suffixes": ["fbcdn.net", "fbsbx.com", "hulu.com", "hulu.jp", "hulu.tv", "twitch.tv", "twitchcdn.net", "jtvnw.net", "ttvnw.net", "reddit.com", "redd.it", "redditmedia.com", "redditstatic.com", "pinterest.com", "pinimg.com", "pin.it", "tv.apple.com", "paramountplus.com", "pplusstatic.com", "peacocktv.com", "steamcommunity.com", "steampowered.com", "steamstatic.com", "steamcontent.com", "zoom.us", "zoom.com", "vimeo.com", "vimeocdn.com", "soundcloud.com", "sndcdn.com"]
     }
   ]
 }

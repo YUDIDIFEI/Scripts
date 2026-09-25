@@ -4,7 +4,7 @@
 import argparse
 from pathlib import Path
 
-from build_service_rules import BASE, load, ordered_groups
+from build_service_rules import BASE, PAYPAL_POLICY, load, ordered_groups
 
 ROOT = Path(__file__).resolve().parents[1]
 REGIONS = (
@@ -31,6 +31,10 @@ TEST_URL = "https://www.gstatic.com/generate_204"
 
 def names():
     return ["AI"] + [group["id"] for group in ordered_groups(load())]
+
+
+def choices_for(name):
+    return (PAYPAL_POLICY, "REJECT") if name == "PayPal" else ("PROXY", *REGION_GROUPS, "DIRECT")
 
 
 def target(client, name):
@@ -123,12 +127,14 @@ def yaml_profile(client):
         f"    proxies: [{', '.join(('AUTO', *REGION_GROUPS, 'REJECT'))}]",
     ]
     for group in names():
+        choices = choices_for(group)
         lines += [
             f"  - name: {group}",
             "    type: select",
-            f"    proxies: [{', '.join(('PROXY', *REGION_GROUPS, 'DIRECT'))}]",
-            "    use: [Nodes]",
+            f"    proxies: [{', '.join(choices)}]",
         ]
+        if group != "PayPal":
+            lines.append("    use: [Nodes]")
     lines += ["", "rule-providers:"]
     for name in names():
         lines += [f"  {name}:"]
@@ -179,7 +185,7 @@ def loon_profile():
         lines.append(f"{region}手动 = select,REJECT,{region}节点")
     lines.append(f"PROXY = select,{','.join(('AUTO', 'Nodes', *REGION_GROUPS, 'REJECT'))}")
     for group in names():
-        lines.append(f"{group} = select,{','.join(('PROXY', *REGION_GROUPS, 'DIRECT'))}")
+        lines.append(f"{group} = select,{','.join(choices_for(group))}")
     lines += ["", "[Rule]", "DOMAIN-SUFFIX,local,DIRECT"]
     for kind, value in PRIVATE_IPS:
         lines.append(f"{kind},{value},DIRECT,no-resolve")
@@ -208,7 +214,8 @@ def shadowrocket_profile():
     for region, pattern in REGIONS:
         lines.append(f"{region}手动 = select,REJECT,policy-regex-filter={pattern}|^REJECT$,policy-select-name=REJECT")
     for group in names():
-        lines.append(f"{group} = select,{','.join(('PROXY', *REGION_GROUPS, 'DIRECT'))},policy-select-name=PROXY")
+        choices = choices_for(group)
+        lines.append(f"{group} = select,{','.join(choices)},policy-select-name={choices[0]}")
     lines += ["", "[Rule]", "DOMAIN-SUFFIX,local,DIRECT"]
     for kind, value in PRIVATE_IPS:
         # Shadowrocket's IP-CIDR rule accepts both IPv4 and IPv6 addresses.
@@ -281,7 +288,7 @@ def egern_profile():
         lines += [
             "  - select:",
             f"      name: {group}",
-            f"      policies: [{', '.join(('PROXY', *REGION_GROUPS, 'DIRECT'))}]",
+            f"      policies: [{', '.join(choices_for(group))}]",
         ]
     lines += ["rules:", "  - domain_suffix:", "      match: local", "      policy: DIRECT"]
     for kind, value in PRIVATE_IPS:

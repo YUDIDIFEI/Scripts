@@ -1,4 +1,5 @@
 # Merge into existing sections; PROXY must name an existing policy.
+# PayPal requires an existing 美国手动 policy group with a US node.
 [Remote Rule]
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list, policy=PROXY, tag=AI, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/YouTube/YouTube.list, policy=PROXY, tag=YouTube, enabled=true
@@ -15,6 +16,7 @@ https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Instagram/I
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/WhatsApp/WhatsApp.list, policy=PROXY, tag=WhatsApp, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/GitHub/GitHub.list, policy=PROXY, tag=GitHub, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Discord/Discord.list, policy=PROXY, tag=Discord, enabled=true
+https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/PayPal/PayPal.list, policy=美国手动, tag=PayPal, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Google/Google.list, policy=PROXY, tag=Google, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Microsoft/Microsoft.list, policy=PROXY, tag=Microsoft, enabled=true
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/Common/Common.list, policy=PROXY, tag=Common, enabled=true

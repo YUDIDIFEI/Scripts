@@ -1,5 +1,6 @@
 # Merge these entries into existing rule-providers and rules sections.
 # Replace PROXY with an existing proxy policy group if needed.
+# PayPal requires an existing 美国手动 policy group with a US node.
 rule-providers:
   AI:
     behavior: classical
@@ -91,6 +92,12 @@ rule-providers:
     url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/Discord/Discord.yaml
     path: ./ruleset/Discord.yaml
     interval: 86400
+  PayPal:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Stash/PayPal/PayPal.yaml
+    path: ./ruleset/PayPal.yaml
+    interval: 86400
   Google:
     behavior: classical
     format: yaml
@@ -126,6 +133,7 @@ rules:
   - RULE-SET,WhatsApp,PROXY
   - RULE-SET,GitHub,PROXY
   - RULE-SET,Discord,PROXY
+  - RULE-SET,PayPal,美国手动
   - RULE-SET,Google,PROXY
   - RULE-SET,Microsoft,PROXY
   - RULE-SET,Common,PROXY
