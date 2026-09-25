@@ -3,6 +3,26 @@
 mode: rule
 log-level: warning
 ipv6: false
+mixed-port: 7890
+allow-lan: false
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - '*.local'
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver-policy:
+    '+.local': system
+    '+.lan': system
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
 
 proxy-providers:
   Nodes:

@@ -1,6 +1,37 @@
 # 完整分流配置。导入前将订阅占位链接换成 Egern 兼容的节点订阅。
 # 不含脚本、模块、MITM、证书或 Wi-Fi 对外代理。
 allow_external_connections: false
+bypass_tunnel_proxy:
+  - '*.local'
+  - '*.lan'
+  - 10.0.0.0/8
+  - 100.64.0.0/10
+  - 127.0.0.0/8
+  - 169.254.0.0/16
+  - 172.16.0.0/12
+  - 192.168.0.0/16
+real_ip_domains:
+  - '*.local'
+  - '*.lan'
+proxy_latency_test_url: https://www.gstatic.com/generate_204
+direct_latency_test_url: https://www.qq.com
+dns:
+  bootstrap:
+    - system
+  upstreams:
+    default:
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
+  forward:
+    - domain_suffix:
+        match: local
+        value: bootstrap
+    - domain_suffix:
+        match: lan
+        value: bootstrap
+    - domain_wildcard:
+        match: '*'
+        value: default
 policy_groups:
   - external:
       name: Nodes

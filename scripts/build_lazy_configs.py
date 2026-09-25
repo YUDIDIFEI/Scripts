@@ -42,7 +42,43 @@ def yaml_profile(client):
         "ipv6: false",
     ]
     if not stash:
-        lines += ["mixed-port: 7890", "allow-lan: false", "external-controller: 127.0.0.1:9090"]
+        lines += [
+            "mixed-port: 7890",
+            "allow-lan: false",
+            "external-controller: 127.0.0.1:9090",
+            "unified-delay: true",
+            "tcp-concurrent: true",
+            "profile:",
+            "  store-selected: true",
+            "  store-fake-ip: true",
+        ]
+    else:
+        lines += ["mixed-port: 7890", "allow-lan: false"]
+    lines += [
+        "", "dns:",
+        "  enable: true",
+        "  ipv6: false",
+        "  enhanced-mode: fake-ip",
+        "  fake-ip-range: 198.18.0.1/16",
+        "  fake-ip-filter:",
+        "    - '*.lan'",
+        "    - '*.local'",
+        "  default-nameserver:",
+        "    - 223.5.5.5",
+        "    - 119.29.29.29",
+        "  nameserver-policy:",
+        "    '+.local': system",
+        "    '+.lan': system",
+        "  nameserver:",
+        "    - https://doh.pub/dns-query",
+        "    - https://dns.alidns.com/dns-query",
+    ]
+    if not stash:
+        lines += [
+            "  proxy-server-nameserver:",
+            "    - 223.5.5.5",
+            "    - 119.29.29.29",
+        ]
     lines += ["", "proxy-providers:", "  Nodes:"]
     if not stash:
         lines += ["    type: http"]
@@ -81,7 +117,7 @@ def yaml_profile(client):
     for name in names():
         lines += [f"  {name}:"]
         if not stash:
-            lines += ["    type: http"]
+            lines += ["    type: http", "    proxy: PROXY"]
         lines += [
             "    behavior: classical",
             "    format: yaml",
@@ -104,9 +140,16 @@ def loon_profile():
         "# 完整分流配置。导入前将 Nodes 订阅占位链接换成你的 Loon 节点订阅。",
         "# 无需远程解析器、脚本、证书或 MITM。",
         "[General]",
+        "ip-mode = ipv4-preferred",
         "dns-server = system",
+        f"proxy-test-url = {TEST_URL}",
+        "internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204",
+        "test-timeout = 5",
+        "interface-mode = auto",
+        "udp-fallback-mode = REJECT",
         "allow-wifi-access = false",
-        "skip-proxy = 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,localhost,*.local",
+        "skip-proxy = 10.0.0.0/8,100.64.0.0/10,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,localhost,*.local",
+        "bypass-tun = 10.0.0.0/8,100.64.0.0/10,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,169.254.0.0/16,localhost,*.local",
         "", "[Proxy]", "", "[Remote Proxy]",
         f"Nodes = {SUBSCRIPTION},enabled=true",
         "", "[Proxy Group]",
@@ -130,8 +173,15 @@ def shadowrocket_profile():
         "# 完整分流配置。先在 Shadowrocket 首页加入节点订阅并选一个可用节点。",
         "# PROXY 指首页当前节点；无脚本、重写、MITM 或证书要求。",
         "[General]",
-        "dns-server = system",
-        "skip-proxy = 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,localhost,*.local",
+        "dns-server = https://doh.pub/dns-query,https://dns.alidns.com/dns-query,223.5.5.5,119.29.29.29",
+        "fallback-dns-server = system",
+        "ipv6 = true",
+        "prefer-ipv6 = false",
+        "private-ip-answer = true",
+        "hijack-dns = 8.8.8.8:53,8.8.4.4:53",
+        "udp-policy-not-supported-behaviour = REJECT",
+        "skip-proxy = 10.0.0.0/8,100.64.0.0/10,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,localhost,*.local",
+        "tun-excluded-routes = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16",
         "", "[Proxy]", "", "[Proxy Group]",
     ]
     for group in DEDICATED:
@@ -152,6 +202,37 @@ def egern_profile():
         "# 完整分流配置。导入前将订阅占位链接换成 Egern 兼容的节点订阅。",
         "# 不含脚本、模块、MITM、证书或 Wi-Fi 对外代理。",
         "allow_external_connections: false",
+        "bypass_tunnel_proxy:",
+        "  - '*.local'",
+        "  - '*.lan'",
+        "  - 10.0.0.0/8",
+        "  - 100.64.0.0/10",
+        "  - 127.0.0.0/8",
+        "  - 169.254.0.0/16",
+        "  - 172.16.0.0/12",
+        "  - 192.168.0.0/16",
+        "real_ip_domains:",
+        "  - '*.local'",
+        "  - '*.lan'",
+        f"proxy_latency_test_url: {TEST_URL}",
+        "direct_latency_test_url: https://www.qq.com",
+        "dns:",
+        "  bootstrap:",
+        "    - system",
+        "  upstreams:",
+        "    default:",
+        "      - https://doh.pub/dns-query",
+        "      - https://dns.alidns.com/dns-query",
+        "  forward:",
+        "    - domain_suffix:",
+        "        match: local",
+        "        value: bootstrap",
+        "    - domain_suffix:",
+        "        match: lan",
+        "        value: bootstrap",
+        "    - domain_wildcard:",
+        "        match: '*'",
+        "        value: default",
         "policy_groups:",
         "  - external:",
         "      name: Nodes",

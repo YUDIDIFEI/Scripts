@@ -1,9 +1,16 @@
 # 完整分流配置。导入前将 Nodes 订阅占位链接换成你的 Loon 节点订阅。
 # 无需远程解析器、脚本、证书或 MITM。
 [General]
+ip-mode = ipv4-preferred
 dns-server = system
+proxy-test-url = https://www.gstatic.com/generate_204
+internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
+test-timeout = 5
+interface-mode = auto
+udp-fallback-mode = REJECT
 allow-wifi-access = false
-skip-proxy = 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,localhost,*.local
+skip-proxy = 10.0.0.0/8,100.64.0.0/10,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,localhost,*.local
+bypass-tun = 10.0.0.0/8,100.64.0.0/10,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,169.254.0.0/16,localhost,*.local
 
 [Proxy]
 

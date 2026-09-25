@@ -16,7 +16,9 @@
 
 策略组 `PROXY` 默认走 `AUTO`；Clash / Stash 的流媒体及 AI 组可单独选订阅内节点，Loon / Egern 可通过各自的 `PROXY` / `Nodes` 策略调整，Shadowrocket 的 `PROXY` 使用首页所选节点。规则顺序为私网直连 → AI → 主流服务 → Common → `GEOIP,CN,DIRECT` → 其余代理。分流会从本仓库的远程规则集定期更新；首次使用必须能读取这些规则链接。流媒体地区解锁由节点出口和账号决定，自动测速不保证解锁。
 
-完整配置由 `python scripts/build_lazy_configs.py` 生成，`python scripts/build_lazy_configs.py --check` 检查是否与清单同步。未复制示例模板中的 MITM 证书、重写、脚本、外部转换器或对局域网开放的控制端口。
+五端配置已对照用户提供的模板检查。Loon 配置明确设置 IP 优先级、DNS、连通性检测、UDP 失效策略及局域网旁路；Shadowrocket 配置加入 DNS 备用、IPv6、私网解析与 TUN 旁路；Clash / Stash 配置加入 DNS 与 Fake IP，并让 `.local` / `.lan` 使用系统 DNS；Clash 的远程规则集更新通过 `PROXY`。Egern 配置加入 DNS、测速地址及局域网旁路。Clash 的系统代理或 TUN 开关仍由所用客户端和操作系统管理，配置不强制启用 TUN。未复制示例模板中的 MITM 证书、重写、脚本、外部订阅转换器或对局域网开放的控制端口。
+
+完整配置由 `python scripts/build_lazy_configs.py` 生成，`python scripts/build_lazy_configs.py --check` 检查是否与清单同步。
 
 ## 流媒体与其他应用
 
