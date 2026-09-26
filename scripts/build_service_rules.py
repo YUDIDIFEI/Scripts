@@ -99,7 +99,7 @@ def output_files(data):
         rule_lines = rules_for(group)
         header = (
             f"# {group['name']} - overseas routing rules\n"
-            f"# Updated: {data['updated']} | Rules: {len(rule_lines)}\n"
+            f"# Updated: {group.get('updated', data['updated'])} | Rules: {len(rule_lines)}\n"
             "# Generated from sources/foreign-services.json; edit the source manifest.\n"
             "# Source and scope: README.md | License: THIRD_PARTY_NOTICES.md\n"
         )

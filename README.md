@@ -33,7 +33,7 @@ AI 维持一份聚合规则，不按平台拆分。规则库另提供 17 份主�
 | 开发与通用平台 | GitHub、Google、Microsoft |
 | 支付 | PayPal |
 
-PayPal 独立规则包含 `paypal.com`、`paypalobjects.com`、`paypal.me` 及已核实的 `paypal.com.cn`、`paypal.com.hk`、`paypal.com.sg`、`paypal.jp` 地区入口；匹配到这份规则的流量在五端完整配置中默认走 `美国手动`，不回退到其他地区或直连。`Common` 合并 Hulu、Twitch、Reddit、Pinterest、Apple TV+、Paramount+、Peacock、Steam、Zoom、Vimeo、SoundCloud，以及部分 Meta 共用 CDN。共用 CDN 不能可靠地区分 Facebook、Instagram 与 WhatsApp，因此放在 `Common`。
+PayPal 独立规则包含 `paypal.com`、`paypalobjects.com`、`paypal.me` 及已核实的 `paypal.ca`、`paypal.com.cn`、`paypal.com.hk`、`paypal.com.sg`、`paypal.hk`、`paypal.jp` 地区入口；匹配到这份规则的流量在五端完整配置中默认走 `美国手动`，不回退到其他地区或直连。GitHub 独立规则还覆盖官方博客 `github.blog`、短链接 `gh.io` 和 GitHub Enterprise Cloud 数据驻留域名 `ghe.com`。`Common` 合并 Hulu、Twitch、Reddit、Pinterest、Apple TV+、Paramount+、Peacock、Steam、Zoom、Vimeo、SoundCloud，以及部分 Meta 共用 CDN。共用 CDN 不能可靠地区分 Facebook、Instagram 与 WhatsApp，因此放在 `Common`。
 
 五端可选接入片段分别在 [Clash](config/Clash/Routing.yaml)、[Stash](config/Stash/Routing.yaml)、[Loon](config/Loon/Routing.lcf)、[Shadowrocket](config/Shadowrocket/Routing.conf)、[Egern](config/Egern/Routing.yaml)。这些片段保留完整服务规则，供手动挑选和合并，不会自动加载到懒人配置中。将需要的规则合并到现有配置时，`PROXY` 必须是已经存在的代理策略；片段中的 `国内分流` 默认 `DIRECT`，可改选 `PROXY`。五端片段均包含 LAN 远程直连规则，合并时将它放在应用规则之前、中国 IP 规则之前。PayPal 行使用 `美国手动`，现有配置也必须有这个组并选中美国节点。片段规则顺序是 **LAN 直连 → AI → 独立服务（含 PayPal）→ Common → 中国 IP 分流 → 其余代理**。Clash / Stash 使用 `MATCH,PROXY` 作为最终规则，Loon / Shadowrocket 使用 `FINAL,PROXY`，Egern 使用 `default: policy: PROXY`。已有的宽泛规则及兜底必须检查顺序，不能让它们提前截获这些服务。
 
@@ -44,7 +44,7 @@ python scripts/build_service_rules.py
 python scripts/build_service_rules.py --check
 ```
 
-这些是常用服务域名清单，并非完整网络依赖白名单。未将整个云厂商、共享 CDN、ASN、动态 IP 或关键词强制代理；没有节点、DNS 或客户端真机联网验证。流媒体能否解锁还取决于节点地区和服务账号。CN 远程规则只包含 GeoIP 条件，不是中国 IP 地址数据库，也不能代替国内域名规则；Shadowrocket 继续在配置内使用 GeoIP 条件。LAN 远程规则收录截图中的特殊用途网段和原有直连网段；`198.18.0.0/15` 未放进使用 Fake IP 的 Clash / Stash 清单，其他三端保留。各客户端配置中的局域网旁路或 TUN 排除项仍保留。若现有配置已有国内域名直连规则，应放在兜底之前。来源主要为 [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community/tree/master/data) 中相应服务清单、各平台官网及用户提供的五端格式样例，许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。2026-09-25 已核对五端 PayPal 规则及五端 `国内分流` 的组引用、默认策略与规则顺序，并通过 104 份分流生成文件和 5 份完整配置的重复生成检查；未进行真机导入。
+这些是常用服务域名清单，并非完整网络依赖白名单。未将整个云厂商、共享 CDN、ASN、动态 IP 或关键词强制代理；没有节点、DNS 或客户端真机联网验证。流媒体能否解锁还取决于节点地区和服务账号。CN 远程规则只包含 GeoIP 条件，不是中国 IP 地址数据库，也不能代替国内域名规则；Shadowrocket 继续在配置内使用 GeoIP 条件。LAN 远程规则收录截图中的特殊用途网段和原有直连网段；`198.18.0.0/15` 未放进使用 Fake IP 的 Clash / Stash 清单，其他三端保留。各客户端配置中的局域网旁路或 TUN 排除项仍保留。若现有配置已有国内域名直连规则，应放在兜底之前。来源主要为 [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community/tree/master/data) 中相应服务清单、各平台官网及用户提供的五端格式样例，许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。本次新增的 PayPal 地区域名见其[香港](https://www.paypal.com/hk/legalhub/paypal/useragreement-full)和[加拿大](https://www.paypal.com/ca/legalhub/paypal/useragreement-full)用户协议；GitHub 域名见其[官方博客说明](https://docs.github.com/en/authentication/troubleshooting-ssh/error-host-key-verification-failed)、[官方短链接实例](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli)和 [GHE.com 网络说明](https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/network-details-for-ghecom)，并与 [v2fly GitHub 清单](https://github.com/v2fly/domain-list-community/blob/master/data/github)交叉核对。2026-09-26 已核对五端 PayPal 规则及五端 `国内分流` 的组引用、默认策略与规则顺序，并通过 104 份分流生成文件和 5 份完整配置的重复生成检查；未进行真机导入。
 
 ## AI 聚合规则
 

@@ -1,12 +1,14 @@
 # PayPal - overseas routing rules
-# Updated: 2026-09-25 | Rules: 7
+# Updated: 2026-09-26 | Rules: 9
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 payload:
+  - DOMAIN-SUFFIX,paypal.ca
   - DOMAIN-SUFFIX,paypal.com
   - DOMAIN-SUFFIX,paypal.com.cn
   - DOMAIN-SUFFIX,paypal.com.hk
   - DOMAIN-SUFFIX,paypal.com.sg
+  - DOMAIN-SUFFIX,paypal.hk
   - DOMAIN-SUFFIX,paypal.jp
   - DOMAIN-SUFFIX,paypal.me
   - DOMAIN-SUFFIX,paypalobjects.com

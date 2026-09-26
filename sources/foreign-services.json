@@ -63,9 +63,9 @@
       "suffixes": ["wa.me", "whatsapp.com", "whatsapp.net", "whatsapp.org"]
     },
     {
-      "id": "GitHub", "name": "GitHub", "tier": "individual", "source": "github",
+      "id": "GitHub", "name": "GitHub", "tier": "individual", "source": "github", "updated": "2026-09-26",
       "domains": ["github-api.arkoselabs.com"],
-      "suffixes": ["ghcr.io", "github.com", "github.dev", "github.io", "githubassets.com", "githubusercontent.com", "githubstatus.com", "githubsupport.com"]
+      "suffixes": ["gh.io", "ghcr.io", "ghe.com", "github.blog", "github.com", "github.dev", "github.io", "githubassets.com", "githubusercontent.com", "githubstatus.com", "githubsupport.com"]
     },
     {
       "id": "Google", "name": "Google 通用服务", "tier": "individual", "source": "google",
@@ -83,9 +83,9 @@
       "suffixes": ["dis.gd", "discord.com", "discord.gg", "discord.gift", "discord.media", "discordapp.com", "discordapp.net", "discordcdn.com"]
     },
     {
-      "id": "PayPal", "name": "PayPal", "tier": "individual", "source": "paypal",
+      "id": "PayPal", "name": "PayPal", "tier": "individual", "source": "paypal", "updated": "2026-09-26",
       "domains": [],
-      "suffixes": ["paypal.com", "paypal.com.cn", "paypal.com.hk", "paypal.com.sg", "paypal.jp", "paypal.me", "paypalobjects.com"]
+      "suffixes": ["paypal.ca", "paypal.com", "paypal.com.cn", "paypal.com.hk", "paypal.com.sg", "paypal.hk", "paypal.jp", "paypal.me", "paypalobjects.com"]
     },
     {
       "id": "Common", "name": "常见境外流媒体与应用", "tier": "combined", "source": "common",

@@ -1,10 +1,13 @@
 # GitHub - overseas routing rules
-# Updated: 2026-09-25 | Rules: 9
+# Updated: 2026-09-26 | Rules: 12
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 payload:
   - DOMAIN,github-api.arkoselabs.com
+  - DOMAIN-SUFFIX,gh.io
   - DOMAIN-SUFFIX,ghcr.io
+  - DOMAIN-SUFFIX,ghe.com
+  - DOMAIN-SUFFIX,github.blog
   - DOMAIN-SUFFIX,github.com
   - DOMAIN-SUFFIX,github.dev
   - DOMAIN-SUFFIX,github.io
