@@ -4,12 +4,18 @@
 
 仅用于非商业学习研究，修改套用请保留原作署名及来源。该适配不是广电官方组件，也不代表原作者维护 Egern 版。
 
-显示话费余额、剩余流量、剩余语音、剩余比例与更新时间。原生 Egern JS，无需 Scriptable、DmYY 或 BoxJs；登录获取、参数、样式、清除登录都在 Egern 内操作。**v1.0.0：17 项本地测试通过，已检查 96 个合成布局；实际账号查询和 Egern / iPhone 运行仍需实机确认。**
+显示话费余额、剩余流量、剩余语音、剩余比例与更新时间。原生 Egern JS，无需 Scriptable、DmYY 或 BoxJs；登录获取、参数、样式、清除登录都在 Egern 内操作。**v1.0.1：补全 app.10099.com.cn 登录获取，查询沿用获取时的域名；21 项本地测试通过。实际账号查询和 Egern / iPhone 运行仍需实机确认。**
+
+### 从 v1.0.0 更新
+
+同时更新下面的**显示模块和登录获取模块**，确认两个模块描述都出现 `v1.0.1`。只更新获取模块时，旧显示脚本仍会向 wx 域名查询。新版模块中的 JS URL 带 `?v=1.0.1`，用于触发重新下载；独立添加的通用脚本也需手动更新脚本或使用这个带版本号的 JS URL。保留已有参数，不需要重新安装证书或清除登录。
+
+更新后启用登录获取模块，关闭再开启 Egern 连接，然后重新打开广电营业厅，进入余额或套餐余量页面刷新。成功通知会显示版本和来源域名（如 `v1.0.1`、`app.10099.com.cn`）。确认小组件能查询后，再关闭获取模块。
 
 ## 安装和获取登录
 
 1. 在 **Egern → 工具 → 模块 → +** 导入[中国广电小组件模块](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet.yaml)。
-2. 再导入[中国广电登录获取模块](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet-capture.yaml)，仅在需要获取登录时启用。它只声明 `wx.10099.com.cn` 的 HTTPS 解密和原作查询路径的请求脚本；需要 Egern 的 MITM 证书已在手机安装并信任。
+2. 再导入[中国广电登录获取模块](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet-capture.yaml)，仅在需要获取登录时启用。它只声明 `wx.10099.com.cn`、`app.10099.com.cn` 的 HTTPS 解密，且只处理 `/contact-web/api/busi/qryUserInfo` 查询路径的 POST；需要 Egern 的 MITM 证书已在手机安装并信任。
 3. 开启 Egern 连接，在微信的 **“中国广电营业厅”小程序**完成登录，再刷新账户首页或查询一次余额。只登录而未触发查询可能无法获取。
 4. Egern 提示“登录参数已保存在 Egern”后，到 **分析 → 小组件画廊 → 中国广电**运行，核对实际余额。通知仅表示参数已保存，是否有效以本次查询为准。
 5. 获取完成后关闭 **“中国广电登录获取”模块**，保留 **“中国广电小组件”模块**。登录失效时再临时开启获取模块，回营业厅重新登录并刷新。
@@ -22,7 +28,7 @@ https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBr
 https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet-capture.yaml
 ```
 
-获取脚本只保存请求头 `access` 和请求 JSON 的 `data`，不会获取微信登录密码、短信验证码或其他网站 Cookie。凭据仅写入 Egern 的脚本存储，查询时只发送至固定的 `https://wx.10099.com.cn/contact-web/api/busi/qryUserInfo`；不在通知、日志、小组件或本仓库显示凭据。MITM 是否能捕获该版本的小程序请求仍取决于手机环境，不绕过证书校验或应用权限。
+获取脚本保存请求头 `access`、请求 JSON 的 `data` 和受限的查询地址，不会获取微信登录密码、短信验证码或其他网站 Cookie。凭据仅写入 Egern 的脚本存储，查询只访问获取时同一域名的 HTTPS `/contact-web/api/busi/qryUserInfo`，仅允许 `wx.10099.com.cn` 和 `app.10099.com.cn`；不跨域尝试登录，也不在通知、日志、小组件或本仓库显示凭据。旧版已获取的登录继续使用 wx 域名。MITM 是否能捕获该版本的小程序请求仍取决于手机环境，不绕过证书校验或应用权限。
 
 ## 全部在 Egern 设置
 
@@ -38,6 +44,7 @@ https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBr
 | 语音颜色 | `VOICE_COLOR` | 留空使用橙色 |
 | 手动 access | `ACCESS` | 自动获取后留空；手动时两项一起填 |
 | 手动 data | `BODY` | 填 JSON 的 `data` 字符串，或完整含 data 的 JSON 请求体 |
+| 手动查询域名 | `API_HOST` | wx.10099.com.cn / app.10099.com.cn；仅手动 ACCESS/BODY 使用，默认 wx；自动获取忽略此项 |
 | 登录操作 | `ACTION` | 正常显示 / 清除登录 |
 
 Egern 的 `default_value` 只是输入提示，脚本自身提供默认值。若测试版未显示参数控件，可在 Env 手动添加表中的英文键名，大小写保持一致。
@@ -46,7 +53,11 @@ Egern 的 `default_value` 只是输入提示，脚本自身提供默认值。若
 
 ### 手动填写与存储读取问题
 
-如未能自动获取，或收到保存通知后组件仍提示未登录，可通过 Egern 自己的请求查看功能读取上述**同一次查询**的 `access` 请求头和请求体 `data`，在模块中成对填写 `ACCESS` / `BODY`。不要填整串 Cookie，也不要把值发给他人或提交到 GitHub。手动两项优先于自动获取；只填一项会提示错误，不与旧登录拼接。切回自动获取时把两项同时清空。
+如未能自动获取，或收到保存通知后组件仍提示未登录，可通过 Egern 自己的请求查看功能读取上述**同一次查询**的 `access` 请求头和请求体 `data`，在模块中成对填写 `ACCESS` / `BODY`，并把 `API_HOST` 选为该请求的域名。不要填整串 Cookie，也不要把值发给他人或提交到 GitHub。手动两项优先于自动获取；只填一项会提示错误，不与旧登录拼接。切回自动获取时把两项同时清空。
+
+如果完全没有保存通知，先核对两个模块均已更新并启用，刷新的是已登录的余额/套餐余量页面。分析列表中只有 `域名:443` 和 `TLS` 时，还没有看到具体 HTTP 路径，不能据此确认查询脚本已运行。需要查看路径时，可在 Egern 的 HTTP 抓包设置中**临时**添加实际访问的上述域名，再重新连接和刷新；这是与 MITM 域名分开的记录设置，详见 [Egern 官方 HTTP 抓包说明](https://egernapp.com/zh-CN/docs/configuration/http_captures/)。记录中可能包含登录参数，排查只反馈域名、路径和脚本错误文字，不分享请求头、请求体或完整抓包。排查结束关闭临时抓包。
+
+本版没有仅因截图出现 `h5.10099.com.cn` 就添加该域名；目前没有其账户查询路径与参数的证据。如果实际 HTTP 路径不同，需按脱敏后的真实路径继续确认，不能靠扩大为全站通配符解决。
 
 官方文档提供脚本持久化存储，但未明确所有版本跨脚本共享的细节。本实现用同一脚本文件和固定存储键连接获取与显示；在 2.21.0 (788) 的具体效果仍需实机验证。手动参数方式不依赖跨脚本读取。
 
@@ -58,7 +69,7 @@ Egern 的 `default_value` 只是输入提示，脚本自身提供默认值。若
 
 ### 如需自行添加可排序的小组件
 
-先在 **工具 → 脚本 → +** 新建独立的“通用”脚本，远程 URL 填[china-broadnet.js](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet.js)，超时设为 15 秒。再到小组件画廊点“+”，选择该独立脚本。参数填在这个脚本的 Env，优先使用手动 `ACCESS` / `BODY`，不依赖模块脚本能否被选中或共享存储。实际排序由客户端控制。
+先在 **工具 → 脚本 → +** 新建独立的“通用”脚本，远程 URL 填[china-broadnet.js](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet.js?v=1.0.1)，超时设为 15 秒。再到小组件画廊点“+”，选择该独立脚本。参数填在这个脚本的 Env，优先使用手动 `ACCESS` / `BODY`，并设置对应的 `API_HOST`，不依赖模块脚本能否被选中或共享存储。实际排序由客户端控制。
 
 ## 数据口径与失败处理
 

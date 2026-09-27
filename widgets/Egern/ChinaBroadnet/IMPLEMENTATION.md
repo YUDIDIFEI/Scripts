@@ -37,3 +37,12 @@
 - https://egernapp.com/zh-CN/docs/configuration/scriptings/
 - https://egernapp.com/zh-CN/docs/configuration/modules/
 - https://egernapp.com/zh-CN/docs/configuration/widgets/
+
+## v1.0.1 登录获取排障（2026-09-27）
+
+- 用户确认 MITM 已开启且证书已信任，但无保存通知；截图显示访问 `app.10099.com.cn:443`，以及一个 h5 域名。v1.0.0 的模块和脚本均只接受 wx，确定漏掉 app 请求。截图仅显示 TLS 连接，不包含当前小程序的具体 HTTP 路径，不能据此声称账户查询已实机验证。
+- 原查询脚本 `livinmoon/study/Scripts/ChinaBroadnet/ChinaBroadnet.js` 使用获取时保存的 URL、access 和 data。`NOTICE.md` 补充的公开运营商模块含 app 域名的同一 `qryUserInfo` 路径。这提供兼容修复的源码依据，不等同于运营商公开接口合同。
+- 获取模块和脚本限定为 wx / app 两个 HTTPS 域名及原查询路径，兼容显式 443 端口。保存时将规范化后的地址与 access/data 成组写入；查询跟随该地址，不拿 app 登录跨域请求 wx。兼容旧版无 endpoint 的 wx 存储；拒绝不在白名单中的存储地址。
+- 手动登录新增 `API_HOST` 两项选择，自动获取时忽略该项。两个模块使用同一个带 `?v=1.0.1` 的 JS URL，帮助更新时避开旧脚本缓存；保留全部原作者署名。
+- 新增 4 项回归测试，在旧实现上均失败；修复后语法检查通过，完整小组件测试共 **21 项通过**。覆盖 app 获取及查询、跨入口成组替换、旧登录兼容、手动入口及非法域名拒绝；原有界面、单位、失败提示与来源声明检查继续通过。
+- 本次未更改布局，未重做 96 个模拟布局的视觉验收；未访问用户账号、未调整用户手机配置。Egern 2.21.0 (788) 的真实获取、跨脚本读取和当前接口仍待手机确认。若更新后无通知，应查看实际 HTTP 路径或脚本错误，再决定后续修复。

@@ -1,5 +1,5 @@
 /**
- * 中国广电 Egern 小组件 v1.0.0
+ * 中国广电 Egern 小组件 v1.0.1
  * 原作：脑瓜 / anker1209，ChinaBroadnet_2024 v1.2.2。
  * https://github.com/anker1209/Scriptable/blob/main/scripts/ChinaBroadnet_2024.js
  * 登录获取参考：wuhuhuuuu/study（现 livinmoon/study）。
@@ -8,8 +8,11 @@
  * 完整声明见同目录 NOTICE.md。无 BoxJs、DmYY 或外部运行库。
  */
 
-const VERSION = '1.0.0';
-const ENDPOINT = 'https://wx.10099.com.cn/contact-web/api/busi/qryUserInfo';
+const VERSION = '1.0.1';
+const API_HOSTS = ['wx.10099.com.cn', 'app.10099.com.cn'];
+const QUERY_PATH = '/contact-web/api/busi/qryUserInfo';
+const ENDPOINTS = API_HOSTS.map(host => `https://${host}${QUERY_PATH}`);
+const ENDPOINT = ENDPOINTS[0];
 const STORAGE_KEY = 'YUDIDIFEI.ChinaBroadnet.session.v1';
 const STYLES = ['彩色条目', '图标卡片', '双环仪表', '余额清单', '经典圆环', '简洁文字'];
 const COLORS = {
@@ -54,12 +57,19 @@ function parseBodySetting(value) {
   }
   return validData(input) ? input : null;
 }
+function captureEndpoint(url) {
+  if (typeof url !== 'string' || /[\s#]/.test(url)) return null;
+  const match = /^https:\/\/(wx|app)\.10099\.com\.cn(?::443)?\/contact-web\/api\/busi\/qryUserInfo(?:\?[^\s#]*)?$/.exec(url);
+  return match ? `https://${match[1]}.10099.com.cn${QUERY_PATH}` : null;
+}
 function readSaved(storage) {
   const raw = storage?.get(STORAGE_KEY);
   if (!raw) return null;
   try {
     const session = JSON.parse(raw);
-    return validAccess(session?.access) && validData(session?.data) ? session : null;
+    // v1.0.0 saved only wx sessions, without an endpoint field.
+    const endpoint = session?.endpoint === undefined ? ENDPOINT : session.endpoint;
+    return validAccess(session?.access) && validData(session?.data) && ENDPOINTS.includes(endpoint) ? { ...session, endpoint } : null;
   } catch { return null; }
 }
 function resolveSession(ctx) {
@@ -68,7 +78,9 @@ function resolveSession(ctx) {
   if (access || rawBody) {
     const data = parseBodySetting(rawBody);
     if (!validAccess(access) || !validData(data)) return { error: '请同时填写有效的 ACCESS 和 BODY，或同时清空后使用已获取的登录。' };
-    return { session: { access, data } };
+    const host = String(ctx.env?.API_HOST || API_HOSTS[0]).trim();
+    if (!API_HOSTS.includes(host)) return { error: '手动查询域名只能选择 wx.10099.com.cn 或 app.10099.com.cn。' };
+    return { session: { access, data, endpoint: `https://${host}${QUERY_PATH}` } };
   }
   try { return { session: readSaved(ctx.storage) }; }
   catch { return { error: '无法读取 Egern 本地登录，请检查脚本存储或手动填写 ACCESS 和 BODY。' }; }
@@ -79,8 +91,9 @@ function notify(ctx, body) {
 }
 async function captureSession(ctx) {
   const request = ctx.request;
-  // Restrict to the known endpoint without relying on an undocumented URL global.
-  if (request.method?.toUpperCase() !== 'POST' || typeof request.url !== 'string' || /[\s#]/.test(request.url) || !(request.url === ENDPOINT || request.url.startsWith(`${ENDPOINT}?`))) return;
+  // Only the two known origins and the account query path may supply a session.
+  const endpoint = captureEndpoint(request.url);
+  if (request.method?.toUpperCase() !== 'POST' || !endpoint) return;
   let raw;
   try { raw = await request.text(); }
   catch { notify(ctx, '未能读取请求体，原有登录未替换。请确认获取脚本已开启请求体读取。'); return; }
@@ -95,9 +108,10 @@ async function captureSession(ctx) {
       return passthrough;
     }
     const previous = readSaved(ctx.storage);
-    if (previous?.access !== access || previous?.data !== data) {
-      ctx.storage.set(STORAGE_KEY, JSON.stringify({ access, data, capturedAt: new Date().toISOString() }));
-      notify(ctx, '登录参数已保存在 Egern。请运行小组件确认，然后关闭“中国广电登录获取”模块。');
+    if (previous?.access !== access || previous?.data !== data || previous?.endpoint !== endpoint) {
+      ctx.storage.set(STORAGE_KEY, JSON.stringify({ access, data, endpoint, capturedAt: new Date().toISOString() }));
+      const host = endpoint.slice('https://'.length).split('/')[0];
+      notify(ctx, `v${VERSION} 登录参数已保存在 Egern（${host}）。请运行小组件确认，然后关闭“中国广电登录获取”模块。`);
     }
   } catch {
     notify(ctx, '登录参数未保存，原有登录未替换。请检查请求格式和 Egern 脚本存储。');
@@ -139,7 +153,7 @@ async function loadReport(ctx, config = readConfig(ctx.env)) {
   if (auth.error) return result({ state: 'unconfigured', message: auth.error });
   if (!auth.session) return result({ state: 'unconfigured', message: '启用登录获取模块，在广电营业厅小程序登录并刷新；也可在 Egern 手动填写 ACCESS 和 BODY。' });
   try {
-    const response = await ctx.http.post(ENDPOINT, {
+    const response = await ctx.http.post(auth.session.endpoint, {
       headers: { access: auth.session.access, 'content-type': 'application/json' },
       body: JSON.stringify({ data: auth.session.data }),
       timeout: 10000, policy: 'DIRECT', credentials: 'omit', redirect: 'error',

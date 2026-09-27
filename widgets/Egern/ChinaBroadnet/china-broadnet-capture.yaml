@@ -1,5 +1,5 @@
 name: "中国广电登录获取"
-description: "临时启用：登录广电营业厅小程序并刷新，获取后关闭此模块。参考 wuhuhuuuu/study（现 livinmoon）；配合脑瓜原作的 Egern 适配 v1.0.0。仅非商业学习研究。"
+description: "临时启用：登录广电营业厅并刷新余额，支持 wx / app 两个查询入口，获取后关闭此模块。参考 wuhuhuuuu/study（现 livinmoon）；配合脑瓜原作的 Egern 适配 v1.0.1。仅非商业学习研究。"
 author: "脑瓜 / livinmoon（来源） / YUDIDIFEI（Egern 适配）"
 homepage: "https://github.com/livinmoon/study/tree/main/Scripts/ChinaBroadnet"
 manual: "https://github.com/YUDIDIFEI/Scripts/blob/master/widgets/Egern/ChinaBroadnet/README.md"
@@ -7,8 +7,8 @@ icon: "key.fill"
 scriptings:
   - http_request:
       name: "china-broadnet-capture"
-      match: '^https://wx\.10099\.com\.cn/contact-web/api/busi/qryUserInfo(?:\?.*)?$'
-      script_url: "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet.js"
+      match: '^https://(wx|app)\.10099\.com\.cn(?::443)?/contact-web/api/busi/qryUserInfo(?:\?[^\s#]*)?$'
+      script_url: "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet.js?v=1.0.1"
       body_required: true
       max_size: 131072
       timeout: 5
@@ -16,3 +16,4 @@ scriptings:
 mitm:
   hostnames:
     - "wx.10099.com.cn"
+    - "app.10099.com.cn"

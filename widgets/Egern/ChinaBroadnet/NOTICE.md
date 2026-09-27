@@ -15,6 +15,8 @@
 - 广电重写教程原链接：https://github.com/wuhuhuuuu/study/tree/main/Scripts/ChinaBroadnet
 - 目前跳转至 **livinmoon/study**：https://github.com/livinmoon/study/tree/main/Scripts/ChinaBroadnet
 - 获取脚本核对版本：https://github.com/livinmoon/study/blob/ae52122a84208e9e8e0f0e18539a51c72e3e4e4c/Scripts/ChinaBroadnet/ChinaBroadnet.cookie.js
+- 查询时使用获取地址的逻辑参考：https://github.com/livinmoon/study/blob/main/Scripts/ChinaBroadnet/ChinaBroadnet.js
+- app 入口匹配参考：[运营商信息组件模块](https://gist.github.com/bautistaclay6027/3d08e00d7dc26c6ab12031d7a814f4cb)。该公开源码标注模块作者“午时已到”、署名 wuhuhuuuu / dompling，包含 app.10099.com.cn 的同名查询路径；本适配仅参考入口，不复制其运行库。
 - 原教程另致谢 chavyleung；原 Scriptable 组件依赖 dompling 的 [DmYY](https://github.com/dompling/Scriptable/blob/master/Scripts/DmYY.js)。本 Egern 版不包含、不下载、不执行 DmYY 或 Env，也不接入 BoxJs。
 
 ## 保留作者发布声明

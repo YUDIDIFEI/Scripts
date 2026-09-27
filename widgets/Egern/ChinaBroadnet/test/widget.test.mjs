@@ -46,8 +46,54 @@ test('unchanged capture does not send repeated success notifications', async () 
   await main(ctx); assert.equal(ctx.notices.length, 0); assert.equal(storage.get(STORAGE_KEY), previous);
 });
 
+test('app capture keeps the query on the captured host, including explicit HTTPS port and query strings', async () => {
+  const endpoint = ENDPOINT.replace('wx.', 'app.');
+  for (const url of [endpoint, endpoint + '?from=account', endpoint.replace('.cn/', '.cn:443/')]) {
+    const storage = memoryStorage(), ctx = requestContext({ storage, url });
+    assert.deepEqual(await main(ctx), { body: JSON.stringify({ data: DATA }) });
+    assert.equal(ctx.reads(), 1); assert.equal(ctx.notices.length, 1);
+    assert.equal(JSON.parse(storage.get(STORAGE_KEY)).endpoint, endpoint);
+    const query = widgetContext({ storage, env: { API_HOST: 'wx.10099.com.cn' } });
+    assert.equal((await loadReport(query)).state, 'ready');
+    assert.equal(query.calls[0].url, endpoint);
+    assert.deepEqual(query.calls[0].options.headers, { access: ACCESS, 'content-type': 'application/json' });
+  }
+});
+
+test('capturing the other allowed host replaces the entire session even if access and data match', async () => {
+  const storage = memoryStorage();
+  for (const url of [ENDPOINT, ENDPOINT.replace('wx.', 'app.'), ENDPOINT]) {
+    const ctx = requestContext({ storage, url }); await main(ctx);
+    assert.equal(JSON.parse(storage.get(STORAGE_KEY)).endpoint, url); assert.equal(ctx.notices.length, 1);
+    const query = widgetContext({ storage }); await loadReport(query); assert.equal(query.calls[0].url, url);
+  }
+});
+
+test('legacy sessions keep the wx endpoint and untrusted stored endpoints never receive credentials', async () => {
+  const session = { access: ACCESS, data: DATA };
+  const legacy = widgetContext({ storage: memoryStorage({ [STORAGE_KEY]: JSON.stringify(session) }) });
+  assert.equal((await loadReport(legacy)).state, 'ready'); assert.equal(legacy.calls[0].url, ENDPOINT);
+  for (const endpoint of ['https://example.invalid/query', ENDPOINT.replace('.cn/', '.cn.example.invalid/'), ENDPOINT + '/other', ENDPOINT.replace('https:', 'http:'), '', null]) {
+    const ctx = widgetContext({ storage: memoryStorage({ [STORAGE_KEY]: JSON.stringify({ ...session, endpoint }) }) });
+    assert.equal((await loadReport(ctx)).state, 'unconfigured'); assert.equal(ctx.calls.length, 0);
+  }
+});
+
+test('manual credentials select only an allowed API host and never probe another host on failure', async () => {
+  for (const API_HOST of ['wx.10099.com.cn', 'app.10099.com.cn']) {
+    const ctx = widgetContext({ env: { ...manual, API_HOST }, status: 401 });
+    assert.equal((await loadReport(ctx)).state, 'failed'); assert.equal(ctx.calls.length, 1);
+    assert.equal(ctx.calls[0].url, ENDPOINT.replace('wx.10099.com.cn', API_HOST));
+  }
+  for (const API_HOST of ['example.invalid', 'app.10099.com.cn.example.invalid', 'https://app.10099.com.cn', 'h5.10099.com.cn']) {
+    const ctx = widgetContext({ env: { ...manual, API_HOST } });
+    assert.equal((await loadReport(ctx)).state, 'unconfigured'); assert.equal(ctx.calls.length, 0);
+    assert.ok(!JSON.stringify(await main(ctx)).includes(ACCESS));
+  }
+});
+
 test('capture ignores other origins, paths and methods before consuming or storing a body', async () => {
-  const cases = [{ url: ENDPOINT.replace('https:', 'http:') }, { url: ENDPOINT.replace('wx.10099.com.cn', 'wx.10099.com.cn.example.invalid') }, { url: ENDPOINT + '/other' }, { url: ENDPOINT + '#fragment' }, { url: ENDPOINT + '\n' }, { method: 'GET' }, { url: 'invalid-url' }];
+  const cases = [{ url: ENDPOINT.replace('https:', 'http:') }, { url: ENDPOINT.replace('wx.10099.com.cn', 'wx.10099.com.cn.example.invalid') }, { url: ENDPOINT.replace('wx.', 'app.').replace('.cn/', '.cn.example.invalid/') }, { url: ENDPOINT.replace('wx.', 'h5.') }, { url: ENDPOINT.replace('.cn/', '.cn:444/') }, { url: ENDPOINT + '/other' }, { url: ENDPOINT + '#fragment' }, { url: ENDPOINT + '\n' }, { method: 'GET' }, { url: 'invalid-url' }];
   for (const options of cases) {
     const ctx = requestContext(options); assert.equal(await main(ctx), undefined);
     assert.equal(ctx.reads(), 0); assert.equal(ctx.storage.values.size, 0); assert.equal(ctx.notices.length, 0);

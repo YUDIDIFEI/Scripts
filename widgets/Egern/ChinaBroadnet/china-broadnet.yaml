@@ -1,5 +1,5 @@
 name: "中国广电小组件"
-description: "话费、剩余流量与语音。脑瓜原作，YUDIDIFEI Egern 适配 v1.0.0；仅非商业学习研究，无需 BoxJs / DmYY。"
+description: "话费、剩余流量与语音。脑瓜原作，YUDIDIFEI Egern 适配 v1.0.1；仅非商业学习研究，无需 BoxJs / DmYY。"
 author: "脑瓜（原作） / YUDIDIFEI（Egern 适配）"
 homepage: "https://github.com/anker1209/Scriptable/blob/main/scripts/ChinaBroadnet_2024.js"
 manual: "https://github.com/YUDIDIFEI/Scripts/blob/master/widgets/Egern/ChinaBroadnet/README.md"
@@ -33,6 +33,11 @@ env_schema:
   BODY:
     name: "手动 data（可选）"
     description: "自动获取后留空。填同一次请求 JSON 中的 data 字符串，也支持粘贴完整的含 data 请求体。与 ACCESS 成对使用。"
+  API_HOST:
+    name: "手动查询域名（可选）"
+    description: "仅手动填写 ACCESS / BODY 时使用，选择这次请求的域名。自动获取会沿用实际获取域名，无需设置此项。"
+    default_value: "wx.10099.com.cn"
+    options: ["wx.10099.com.cn", "app.10099.com.cn"]
   ACTION:
     name: "登录操作"
     description: "选“清除登录”后运行小组件，删除本组件保存的登录。先关闭获取模块；手动 ACCESS/BODY 需另行清空，再切回正常显示。"
@@ -41,7 +46,7 @@ env_schema:
 scriptings:
   - generic:
       name: "china-broadnet"
-      script_url: "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet.js"
+      script_url: "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet.js?v=1.0.1"
       timeout: 15
       update_interval: 86400
 widgets:
