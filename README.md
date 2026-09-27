@@ -28,7 +28,7 @@ Clash / Stash / Loon 的 `PROXY` 默认走 `AUTO`，Egern 的 `PROXY` 默认走 
 
 在 Egern 的“工具 → 模块”中添加上述链接，设置“检测策略组”为现有组的完整名称，再在小组件画廊选择“节点 IP 质量”。检测该策略组当次使用的出口，显示 IP、地区、ASN、第三方风险与媒体 / AI 页面探测结果；以后可随时修改检测策略组。媒体页面可达不代表登录后解锁。已通过本地针对性测试，Egern / iPhone 实机路由、显示与刷新仍待验证。
 
-模块小组件无法拖动时，可使用[自建入口模块](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuality/ip-quality-manual.yaml)，按[自建小组件说明](widgets/Egern/IPQuality/README.md#自建小组件入口)手动创建普通小组件。测试版中的实际排序效果仍需实机验证。
+需要普通小组件时，按[独立脚本安装说明](widgets/Egern/IPQuality/README.md#独立脚本安装)，先在“工具 → 脚本”创建独立脚本，再关联小组件。此前只加载模块脚本的自建方案已撤回；测试版中的实际排序效果仍需实机验证。
 
 ## 流媒体与其他应用
 

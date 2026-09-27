@@ -1,8 +1,8 @@
-name: "节点 IP 质量检测（自建入口）"
-description: "只提供检测脚本和参数，请在小组件画廊手动添加普通小组件。v1.0.0"
+name: "节点 IP 质量检测（兼容入口）"
+description: "旧自建入口的兼容模块，已补回小组件声明；不提供排序能力。检测脚本 v1.0.0"
 author: "YUDIDIFEI"
 icon: "network"
-manual: "https://github.com/YUDIDIFEI/Scripts/blob/master/widgets/Egern/IPQuality/README.md#自建小组件入口"
+manual: "https://github.com/YUDIDIFEI/Scripts/blob/master/widgets/Egern/IPQuality/README.md#旧自建入口链接"
 env_schema:
   POLICY:
     name: "检测策略组"
@@ -31,3 +31,6 @@ scriptings:
       script_url: "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuality/ip-quality.js"
       timeout: 30
       update_interval: 86400
+widgets:
+  - name: "节点 IP 质量（兼容入口）"
+    script_name: "ip-quality-manual"

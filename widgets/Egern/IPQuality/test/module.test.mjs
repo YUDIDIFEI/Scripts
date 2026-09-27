@@ -21,7 +21,7 @@ test('module YAML parses, links a real generic script and exposes the implemente
   assert.ok(!Object.hasOwn(module.env_schema.IPAPI_KEY, 'default_value'));
 });
 
-test('manual-entry module uses the same detector and settings without creating a module widget', () => {
+test('legacy manual URL declares its own gallery widget without depending on the script picker', () => {
   const readModule = path => {
     const doc = parseDocument(readFileSync(new URL(path, import.meta.url), 'utf8'), { uniqueKeys: true });
     assert.deepEqual(doc.errors, []);
@@ -29,11 +29,14 @@ test('manual-entry module uses the same detector and settings without creating a
   };
   const original = readModule('../ip-quality.yaml');
   const manual = readModule('../ip-quality-manual.yaml');
-  assert.ok(!Object.hasOwn(manual, 'widgets'));
+  assert.equal(manual.widgets.length, 1);
   assert.deepEqual(manual.env_schema, original.env_schema);
   assert.equal(manual.scriptings.length, 1);
   const generic = manual.scriptings[0].generic;
   assert.equal(generic.name, 'ip-quality-manual');
+  assert.equal(manual.widgets[0].script_name, generic.name);
+  assert.equal(manual.widgets[0].name, '节点 IP 质量（兼容入口）');
+  assert.notEqual(manual.widgets[0].name, original.widgets[0].name);
   assert.deepEqual({ ...generic, name: original.scriptings[0].generic.name }, original.scriptings[0].generic);
   for (const field of ['rules', 'policy_groups', 'mitm', 'url_rewrites', 'map_locals']) assert.ok(!Object.hasOwn(manual, field));
 });

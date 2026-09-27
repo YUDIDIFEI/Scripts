@@ -23,25 +23,24 @@ https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuali
 
 若 Egern 版本未显示自动生成的参数控件，可在模块 **Env** 手动添加 `POLICY`，值为完整策略组名称。运行需要支持官方文档中的 native generic 脚本 / Widget DSL / `ctx.http` API 的版本。
 
-### 自建小组件入口
+### 独立脚本安装
 
-如果模块自带的小组件无法拖动，可改为手动添加普通小组件，继续复用同一检测脚本：
-
-1. 在“工具 → 模块”添加[自建入口模块](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuality/ip-quality-manual.yaml)，将原模块的检测策略组等参数填到新模块中。此模块只提供脚本和参数，不自动生成小组件。
-2. 在“分析 → 小组件画廊”点 **+**，名称填 **节点 IP 质量（自建）**，脚本选择 **ip-quality-manual**，保存。
-3. 运行新建的小组件，确认检测目标和结果；再进入 Egern 的小组件排序页面尝试移动这一项。
-4. 确认可用后停用原来的“节点 IP 质量检测”模块；如果桌面也添加了小组件，将其选择的名称改为“节点 IP 质量（自建）”。
-
-**验证边界：** 用户反馈 Egern 2.21.0 (788) 测试版中的模块小组件无法拖动。官方没有公开模块小组件的排序控制参数；本方案把小组件条目交给主配置管理，并没有修复客户端的拖动逻辑。该版本的实际拖动、脚本选择和参数继承仍需实机确认。如果脚本选择器不展示模块脚本，使用下方独立脚本安装方式。
-
-### 独立脚本安装（可选）
+用户在 Egern 2.21.0 (788) 测试版中确认：新建小组件的脚本选择器找不到模块内的 `ip-quality-manual`。因此不能靠安装“只提供脚本”的模块完成自建。按官方自建流程，先在“工具 → 脚本”独立创建脚本，再关联普通小组件：
 
 1. Egern → 工具 → 脚本 → +，名称填 `ip-quality-local`，类型选 `generic`，文件位置选远程，URL 填本仓库 [ip-quality.js 原始链接](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuality/ip-quality.js)。
 2. 脚本超时设为 30 秒；在脚本 Env 中添加 `POLICY`，值为要检测的完整策略组名称。其他参数也可放在该脚本的 Env 中。此方式的参数独立于模块设置。
 3. 分析 → 左上角小组件画廊 → +，名称填“节点 IP 质量（独立）”，脚本选 `ip-quality-local`。
-4. 运行画廊内的小组件核对结果，再尝试排序或添加到主屏幕。确认可用后再停用不再使用的模块。
+4. 保存并运行，核对策略组与出口。再在小组件排序页面尝试拖动“节点 IP 质量（独立）”；确认可用后停用不再使用的模块，桌面小组件也改选这个新名称。
 
 也可将第 1 步的文件位置改为本地，文件名填 `ip-quality-local.js`，在“编辑文件”中粘贴同一脚本的内容。
+
+此流程直接创建独立脚本，不依赖模块脚本能否出现在选择器里。独立脚本需要单独设置 `POLICY`，不会自动继承模块参数。788 上的实际运行与拖动效果仍需实机确认；脚本无法控制 Egern 的排序页面。
+
+### 旧自建入口链接
+
+此前的 `ip-quality-manual.yaml` 仅定义脚本，没有 `widgets`，不会自动生成画廊条目；它依赖的跨模块脚本选择步骤也已被用户反馈不可用。该安装方案已撤回。
+
+为保持已导入链接可用，现已在[旧链接](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuality/ip-quality-manual.yaml)补回完整的小组件声明，条目名为 **节点 IP 质量（兼容入口）**。已安装者可更新模块恢复画廊入口；它仍属于模块小组件，不代表排序问题已解决。新安装使用上方常规模块或独立脚本方式。
 
 ## 参数
 
