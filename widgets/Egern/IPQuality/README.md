@@ -23,12 +23,25 @@ https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuali
 
 若 Egern 版本未显示自动生成的参数控件，可在模块 **Env** 手动添加 `POLICY`，值为完整策略组名称。运行需要支持官方文档中的 native generic 脚本 / Widget DSL / `ctx.http` API 的版本。
 
-### 本地文件安装（可选）
+### 自建小组件入口
 
-1. Egern → 工具 → 脚本 → +，名称填 `ip-quality`，类型选 `generic`，文件位置选本地，文件名填 `ip-quality.js`。
-2. 在“编辑文件”中粘贴本仓库 `ip-quality.js` 的内容并保存，脚本超时设为 30 秒；在脚本 Env 中添加 `POLICY`，值为要检测的完整策略组名称。
-3. 分析 → 左上角小组件画廊 → +，名称填“节点 IP 质量”，脚本选 `ip-quality`。其他参数也可放在该脚本的 Env 中。
-4. 运行画廊内的小组件核对结果，再添加到主屏幕。
+如果模块自带的小组件无法拖动，可改为手动添加普通小组件，继续复用同一检测脚本：
+
+1. 在“工具 → 模块”添加[自建入口模块](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuality/ip-quality-manual.yaml)，将原模块的检测策略组等参数填到新模块中。此模块只提供脚本和参数，不自动生成小组件。
+2. 在“分析 → 小组件画廊”点 **+**，名称填 **节点 IP 质量（自建）**，脚本选择 **ip-quality-manual**，保存。
+3. 运行新建的小组件，确认检测目标和结果；再进入 Egern 的小组件排序页面尝试移动这一项。
+4. 确认可用后停用原来的“节点 IP 质量检测”模块；如果桌面也添加了小组件，将其选择的名称改为“节点 IP 质量（自建）”。
+
+**验证边界：** 用户反馈 Egern 2.21.0 (788) 测试版中的模块小组件无法拖动。官方没有公开模块小组件的排序控制参数；本方案把小组件条目交给主配置管理，并没有修复客户端的拖动逻辑。该版本的实际拖动、脚本选择和参数继承仍需实机确认。如果脚本选择器不展示模块脚本，使用下方独立脚本安装方式。
+
+### 独立脚本安装（可选）
+
+1. Egern → 工具 → 脚本 → +，名称填 `ip-quality-local`，类型选 `generic`，文件位置选远程，URL 填本仓库 [ip-quality.js 原始链接](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuality/ip-quality.js)。
+2. 脚本超时设为 30 秒；在脚本 Env 中添加 `POLICY`，值为要检测的完整策略组名称。其他参数也可放在该脚本的 Env 中。此方式的参数独立于模块设置。
+3. 分析 → 左上角小组件画廊 → +，名称填“节点 IP 质量（独立）”，脚本选 `ip-quality-local`。
+4. 运行画廊内的小组件核对结果，再尝试排序或添加到主屏幕。确认可用后再停用不再使用的模块。
+
+也可将第 1 步的文件位置改为本地，文件名填 `ip-quality-local.js`，在“编辑文件”中粘贴同一脚本的内容。
 
 ## 参数
 

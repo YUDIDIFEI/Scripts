@@ -1,0 +1,33 @@
+name: "节点 IP 质量检测（自建入口）"
+description: "只提供检测脚本和参数，请在小组件画廊手动添加普通小组件。v1.0.0"
+author: "YUDIDIFEI"
+icon: "network"
+manual: "https://github.com/YUDIDIFEI/Scripts/blob/master/widgets/Egern/IPQuality/README.md#自建小组件入口"
+env_schema:
+  POLICY:
+    name: "检测策略组"
+    description: "必填。填写 Egern 中完整策略组名称，包含表情和空格。每次检测使用该组的当次出口。"
+    default_value: "请填写策略组名称"
+  MEDIA_TEST:
+    name: "媒体与 AI 页面检测"
+    description: "默认开启。探测页面或端点可达性，不代表登录后解锁。关闭可减少耗时和流量。"
+    default_value: "true"
+    options: ["true", "false"]
+  MASK_IP:
+    name: "隐藏完整 IP"
+    description: "默认关闭。打开后遮盖小组件中的 IP 地址，适合截图。"
+    default_value: "false"
+    options: ["true", "false"]
+  REFRESH_MINUTES:
+    name: "刷新间隔（分钟）"
+    description: "默认 60，范围 15–1440。向 iOS 请求刷新，实际执行时间由系统决定。"
+    default_value: "60"
+  IPAPI_KEY:
+    name: "ipapi.is API Key（可选）"
+    description: "不填也能使用。填入自己的 Key 可获得 ipapi 完整字段；仅保存在 Egern 配置，不要分享含 Key 的配置。"
+scriptings:
+  - generic:
+      name: "ip-quality-manual"
+      script_url: "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuality/ip-quality.js"
+      timeout: 30
+      update_interval: 86400
