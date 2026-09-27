@@ -151,6 +151,36 @@ test('valid output renders for all seven families, including a long group name',
   for (const family of families) validateDSL(renderWidget(report, family));
 });
 
+test('compact large layout preserves partial failure, raw score, media results and masking', async () => {
+  const report = await collectReport(mockContext({ env: { POLICY: '美国手动', MASK_IP: 'true' }, overrides: {
+    [ENDPOINTS.ippure]: { ...pure, fraudScore: 86, isResidential: false },
+    [ENDPOINTS.ipapi]: new Error('synthetic timeout'),
+    [ENDPOINTS.ipify]: { httpStatus: 400, rawBody: 'synthetic bad request' },
+    'https://www.tiktok.com/': 'Verify that you are human',
+  } }));
+  const before = structuredClone(report);
+  const widget = renderWidget(report, 'systemLarge'); validateDSL(widget);
+  const texts = node => [node.type === 'text' ? node.text : '', ...(node.children || []).flatMap(texts)];
+  const content = texts(widget).join('\n');
+  for (const label of ['美国手动', 'IPPure 风险', '86', '/100', '非住宅', '原生 IP', '仅页面探测', '出口复核失败', 'ipapi 未响应', 'ipify HTTP 400']) assert.ok(content.includes(label), label);
+  for (const media of report.media) {
+    assert.ok(content.includes(media.name === 'ChatGPT Web' ? 'ChatGPT' : media.name));
+    assert.ok(content.includes(media.label));
+  }
+  assert.ok(!content.includes(IP));
+  assert.deepEqual(report, before);
+});
+
+test('rendered risk keeps zero distinct from missing score', async () => {
+  for (const score of [0, null]) {
+    const report = await collectReport(mockContext({ overrides: { [ENDPOINTS.ippure]: { ...pure, fraudScore: score } } }));
+    const widget = renderWidget(report, 'systemLarge'); validateDSL(widget);
+    const json = JSON.stringify(widget);
+    if (score === 0) { assert.match(json, /"text":"0"/); assert.match(json, /"text":"\/100"/); }
+    else { assert.match(json, /"text":"未知"/); assert.doesNotMatch(json, /\/100/); }
+  }
+});
+
 test('refresh defaults and bounds are respected; media off emits only three probes', async () => {
   for (const value of ['', '-1', 'bad']) assert.equal(readConfig({ REFRESH_MINUTES: value }).refreshMinutes, 60);
   assert.equal(readConfig({ REFRESH_MINUTES: '1' }).refreshMinutes, 15);

@@ -1,5 +1,5 @@
 name: "节点 IP 质量检测"
-description: "检测指定策略组当前出口，显示 IP / ASN / 风险及媒体页面探测。v1.0.0"
+description: "检测指定策略组当前出口，显示 IP / ASN / 风险及媒体页面探测。v1.1.0"
 author: "YUDIDIFEI"
 icon: "network"
 env_schema:

@@ -1,11 +1,11 @@
 /**
- * Egern 节点检测小组件 v1.0.0
+ * Egern 节点检测小组件 v1.1.0
  * 按 POLICY 指定策略探测当前出口；不修改策略、不读取账号 Cookie、不缓存旧结论。
  * Media probe approach adapted from MaYIHEI/paperclip (MIT); see NOTICE.
  * References in upstream: Roddy-D/Loon_plugins and xykt/IPQuality.
  */
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const ENDPOINTS = {
   ippure: 'https://my.ippure.com/v1/info',
   ipapi: 'https://api.ipapi.is/',
@@ -14,12 +14,13 @@ const ENDPOINTS = {
 const MEDIA = ['ChatGPT Web', 'Netflix', 'YouTube', 'TikTok', 'Prime Video', 'Reddit'];
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1';
 const COLORS = {
-  background: { light: '#FFFFFF', dark: '#17212B' },
-  text: { light: '#152E40', dark: '#F1F6FA' },
-  muted: { light: '#546776', dark: '#B0C0CF' },
-  accent: { light: '#096D9C', dark: '#72C7EC' },
-  warning: { light: '#986000', dark: '#FFCF7A' },
-  error: { light: '#B32835', dark: '#FF9AA5' },
+  background: { light: '#FFFFFF', dark: '#17191F' },
+  panel: { light: '#F0F3F7', dark: '#242932' },
+  text: { light: '#202630', dark: '#F2F4F8' },
+  muted: { light: '#687283', dark: '#A4AEBB' },
+  accent: { light: '#276F9A', dark: '#83C4EC' },
+  warning: { light: '#946019', dark: '#EDC581' },
+  error: { light: '#AE3939', dark: '#F0A6A1' },
 };
 
 export default async function main(ctx) {
@@ -308,24 +309,75 @@ function stack(children, direction = 'column', extra = {}) {
 function row(children, extra = {}) { return stack(children, 'row', extra); }
 function footer(report, short = false) {
   return row([
-    text(short ? '检测于' : '本次检测', 10, 'muted'),
-    { type: 'date', date: report.updatedAt, format: 'time', font: { size: 10 }, textColor: COLORS.muted },
+    text('检测于', 9, 'muted'),
+    { type: 'date', date: report.updatedAt, format: 'time', font: { size: 9 }, textColor: COLORS.muted },
     { type: 'spacer' },
     ...(!short ? [text(`v${VERSION}`, 9, 'muted')] : []),
-  ]);
+  ], { height: 12, gap: 3 });
 }
-function mediaLine(m, compact = false) {
+function header(policy, small) {
+  const children = [
+    { type: 'image', src: 'sf-symbol:network', width: 13, height: 13, color: COLORS.accent },
+    text('节点检测', 11, 'text', { font: { size: 11, weight: 'semibold' } }),
+  ];
+  if (!small) children.push({ type: 'spacer' }, stack([text(policy, 10, 'accent', { textAlign: 'center' })], 'column', {
+    width: Math.min(156, Math.max(58, [...policy].length * 10 + 14)), height: 20,
+    padding: [3, 7], backgroundColor: COLORS.panel, borderRadius: 6,
+  }));
+  return row(children, { height: small ? 16 : 20, gap: 5 });
+}
+function mediaLine(m) {
   return row([
-    text(m.name === 'ChatGPT Web' && compact ? 'ChatGPT' : m.name, compact ? 10 : 12, 'text', { flex: 1 }),
-    text([m.label, m.region].filter(Boolean).join(' '), compact ? 10 : 12,
+    text(m.name === 'ChatGPT Web' ? 'ChatGPT' : m.name, 10, 'text', { flex: 1 }),
+    text([m.label, m.region].filter(Boolean).join(' '), 9,
       m.state === 'reachable' ? 'accent' : m.state === 'restricted' ? 'warning' : 'muted', { flex: 1, textAlign: 'right' }),
-  ]);
+  ], { height: 12, gap: 3 });
+}
+function mediaCell(m) {
+  const color = m.state === 'reachable' ? 'accent' : m.state === 'restricted' ? 'warning' : 'muted';
+  return stack([
+    row([
+      text(m.name === 'ChatGPT Web' ? 'ChatGPT' : m.name, 11, 'text', { font: { size: 11, weight: 'medium' } }),
+      { type: 'spacer' },
+      { type: 'image', src: 'sf-symbol:circle.fill', width: 5, height: 5, color: COLORS[color] },
+    ], { height: 13, gap: 3 }),
+    text([m.label, m.region].filter(Boolean).join(' · '), 9.5, color),
+  ], 'column', { flex: 1, height: 25, gap: 1 });
+}
+function mediaGrid(media) {
+  const rows = [];
+  for (let i = 0; i < media.length; i += 2) rows.push(row(media.slice(i, i + 2).map(mediaCell), { height: 25, gap: 18 }));
+  return stack([
+    row([text('媒体与 AI', 11, 'text', { font: { size: 11, weight: 'semibold' } }), { type: 'spacer' }, text('仅页面探测', 9, 'muted')], { height: 14 }),
+    stack(rows, 'column', { gap: 3 }),
+  ], 'column', { height: 100, gap: 5 });
+}
+function riskBand(risk) {
+  const known = risk.score !== null && risk.score !== undefined;
+  const score = row([
+    text(known ? risk.score : '未知', known ? 21 : 15, known ? 'warning' : 'muted', { font: { size: known ? 21 : 15, weight: 'semibold' } }),
+    ...(known ? [text('/100', 10, 'muted')] : []),
+  ], { height: 25, gap: 2 });
+  const metric = (label, value) => stack([
+    text(label, 9, 'muted'), text(value || '未知', 13, 'text', { font: { size: 13, weight: 'medium' } }),
+  ], 'column', { flex: 1, height: 38, gap: 5 });
+  return row([
+    stack([text('IPPure 风险', 9, 'muted'), score], 'column', { flex: 1.2, height: 38, gap: 2 }),
+    metric('IP 类型', risk.type), metric('IP 归属', risk.native),
+  ], { height: 54, padding: [8, 10], gap: 10, backgroundColor: COLORS.panel, borderRadius: 10 });
 }
 function statusText(report) {
-  if (report.state === 'inconsistent') return '出口不一致，请重试';
-  if (report.warnings?.length) return report.warnings[report.warnings.length - 1];
+  if (report.state === 'inconsistent') return '出口不一致，风险与媒体结论已停用';
+  if (report.warnings?.some(w => w.includes('出口复核失败'))) return '出口复核失败，页面结果待确认';
+  if (report.warnings?.length) return '部分来源不可用，缺失数据为未知';
   if (!report.config.media) return '媒体检测已关闭';
   return '页面探测不代表实际解锁';
+}
+function sourceText(report) {
+  const failures = (report.sources || []).filter(s => !s.ok).map(s => `${s.name} ${String(s.error).match(/HTTP \d+/)?.[0] || '未响应'}`);
+  const parts = failures.length ? failures : [`基础信息 ${report.profile?.source || '未知'}`];
+  if (report.risk?.abuse !== null && report.risk?.abuse !== undefined) parts.push(`ipapi 网络滥用 ${report.risk.abuse}`);
+  return parts.join(' · ');
 }
 function renderWidget(report, family = 'systemMedium') {
   const config = report.config;
@@ -333,7 +385,7 @@ function renderWidget(report, family = 'systemMedium') {
   const accessory = String(family).startsWith('accessory');
   const large = family === 'systemLarge' || family === 'systemExtraLarge';
   const widget = {
-    type: 'widget', padding: accessory ? 0 : large ? 14 : 12, gap: accessory ? 2 : 4,
+    type: 'widget', padding: accessory ? 0 : large ? 14 : 12, gap: accessory ? 2 : large ? 5 : 3,
     backgroundColor: COLORS.background,
     refreshAfter: new Date(Date.parse(report.updatedAt) + config.refreshMinutes * 60000).toISOString(),
     children: [],
@@ -342,7 +394,7 @@ function renderWidget(report, family = 'systemMedium') {
   if (problem) {
     widget.children = [text(problem, accessory ? 12 : 15, report.state === 'failed' ? 'error' : 'accent', { maxLines: 2 })];
     if (!accessory) {
-      widget.children.push(text(report.state === 'unconfigured' ? '工具 → 模块 → 本模块\n填写“检测策略组”' : '检查 Egern 连接、策略组名称及接口状态', 12, 'muted', { maxLines: 3 }));
+      widget.children.push(text(report.state === 'unconfigured' ? '环境变量 POLICY\n填写完整策略组名称' : '检查 Egern 连接、策略组名称及接口状态', 11, 'muted', { maxLines: 3 }));
       if (config.policy) widget.children.push(text(config.policy, 12));
       widget.children.push({ type: 'spacer' }, footer(report, small));
     }
@@ -361,44 +413,49 @@ function renderWidget(report, family = 'systemMedium') {
       : [text(family === 'accessoryCircular' ? 'IPPure' : config.policy, 11), text(warning ? '出口变化' : score, 14), ...(family === 'accessoryRectangular' ? [text(ip, 11)] : [])];
     return widget;
   }
-  widget.children.push(row([
-    { type: 'image', src: 'sf-symbol:network', width: 14, height: 14, color: COLORS.accent },
-    text('节点检测', 12, 'accent', { font: { size: 12, weight: 'semibold' } }),
-    ...(!small ? [text(config.policy, 12, 'muted', { flex: 1, textAlign: 'right' })] : []),
-  ]));
+  widget.children.push(header(config.policy, small));
   if (small) {
-    widget.children.push(text(config.policy, 12), text(ip, 17, 'text', { font: { size: 17, weight: 'semibold', family: 'Menlo' }, minScale: 0.5 }));
-    widget.children.push(text(location, 11, 'muted'), text(warning ? '出口不一致' : `IPPure ${score}`, 14, warning ? 'warning' : 'accent'));
+    widget.children.push(text(config.policy, 11, 'muted'), text(ip, 17, 'text', { font: { size: 17, weight: 'semibold', family: 'Menlo' }, minScale: 0.5 }));
+    widget.children.push(text(location, 10, 'muted'), text(warning ? '出口不一致' : `IPPure 风险 ${score}`, 12, warning ? 'warning' : 'text'));
     const summary = warning ? '请重试' : config.media
       ? `页面可达 ${report.media.filter(m => m.state === 'reachable').length}/${report.media.length} · 非解锁结论`
       : `${risk.type || '未知'} · 媒体关闭`;
-    widget.children.push(text(report.warnings?.length && !warning ? '部分数据缺失/待复核' : summary, 10, 'muted'), { type: 'spacer' }, footer(report, true));
+    widget.children.push(text(report.warnings?.length && !warning ? '部分数据缺失/待复核' : summary, 9, 'muted'), { type: 'spacer' }, footer(report, true));
   } else if (large) {
-    widget.children.push(text(ip, 23, 'text', { font: { size: 23, weight: 'semibold', family: 'Menlo' }, minScale: 0.5 }));
-    widget.children.push(text(location, 13), text([profile.asn, profile.organization].filter(Boolean).join(' ') || 'ASN / 机构未知', 11, 'muted'));
-    widget.children.push(row([text(`IPPure ${score}`, 17, warning ? 'warning' : 'accent', { flex: 1 }), text(`${risk.type} / ${risk.native}`, 11, 'muted', { flex: 1, textAlign: 'right' })]));
-    widget.children.push(text(`ipapi 网络滥用比例：${risk.abuse ?? '未知'}　基础来源：${profile.source}`, 10, 'muted'));
-    if (report.media.length) {
-      widget.children.push(text('媒体与 AI · 页面探测', 12, 'accent'));
-      widget.children.push(stack(report.media.map(m => mediaLine(m)), 'column', { gap: 2 }));
-    }
-    widget.children.push(text(statusText(report), 11, report.warnings.length ? 'warning' : 'muted', { maxLines: 2 }));
-    if (warning) widget.children.push(text(report.observations.map(o => `${o.source} ${displayIP(o.ip, config.mask)}`).join('\n'), 10, 'muted', { maxLines: 4 }));
-    else widget.children.push(text(report.sources.map(s => `${s.name} ${s.ok ? '已返回' : s.error}`).join(' / '), 10, 'muted', { maxLines: 2 }));
+    widget.children.push(stack([
+      text(ip, 22, 'text', { font: { size: 22, weight: 'semibold', family: 'Menlo' }, minScale: 0.5 }),
+      text(location, 12),
+      text([profile.asn, profile.organization].filter(Boolean).join(' ') || 'ASN / 机构未知', 10, 'muted'),
+    ], 'column', { height: 56, gap: 2 }));
+    widget.children.push(riskBand(risk));
+    if (warning) {
+      widget.children.push(stack([
+        text('检测到多个出口', 11, 'warning', { font: { size: 11, weight: 'semibold' } }),
+        ...(report.observations || []).map(o => row([
+          text(o.source, 10, 'muted'), { type: 'spacer' },
+          text(displayIP(o.ip, config.mask), 10, 'text', { font: { size: 10, family: 'Menlo' }, flex: 1, textAlign: 'right', minScale: 0.5 }),
+        ], { height: 17 })),
+      ], 'column', { height: 110, gap: 4 }));
+    } else if (report.media.length) widget.children.push(mediaGrid(report.media));
+    else widget.children.push(stack([text('媒体检测已关闭', 11, 'muted')], 'column', { height: 32 }));
+    widget.children.push(stack([
+      text(statusText(report), 10, report.warnings.length ? 'warning' : 'muted'),
+      text(sourceText(report), 9, 'muted'),
+    ], 'column', { height: 25, gap: 2 }));
     widget.children.push({ type: 'spacer' }, footer(report));
   } else {
     const base = stack([
       text(ip, 17, 'text', { font: { size: 17, weight: 'semibold', family: 'Menlo' }, minScale: 0.5 }),
       text(location, 11, 'muted'),
-      text(profile.asn || 'ASN 未知', 11, 'muted'),
-      text(warning ? '出口不一致' : `IPPure ${score}`, 14, warning ? 'warning' : 'accent'),
-      text(`${risk.type} / ${risk.native}`, 10, 'muted'),
-    ], 'column', { flex: 1, gap: 2 });
-    const media = stack(report.media.length ? report.media.map(m => mediaLine(m, true)) : [
+      text(profile.asn || 'ASN 未知', 9, 'muted'),
+      text(warning ? '出口不一致' : `IPPure 风险 ${score}`, 11, warning ? 'warning' : 'text'),
+      text(`${risk.type} / ${risk.native}`, 9, 'muted'),
+    ], 'column', { flex: 1, height: 78, gap: 2 });
+    const media = stack(report.media.length ? report.media.map(mediaLine) : [
       text(warning ? '多个出口，未执行媒体检测' : '媒体检测已关闭', 12, 'muted', { maxLines: 3 }),
-    ], 'column', { flex: 1, gap: 2 });
-    widget.children.push(row([base, media], { gap: 14, alignItems: 'start' }));
-    widget.children.push(text(statusText(report), 10, report.warnings.length ? 'warning' : 'muted'), { type: 'spacer' }, footer(report));
+    ], 'column', { flex: 1, height: 78, gap: 1 });
+    widget.children.push(row([base, media], { height: 78, gap: 12, alignItems: 'start' }));
+    widget.children.push(text(statusText(report), 9, report.warnings.length ? 'warning' : 'muted'), { type: 'spacer' }, footer(report));
   }
   return widget;
 }

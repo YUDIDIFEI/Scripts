@@ -1,5 +1,5 @@
 name: "节点 IP 质量检测（兼容入口）"
-description: "旧自建入口的兼容模块，已补回小组件声明；不提供排序能力。检测脚本 v1.0.0"
+description: "旧自建入口的兼容模块，已补回小组件声明；不提供排序能力。检测脚本 v1.1.0"
 author: "YUDIDIFEI"
 icon: "network"
 manual: "https://github.com/YUDIDIFEI/Scripts/blob/master/widgets/Egern/IPQuality/README.md#旧自建入口链接"
