@@ -30,6 +30,12 @@ Clash / Stash / Loon 的 `PROXY` 默认走 `AUTO`，Egern 的 `PROXY` 默认走 
 
 需要普通小组件时，按[独立脚本安装说明](widgets/Egern/IPQuality/README.md#独立脚本安装)，先在“工具 → 脚本”创建独立脚本，再关联小组件。此前只加载模块脚本的自建方案已撤回；测试版中的实际排序效果仍需实机验证。
 
+## Egern 中国广电小组件
+
+[小组件模块](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet.yaml) · [临时登录获取模块](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet-capture.yaml) · [安装说明](widgets/Egern/ChinaBroadnet/README.md)
+
+**脑瓜 / anker1209 原作，YUDIDIFEI Egern 适配**；登录获取参考 wuhuhuuuu/study（现 livinmoon/study）。显示广电话费、剩余流量及语音，在 Egern 内获取或填写登录并选择样式，无需 BoxJs / DmYY。仅非商业学习研究，修改套用须保留[来源及作者声明](widgets/Egern/ChinaBroadnet/NOTICE.md)。实际账号与手机运行仍需验证。
+
 ## 流媒体与其他应用
 
 AI 维持一份聚合规则，不按平台拆分。规则库另提供 17 份主流服务独立规则，以及一份 `Common` 常见服务合并规则；除了 PayPal 和 GitHub，其余服务均未预置到懒人配置。五种客户端各有独立格式，目录为 `rule/<客户端>/<规则名>/<规则名>.<扩展名>`。Clash、Stash、Egern 使用 `.yaml`，Loon、Shadowrocket 使用 `.list`。服务名与次序如下：

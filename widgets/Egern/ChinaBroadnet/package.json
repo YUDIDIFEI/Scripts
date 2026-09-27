@@ -1,0 +1,13 @@
+{
+  "name": "egern-china-broadnet",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check china-broadnet.js",
+    "test": "node --test test/*.test.mjs",
+    "preview": "node tools/preview.mjs"
+  },
+  "engines": { "node": ">=22" },
+  "devDependencies": { "yaml": "^2.9.1" }
+}

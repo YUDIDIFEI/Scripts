@@ -1,0 +1,49 @@
+name: "中国广电小组件"
+description: "话费、剩余流量与语音。脑瓜原作，YUDIDIFEI Egern 适配 v1.0.0；仅非商业学习研究，无需 BoxJs / DmYY。"
+author: "脑瓜（原作） / YUDIDIFEI（Egern 适配）"
+homepage: "https://github.com/anker1209/Scriptable/blob/main/scripts/ChinaBroadnet_2024.js"
+manual: "https://github.com/YUDIDIFEI/Scripts/blob/master/widgets/Egern/ChinaBroadnet/README.md"
+icon: "antenna.radiowaves.left.and.right"
+env_schema:
+  ACCOUNT_NAME:
+    name: "账号备注"
+    description: "中、大尺寸右上角显示的备注，默认“我的广电”；无需填写手机号。"
+    default_value: "我的广电"
+  STYLE:
+    name: "小尺寸样式"
+    description: "六种布局按原作展示思路适配；中尺寸固定显示三项指标，大尺寸显示余额与双额度卡片。"
+    default_value: "彩色条目"
+    options: ["彩色条目", "图标卡片", "双环仪表", "余额清单", "经典圆环", "简洁文字"]
+  REFRESH_MINUTES:
+    name: "刷新间隔（分钟）"
+    description: "默认 60，范围 15–1440。实际刷新由 iOS 调度。"
+    default_value: "60"
+  FEE_COLOR:
+    name: "话费颜色（可选）"
+    description: "填写 #RRGGBB，如 #2F74A4；留空使用随系统外观切换的默认蓝色。"
+  FLOW_COLOR:
+    name: "流量颜色（可选）"
+    description: "填写 #RRGGBB，如 #158558；留空使用默认绿色。"
+  VOICE_COLOR:
+    name: "语音颜色（可选）"
+    description: "填写 #RRGGBB，如 #BE624C；留空使用默认橙色。"
+  ACCESS:
+    name: "手动 access（可选）"
+    description: "自动获取后留空。手动方式需与 BODY 同时填写；来自广电查询请求头的 access，不是 Cookie。不要分享含此值的配置。"
+  BODY:
+    name: "手动 data（可选）"
+    description: "自动获取后留空。填同一次请求 JSON 中的 data 字符串，也支持粘贴完整的含 data 请求体。与 ACCESS 成对使用。"
+  ACTION:
+    name: "登录操作"
+    description: "选“清除登录”后运行小组件，删除本组件保存的登录。先关闭获取模块；手动 ACCESS/BODY 需另行清空，再切回正常显示。"
+    default_value: "正常显示"
+    options: ["正常显示", "清除登录"]
+scriptings:
+  - generic:
+      name: "china-broadnet"
+      script_url: "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/ChinaBroadnet/china-broadnet.js"
+      timeout: 15
+      update_interval: 86400
+widgets:
+  - name: "中国广电"
+    script_name: "china-broadnet"
