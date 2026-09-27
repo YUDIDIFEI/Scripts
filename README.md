@@ -22,6 +22,12 @@ Clash / Stash / Loon 的 `PROXY` 默认走 `AUTO`，Egern 的 `PROXY` 默认走 
 
 完整配置由 `python scripts/build_lazy_configs.py` 生成，`python scripts/build_lazy_configs.py --check` 检查是否与清单同步。
 
+## Egern 节点 IP 质量小组件
+
+[模块导入链接](https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/widgets/Egern/IPQuality/ip-quality.yaml) · [安装说明与参数](widgets/Egern/IPQuality/README.md)
+
+在 Egern 的“工具 → 模块”中添加上述链接，设置“检测策略组”为现有组的完整名称，再在小组件画廊选择“节点 IP 质量”。检测该策略组当次使用的出口，显示 IP、地区、ASN、第三方风险与媒体 / AI 页面探测结果；以后可随时修改检测策略组。媒体页面可达不代表登录后解锁。已通过本地针对性测试，Egern / iPhone 实机路由、显示与刷新仍待验证。
+
 ## 流媒体与其他应用
 
 AI 维持一份聚合规则，不按平台拆分。规则库另提供 17 份主流服务独立规则，以及一份 `Common` 常见服务合并规则；除了 PayPal 和 GitHub，其余服务均未预置到懒人配置。五种客户端各有独立格式，目录为 `rule/<客户端>/<规则名>/<规则名>.<扩展名>`。Clash、Stash、Egern 使用 `.yaml`，Loon、Shadowrocket 使用 `.list`。服务名与次序如下：

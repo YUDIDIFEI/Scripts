@@ -1,0 +1,18 @@
+{
+  "name": "egern-ip-quality",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Egern configurable policy IP quality widget",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "check": "node --check ip-quality.js",
+    "preview": "node tools/preview.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.1"
+  }
+}

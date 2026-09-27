@@ -1,0 +1,6 @@
+research/
+artifacts/
+node_modules/
+.env
+.env.*
+*.log
