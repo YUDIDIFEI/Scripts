@@ -1,6 +1,6 @@
 {
   "name": "Foreign AI",
-  "updated": "2026-09-24",
+  "updated": "2026-09-30",
   "description": "常用国外 AI 服务的域名分流；不是全量网络依赖白名单。",
   "services": [
     {
@@ -60,8 +60,12 @@
     {
       "id": "google-deepmind",
       "name": "Google Gemini / AI Studio / NotebookLM / Code Assist",
+      "updated": "2026-09-30",
       "sources": [
-        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/google-deepmind"
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/google-deepmind",
+        "https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind",
+        "https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9",
+        "https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1"
       ],
       "domains": [
         "ai.google.dev",
@@ -71,6 +75,9 @@
         "cloudaicompanion.googleapis.com",
         "cloudcode-pa.googleapis.com",
         "daily-cloudcode-pa.googleapis.com",
+        "geminiweb-pa.clients.google.com",
+        "geminiweb-pa.clients6.google.com",
+        "labstailwind.pa.googleapis.com",
         "notebooklm-pa.googleapis.com",
         "notebooklm.googleapis.com",
         "antigravity-pa.googleapis.com",
