@@ -62,7 +62,7 @@ python scripts/build_service_rules.py --check
 
 ## AI 聚合规则
 
-为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **25 类服务、130 条域名规则**。更新日期：2026-09-30。
+为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **25 类服务、135 条域名规则**。更新日期：2026-10-01。
 
 2026-09-30 根据 v2fly 于 2026-09-29 合入的 [Gemini Web 更新](https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9)和 [NotebookLM 更新](https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1)，补充 `geminiweb-pa.clients.google.com`、`geminiweb-pa.clients6.google.com`、`labstailwind.pa.googleapis.com`。三项均采用精确域名匹配，不扩展到整个 `clients.google.com`、`clients6.google.com` 或 `googleapis.com`；NotebookLM 上游后缀规则在这里收窄为精确主机。依据为已读取的[固定上游快照](https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind)，未找到 Google 官方对这三个具体主机的公开说明，未声称官方逐项确认或真机验证。此次未发现需要修改 Lazy 配置的可证实问题，五端配置保持不变。
 
@@ -82,12 +82,12 @@ python scripts/build_service_rules.py --check
 
 | 服务 | 域名规则数 |
 |---|---:|
-| OpenAI / ChatGPT / Codex / Sora | 19 |
+| OpenAI / ChatGPT / Codex / Sora / Sites / Crixet | 21 |
 | Anthropic / Claude | 9 |
 | Google Gemini / AI Studio / NotebookLM / Code Assist | 46 |
 | GitHub Copilot | 5 |
 | Perplexity | 5 |
-| xAI / Grok | 3 |
+| xAI / Grok / Grokipedia | 4 |
 | Poe | 2 |
 | Cursor | 5 |
 | Windsurf / Codeium | 4 |
@@ -101,7 +101,7 @@ python scripts/build_service_rules.py --check
 | Cohere | 2 |
 | Midjourney | 1 |
 | OpenRouter | 1 |
-| Meta AI | 1 |
+| Meta AI / Muse | 3 |
 | Civitai | 1 |
 | Suno | 2 |
 | Runway | 2 |
@@ -109,6 +109,19 @@ python scripts/build_service_rules.py --check
 | Stability AI | 1 |
 
 Google AI 包含 Gemini、AI Studio、NotebookLM、Jules、Flow、Opal、Antigravity、Stitch 及 Code Assist 的已收录端点。
+
+2026-10-01 复核已收录服务的最新上游及新增功能域名，补充以下后缀：
+
+| 功能 / 服务 | 补充的域名后缀 | 核对来源 |
+|---|---|---|
+| ChatGPT Sites 发布的网站 | `chatgpt.site` | [v2fly 已合并记录](https://github.com/v2fly/domain-list-community/pull/3842)、[OpenAI 官方仓库的 Sites URL 示例](https://github.com/openai/plugins/blob/5fd93af4cd0c623e020d0cc7e9ce178b4ac1f70f/plugins/data-analytics/src/analytics-app/handoff.test.mjs) |
+| Crixet | `crixet.com` | [v2fly 已合并记录及收购说明来源](https://github.com/v2fly/domain-list-community/pull/3221) |
+| Grokipedia | `grokipedia.com` | [v2fly xAI 清单变更](https://github.com/v2fly/domain-list-community/commit/b42ed972dc472f0bf81f77228ad806c9a31b700b) |
+| Meta Muse | `metaaivm.com`、`muse.ai` | [v2fly 已合并记录](https://github.com/v2fly/domain-list-community/pull/4095) |
+
+`chatgpt.com` 的后缀规则不会匹配独立的 `chatgpt.site` 域名。新增 `chatgpt.site` 后缀后，发布站点的多级子域也会命中 AI 规则，无需逐个加入网站地址；这会将该平台托管的用户网站一并分流到 AI 策略。通用云服务、任意第三方插件和自定义域名仍按现有规则处理，不因为由 AI 创建就自动归入本组。
+
+使用远程规则集的客户端需要手动刷新 AI 规则后才会使用新版本；检查 AI 组当前选中的出口，若选成 `DIRECT`，命中 AI 组后仍会直连。五端 Lazy 的 AI 引用与规则顺序经核对，无需重新导入整份配置。
 
 ## 接入方法
 
@@ -215,6 +228,6 @@ python scripts/build_ai_rules.py --check
 
 ## 验证状态
 
-2026-09-30 云端实际运行通过：三个生成器的 `--check`、69 份配置与规则 YAML 的严格解析（拒绝重复键）、Loon / Shadowrocket 两份 Lazy 的 INI 段结构检查、五端 Lazy 的地区筛选样例与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接对应文件、策略引用及循环检查，以及 `git diff --check`。五端 AI 清单均为 130 条，语义一致；新增主机的精确匹配及子域、伪后缀不匹配检查通过。源清单无重复或冗余覆盖，重复生成没有扰动其他服务或 Lazy 配置。
+2026-10-01 云端实际运行通过：三个生成器的 `--check`、69 份配置与规则 YAML 的严格解析（拒绝重复键）、Loon / Shadowrocket 两份 Lazy 的 INI 段结构检查、五端 Lazy 的地区筛选样例与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接对应文件、策略引用及循环检查，以及 `git diff --check`。五端 AI 清单均为 135 条，语义一致；新增功能的主域、多级子域、用户报告的 Sites 完整主机名，以及伪后缀与共享服务不匹配检查通过，共 2,185 个域名匹配断言、225 个地区筛选断言。源清单无重复或冗余覆盖，生成检查没有扰动其他服务或 Lazy 配置。
 
-每份包含 34 条精确域名规则、96 条域名后缀规则。YAML / INI 解析及语义检查属于结构验证，不能代替客户端原生导入；未进行五个客户端的真机导入、节点联网或所有服务登录/语音测试。地区筛选依赖订阅中的节点名称，不能验证真实出口位置。
+每份包含 34 条精确域名规则、101 条域名后缀规则。YAML / INI 解析及语义检查属于结构验证，不能代替客户端原生导入；未进行五个客户端的真机导入、节点联网或所有服务登录/语音测试。此次已实际读取上游快照、合并记录、OpenAI 官方仓库示例及 Sites 后台正式 URL；运行环境的出站域名策略限制了站点页面和部分服务官方网页的直接读取，未将其标为已完成实时联网验证。地区筛选依赖订阅中的节点名称，不能验证真实出口位置。

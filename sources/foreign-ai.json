@@ -1,15 +1,20 @@
 {
   "name": "Foreign AI",
-  "updated": "2026-09-30",
+  "updated": "2026-10-01",
   "description": "常用国外 AI 服务的域名分流；不是全量网络依赖白名单。",
   "services": [
     {
       "id": "openai",
-      "name": "OpenAI / ChatGPT / Codex / Sora",
+      "name": "OpenAI / ChatGPT / Codex / Sora / Sites / Crixet",
+      "updated": "2026-10-01",
       "sources": [
         "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/openai",
         "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml",
-        "https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps"
+        "https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps",
+        "https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/openai",
+        "https://github.com/v2fly/domain-list-community/pull/3842",
+        "https://github.com/v2fly/domain-list-community/pull/3221",
+        "https://github.com/openai/plugins/blob/5fd93af4cd0c623e020d0cc7e9ce178b4ac1f70f/plugins/data-analytics/src/analytics-app/handoff.test.mjs"
       ],
       "domains": [
         "openaiapi-site.azureedge.net",
@@ -24,6 +29,8 @@
       "suffixes": [
         "chat.com",
         "chatgpt.com",
+        "chatgpt.site",
+        "crixet.com",
         "oaistatic.com",
         "oaistatsig.com",
         "oaiusercontent.com",
@@ -153,14 +160,18 @@
     },
     {
       "id": "xai",
-      "name": "xAI / Grok",
+      "name": "xAI / Grok / Grokipedia",
+      "updated": "2026-10-01",
       "sources": [
-        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/xai"
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/xai",
+        "https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/xai",
+        "https://github.com/v2fly/domain-list-community/commit/b42ed972dc472f0bf81f77228ad806c9a31b700b"
       ],
       "domains": [],
       "suffixes": [
         "grok.com",
         "grok.x.com",
+        "grokipedia.com",
         "x.ai"
       ]
     },
@@ -335,13 +346,18 @@
     },
     {
       "id": "meta-ai",
-      "name": "Meta AI",
+      "name": "Meta AI / Muse",
+      "updated": "2026-10-01",
       "sources": [
-        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn"
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn",
+        "https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/category-ai-!cn",
+        "https://github.com/v2fly/domain-list-community/pull/4095"
       ],
       "domains": [],
       "suffixes": [
-        "meta.ai"
+        "meta.ai",
+        "metaaivm.com",
+        "muse.ai"
       ]
     },
     {
@@ -404,7 +420,9 @@
   ],
   "notes": [
     "只导出 DOMAIN 和 DOMAIN-SUFFIX；忽略上游 ads 标记、正则、IP、ASN、宽泛关键字。",
-    "未收录国外分类里混入的国内 AI 品牌；排除缺少充分服务归属依据的 crixet.com、chatgpt.site，以及非核心对话服务 grokipedia.com。",
+    "未收录国外分类里混入的国内 AI 品牌。",
+    "2026-10-01 已根据 Sites 后台正式 URL、OpenAI 官方仓库示例及 v2fly 合并记录核实 chatgpt.site，后缀规则覆盖该平台托管的用户网站。",
+    "根据 v2fly 已合并的服务归属记录补充 Crixet、Grokipedia 和 Meta Muse；官网页面的实时读取受云端出站域名策略限制，未声称完成真机联网验证。",
     "host.livekit.cloud 和 turn.livekit.cloud 是上游 OpenAI 语音规则包含的共享 LiveKit 子域，其他使用这些子域的应用也可能匹配。",
     "普通 Google/Microsoft/GitHub 登录、通用 CAPTCHA/支付/CDN 域名沿用用户现有分流。AI 规则不按 URL 路径区分共享域名。",
     "ChatGPT 的动态 Azure WebPubSub 正则和语音 IP 未纳入域名集；相关连接沿用现有兜底，未进行真机验证。"
