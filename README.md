@@ -62,7 +62,7 @@ python scripts/build_service_rules.py --check
 
 ## AI 聚合规则
 
-为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **25 类服务、136 条域名规则**。更新日期：2026-10-02。
+为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **25 类服务、137 条域名规则**。更新日期：2026-10-04。
 
 2026-09-30 根据 v2fly 于 2026-09-29 合入的 [Gemini Web 更新](https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9)和 [NotebookLM 更新](https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1)，补充 `geminiweb-pa.clients.google.com`、`geminiweb-pa.clients6.google.com`、`labstailwind.pa.googleapis.com`。三项均采用精确域名匹配，不扩展到整个 `clients.google.com`、`clients6.google.com` 或 `googleapis.com`；NotebookLM 上游后缀规则在这里收窄为精确主机。依据为已读取的[固定上游快照](https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind)，未找到 Google 官方对这三个具体主机的公开说明，未声称官方逐项确认或真机验证。此次未发现需要修改 Lazy 配置的可证实问题，五端配置保持不变。
 
@@ -83,7 +83,7 @@ python scripts/build_service_rules.py --check
 | 服务 | 域名规则数 |
 |---|---:|
 | OpenAI / ChatGPT / Codex / Sora / Sites / Crixet | 21 |
-| Anthropic / Claude | 9 |
+| Anthropic / Claude | 10 |
 | Google Gemini / AI Studio / NotebookLM / Code Assist | 46 |
 | GitHub Copilot / GitHub Models | 6 |
 | Perplexity | 5 |
@@ -109,6 +109,8 @@ python scripts/build_service_rules.py --check
 | Stability AI | 1 |
 
 Google AI 包含 Gemini、AI Studio、NotebookLM、Jules、Flow、Opal、Antigravity、Stitch 及 Code Assist 的已收录端点。
+
+2026-10-04 根据 v2fly 已合并的 [Anthropic 清单更新](https://github.com/v2fly/domain-list-community/pull/4114)和[固定提交文件](https://github.com/v2fly/domain-list-community/blob/2c892a618f4e23c549d28edd0f3f75407521b1aa/data/anthropic)，补充 `claude.dev` 后缀。主域和多级子域均命中 AI，伪后缀不匹配。该域名及 Claude 官方文档的直接访问被云端出站策略拒绝，采纳依据为可信上游合并记录，未声称完成官方网页实时核实或真机联网验证；五端 Lazy 配置保持不变。
 
 2026-10-02 补充 GitHub Models 的精确主机 `models.github.ai`。GitHub 官方的 [AI 评论分类 Action 文档](https://github.com/github/ai-assessment-comment-labeler/blob/a29876208a805048b198ff9e055100b1b23f9db4/README.md)和[模型端点实现](https://github.com/github/rollup-and-away/blob/2e071f495705a644988617534fc434bf0c559b22/src/util/config/models.ts)均使用该主机；默认与组织推理路径都能命中 AI。未扩展到整个 `github.ai` 或共享 Azure 域名，五端 Lazy 配置保持不变。
 
@@ -230,6 +232,6 @@ python scripts/build_ai_rules.py --check
 
 ## 验证状态
 
-2026-10-02 云端实际运行通过：三个生成器的 `--check`、69 份配置与规则 YAML 的严格解析（拒绝重复键）、Loon / Shadowrocket 两份 Lazy 的 INI 段结构检查、五端 Lazy 的地区筛选样例与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接对应文件、策略引用及循环检查，以及 `git diff --check`。五端 AI 清单均为 136 条，语义一致；新增功能的主域、多级子域、用户报告的 Sites 完整主机名，以及伪后缀与共享服务不匹配检查通过，共 2,225 个域名匹配断言、225 个地区筛选断言。GitHub Models 的两个推理路径命中 AI，`github.ai`、其他子域及精确主机的子域不匹配。源清单无重复或冗余覆盖，生成检查没有扰动其他服务或 Lazy 配置。
+2026-10-04 云端实际运行通过：三个生成器的 `--check`、69 份配置与规则 YAML 的严格解析（拒绝重复键）、Loon / Shadowrocket 两份 Lazy 的 INI 段结构检查、90 份服务规则与源清单的独立语义比对、五端 Lazy 的 DNS / 订阅占位 / 旁路设置、地区筛选样例与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接对应文件、策略引用及循环检查，以及 `git diff --check`。五端 AI 清单均为 137 条，语义一致；新增功能与 `claude.dev` 的主域、多级子域、用户报告的 Sites 完整主机名，以及伪后缀与共享服务不匹配检查通过，共 2,260 个域名匹配断言、225 个地区筛选断言。GitHub Models 的两个推理路径命中 AI，`github.ai`、其他子域及精确主机的子域不匹配。源清单无重复或冗余覆盖，生成检查没有扰动其他服务或 Lazy 配置。
 
-每份包含 35 条精确域名规则、101 条域名后缀规则。YAML / INI 解析及语义检查属于结构验证，不能代替客户端原生导入；未进行五个客户端的真机导入、节点联网或所有服务登录/语音测试。此次完整读取固定提交下的 49 份上游清单，以及 GitHub 官方仓库的 Models 文档与实现。运行环境的出站域名策略拒绝了 Sites 页面及所尝试服务官方网页的直接访问，未将其标为已完成实时联网验证。地区筛选依赖订阅中的节点名称，不能验证真实出口位置。
+每份包含 35 条精确域名规则、102 条域名后缀规则。YAML / INI 解析及语义检查属于结构验证，不能代替客户端原生导入；未进行五个客户端的真机导入、节点联网或所有服务登录/语音测试。此次完整读取固定提交下的 50 份上游清单、Anthropic 清单的合并记录及 OpenAI 官方仓库的 Sites URL 示例。运行环境的出站域名策略拒绝了 Sites 页面及所尝试服务官方网页的直接访问，未将其标为已完成实时联网验证。地区筛选依赖订阅中的节点名称，不能验证真实出口位置。
