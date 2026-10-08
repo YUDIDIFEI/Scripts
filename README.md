@@ -62,7 +62,7 @@ python scripts/build_service_rules.py --check
 
 ## AI 聚合规则
 
-为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **25 类服务、137 条域名规则**。更新日期：2026-10-04。
+为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **25 类服务、146 条域名规则**。更新日期：2026-10-08。
 
 2026-09-30 根据 v2fly 于 2026-09-29 合入的 [Gemini Web 更新](https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9)和 [NotebookLM 更新](https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1)，补充 `geminiweb-pa.clients.google.com`、`geminiweb-pa.clients6.google.com`、`labstailwind.pa.googleapis.com`。三项均采用精确域名匹配，不扩展到整个 `clients.google.com`、`clients6.google.com` 或 `googleapis.com`；NotebookLM 上游后缀规则在这里收窄为精确主机。依据为已读取的[固定上游快照](https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind)，未找到 Google 官方对这三个具体主机的公开说明，未声称官方逐项确认或真机验证。此次未发现需要修改 Lazy 配置的可证实问题，五端配置保持不变。
 
@@ -101,7 +101,7 @@ python scripts/build_service_rules.py --check
 | Cohere | 2 |
 | Midjourney | 1 |
 | OpenRouter | 1 |
-| Meta AI / Muse | 3 |
+| Meta AI / Muse / Llama / SAM | 12 |
 | Civitai | 1 |
 | Suno | 2 |
 | Runway | 2 |
@@ -109,6 +109,18 @@ python scripts/build_service_rules.py --check
 | Stability AI | 1 |
 
 Google AI 包含 Gemini、AI Studio、NotebookLM、Jules、Flow、Opal、Antigravity、Stitch 及 Code Assist 的已收录端点。
+
+2026-10-08 根据用户确认的 Meta AI / Muse 连接日志，补充四个此前在五端均未命中 AI 的精确主机；同时核对 Meta 官方项目中的 Llama、AI at Meta 和 SAM 入口，共新增 9 条规则：
+
+| 功能 / 服务 | 新增规则 | 核对来源 |
+|---|---|---|
+| Meta AI / Muse 登录与 Graph 依赖 | 精确匹配 `auth.meta.com`、`accountscenter.meta.com`、`meta.graph.meta.com`、`ar.graph.meta.com` | 用户实际连接日志及用途确认；[v2fly Meta 分类](https://github.com/v2fly/domain-list-community/blob/e84921279c9142434b43cb84ec6c17f987e025df/data/meta)和 [blackmatrix7 Facebook 分类](https://github.com/blackmatrix7/ios_rule_script/blob/036c097eb26c6a52c4f04ebcb6633043cb942669/rule/Clash/Facebook/Facebook.yaml)核对 Meta 域名归属；[Meta 官方账号入口代码](https://github.com/facebook/bunnylol.rs/blob/6dd85e0d8bac26d173cb98ded564a3e7e2fbe91f/src/commands/meta.rs)和 [Project Aria 登录资料](https://github.com/facebookresearch/projectaria_tools/blob/cb1fe5f793b98018d17a0358f3a0aed91cc4025f/website/docs-ark/support/projectaria_login.mdx)说明账号中心和 Graph 接口也被其他功能共用 |
+| Llama 网站与 API | 后缀匹配 `llama.com` | [Meta 官方模型配置文档](https://github.com/facebookresearch/meta-agents-research-environments/blob/a9fd2edccb4bc7e22fbf45c8482a5fef30a2a5a4/docs/user_guide/llm_configuration.rst)引用 `www.llama.com`；[官方 API 配置](https://github.com/facebookresearch/meta-agents-research-environments/blob/a9fd2edccb4bc7e22fbf45c8482a5fef30a2a5a4/docs/user_guide/benchmarking.rst)使用 `api.llama.com`，并与 v2fly Meta 分类交叉核对 |
+| AI at Meta 与 SAM 演示 | 精确匹配 `ai.meta.com`、`aidemos.meta.com`、`www.aidemos.meta.com`、`sam2.metademolab.com` | [SAM 2 官方说明](https://github.com/facebookresearch/sam2/blob/2b90b9f5ceec907a1c18123530e92e794ad901a4/README.md)、[官方演示入口配置](https://github.com/facebookresearch/sam2/blob/2b90b9f5ceec907a1c18123530e92e794ad901a4/demo/frontend/src/demo/DemoConfig.tsx)及 [SAM 3D 官方说明](https://github.com/facebookresearch/sam-3d-objects/blob/f91db411c50efee93d8db7aeb323885650f6f722/README.md) |
+
+四个登录 / Graph 主机的 AI 使用依据是用户本次连接记录，官方资料没有把它们定义为 AI 独占域名。其他 Meta 功能使用相同主机时也会进入 AI 策略，包括账号中心里的 Meta Pay；域名规则无法按 URL 路径区分。此次复核后将这几个已观察到的依赖作为明确例外收录，未扩展到整个 `meta.com`、`graph.meta.com`、`metademolab.com`、Meta 共享 CDN 或其他设备 / Work 接口。官网、Llama / SAM 演示及 Muse 开发文档的实时读取被云端出站策略拒绝；新规则依据上述已完整读取的 GitHub 资料和用户日志，未声称完成真机联网测试。
+
+客户端需刷新远程 AI 规则集，并把 AI 策略选到可用代理节点。用户截图里的 TCP 连接虽显示 `FINAL`，仍走了香港代理；这次修复的是 AI 未命中。若刷新后显示 AI 但选中了 `DIRECT`，应调整 AI 组选择；若已命中 AI 且使用代理仍失败，再检查节点、账号地区和 DNS。截图中 `Block QUIC` 属于现有客户端的 UDP / QUIC 设置，新增域名规则不保证解除该拦截。五端 Lazy 的 AI 调用顺序与策略引用经独立检查，没有发现需要修改配置的问题。
 
 2026-10-04 根据 v2fly 已合并的 [Anthropic 清单更新](https://github.com/v2fly/domain-list-community/pull/4114)和[固定提交文件](https://github.com/v2fly/domain-list-community/blob/2c892a618f4e23c549d28edd0f3f75407521b1aa/data/anthropic)，补充 `claude.dev` 后缀。主域和多级子域均命中 AI，伪后缀不匹配。该域名及 Claude 官方文档的直接访问被云端出站策略拒绝，采纳依据为可信上游合并记录，未声称完成官方网页实时核实或真机联网验证；五端 Lazy 配置保持不变。
 
@@ -232,6 +244,6 @@ python scripts/build_ai_rules.py --check
 
 ## 验证状态
 
-2026-10-04 云端实际运行通过：三个生成器的 `--check`、69 份配置与规则 YAML 的严格解析（拒绝重复键）、Loon / Shadowrocket 两份 Lazy 的 INI 段结构检查、90 份服务规则与源清单的独立语义比对、五端 Lazy 的 DNS / 订阅占位 / 旁路设置、地区筛选样例与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接对应文件、策略引用及循环检查，以及 `git diff --check`。五端 AI 清单均为 137 条，语义一致；新增功能与 `claude.dev` 的主域、多级子域、用户报告的 Sites 完整主机名，以及伪后缀与共享服务不匹配检查通过，共 2,260 个域名匹配断言、225 个地区筛选断言。GitHub Models 的两个推理路径命中 AI，`github.ai`、其他子域及精确主机的子域不匹配。源清单无重复或冗余覆盖，生成检查没有扰动其他服务或 Lazy 配置。
+2026-10-08 云端环境恢复后实际运行通过：三个生成器的 `--check`、69 份配置与规则 YAML 的严格解析（拒绝重复键）、Loon / Shadowrocket 四份 Lazy / Routing 的 INI 段结构检查、90 份服务规则与源清单的独立语义比对、五端 Lazy 的 DNS / 订阅占位 / 旁路设置、地区筛选样例与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接对应文件、策略引用及循环检查，以及 `git diff --check`。五端 AI 清单均为 146 条，语义一致；共通过 3,820 个域名匹配断言、300 个地区筛选断言，以及 25 个 Meta / Sites 主机在 AI 优先于 CN / 兜底的路径检查。截图里的四个 Meta 主机在原 master 清单均不匹配，在本次生成规则均匹配；精确主机的额外子域和伪后缀不匹配，`llama.com` 主域、API 与多级子域匹配，整个 Meta / Graph / 演示域名空间未被兜入 AI。GitHub Models 的两个推理路径及用户报告的 `robot-dog-pixel-home.yf233.chatgpt.site` 固定回归通过。源清单无重复或冗余覆盖，其他服务规则和五端 Lazy 配置未变。
 
-每份包含 35 条精确域名规则、102 条域名后缀规则。YAML / INI 解析及语义检查属于结构验证，不能代替客户端原生导入；未进行五个客户端的真机导入、节点联网或所有服务登录/语音测试。此次完整读取固定提交下的 50 份上游清单、Anthropic 清单的合并记录及 OpenAI 官方仓库的 Sites URL 示例。运行环境的出站域名策略拒绝了 Sites 页面及所尝试服务官方网页的直接访问，未将其标为已完成实时联网验证。地区筛选依赖订阅中的节点名称，不能验证真实出口位置。
+每份包含 43 条精确域名规则、103 条域名后缀规则。YAML / INI 解析及语义检查属于结构验证，不能代替客户端原生导入；未进行五个客户端的真机导入、节点联网、DNS、QUIC 或所有服务登录/语音测试。此次完整读取固定提交下的 50 份可信上游清单及上述 Meta 官方 GitHub 资料。运行环境的出站域名策略拒绝了所尝试 Meta 官网、Llama / SAM / Muse 文档与 Sites 页面的直接访问，未将其标为已完成实时联网验证。地区筛选依赖订阅中的节点名称，不能验证真实出口位置。
