@@ -1,6 +1,6 @@
 {
   "name": "Foreign AI",
-  "updated": "2026-10-08",
+  "updated": "2026-10-11",
   "description": "常用国外 AI 服务的域名分流；不是全量网络依赖白名单。",
   "services": [
     {
@@ -442,6 +442,19 @@
       "domains": [],
       "suffixes": [
         "stability.ai"
+      ]
+    },
+    {
+      "id": "syntx-ai",
+      "name": "Syntx.AI",
+      "updated": "2026-10-11",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/8e95517c1669d6186159c0c87edbb55e22c40bd9/data/category-ai-!cn",
+        "https://github.com/v2fly/domain-list-community/pull/4119"
+      ],
+      "domains": [],
+      "suffixes": [
+        "syntx.ai"
       ]
     }
   ],
