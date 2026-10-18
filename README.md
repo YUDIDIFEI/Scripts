@@ -48,7 +48,7 @@ python scripts/build_service_rules.py --check
 
 ## AI 聚合规则
 
-为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **26 类服务、147 条域名规则**。更新日期：2026-10-11。
+为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **27 类服务、149 条域名规则**。更新日期：2026-10-18。
 
 2026-09-30 根据 v2fly 于 2026-09-29 合入的 [Gemini Web 更新](https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9)和 [NotebookLM 更新](https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1)，补充 `geminiweb-pa.clients.google.com`、`geminiweb-pa.clients6.google.com`、`labstailwind.pa.googleapis.com`。三项均采用精确域名匹配，不扩展到整个 `clients.google.com`、`clients6.google.com` 或 `googleapis.com`；NotebookLM 上游后缀规则在这里收窄为精确主机。依据为已读取的[固定上游快照](https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind)，未找到 Google 官方对这三个具体主机的公开说明，未声称官方逐项确认或真机验证。此次未发现需要修改 Lazy 配置的可证实问题，五端配置保持不变。
 
@@ -68,7 +68,7 @@ python scripts/build_service_rules.py --check
 
 | 服务 | 域名规则数 |
 |---|---:|
-| OpenAI / ChatGPT / Codex / Sora / Sites / Crixet | 21 |
+| OpenAI / ChatGPT / Codex / Sora / Sites / Crixet | 22 |
 | Anthropic / Claude | 10 |
 | Google Gemini / AI Studio / NotebookLM / Code Assist | 46 |
 | GitHub Copilot / GitHub Models | 6 |
@@ -94,8 +94,13 @@ python scripts/build_service_rules.py --check
 | Character.AI | 1 |
 | Stability AI | 1 |
 | Syntx.AI | 1 |
+| Jev / System One | 1 |
 
 Google AI 包含 Gemini、AI Studio、NotebookLM、Jules、Flow、Opal、Antigravity、Stitch 及 Code Assist 的已收录端点。
+
+2026-10-18 根据 v2fly 已合并的 [OpenAI 更新 #4149](https://github.com/v2fly/domain-list-community/pull/4149)及[Jev 更新 #4153](https://github.com/v2fly/domain-list-community/pull/4153)，新增 `openai.org` 和 `typesafe.ai` 两条后缀。对应固定清单为 [OpenAI](https://github.com/v2fly/domain-list-community/blob/5b1678867da0afc35854f481c1749a39048952df/data/openai)和 [Jev / System One](https://github.com/v2fly/domain-list-community/blob/be747934e1bc2756b6fbad31bec98221d87f819f/data/category-ai-!cn)。Cursor 同日新增的 [`cursorvm.com`](https://github.com/v2fly/domain-list-community/pull/4155) 已被现有规则覆盖，无需重复添加。
+
+重新审查此前对测试环境域名的排除后，依据新合并记录及 [Codex 自有主机校验](https://github.com/openai/codex/blob/7b44ac1661433ae3a6f375fde873fa7123c935fe/codex-rs/cli/src/exec_server_command.rs)，现将 `openai.org` 主域及子域纳入 AI。[Agent Identity 官方代码](https://github.com/openai/codex/blob/7b44ac1661433ae3a6f375fde873fa7123c935fe/codex-rs/agent-identity/src/lib.rs)仍将 `auth.api.openai.org` 定义为 staging，它也会随新后缀进入 AI；本次不把它描述为新增生产端点。`chatgpt-staging.com` 仍未收录。域名分流不区分同一域名下的生产或测试用途。OpenAI.org、Jev 官网及其余所尝试官方页面的直接读取被云端出站策略以 403 拒绝，采纳依据为已完整读取的 GitHub 资料与可靠上游合并记录，未声称完成官网实时核实或真机联网验证。
 
 2026-10-11 根据 v2fly 已合并的 [Syntx.AI 分类更新](https://github.com/v2fly/domain-list-community/pull/4119)和[固定提交清单](https://github.com/v2fly/domain-list-community/blob/8e95517c1669d6186159c0c87edbb55e22c40bd9/data/category-ai-!cn)，新增 `syntx.ai` 后缀。主域及多级子域均匹配，`not-syntx.ai` 和 `syntx.ai.example.org` 不匹配。其官网的直接读取被云端出站策略以 403 拒绝，采纳依据为可信上游合并记录，未声称完成官网实时核实或真机联网验证；五端 Lazy 配置保持不变。
 
@@ -233,9 +238,13 @@ python scripts/build_ai_rules.py --check
 
 ## 验证状态
 
-2026-10-11 基于最新 master 的隔离云端快照实际运行通过：三个生成器的 `--check`、69 份 YAML 严格解析、4 份 Loon / Shadowrocket Lazy / Routing INI 段结构检查、90 份服务规则与源清单的语义比对，以及五端 Lazy 的 DNS、订阅占位、旁路、地区组、PayPal 限制、CN 默认 DIRECT、规则顺序、远程链接和策略引用 / 循环检查。共通过 3,845 个域名断言、300 个地区筛选断言和 30 个 Meta / Sites / Syntx 的 AI 优先路径检查；另通过 50 个功能 URL 正例和 30 个测试环境 / 自定义域名 / 伪后缀反例。当前每端为 43 条精确域名、104 条后缀规则。完整读取的 50 份可信上游清单中，只有 AI 分类新增 Syntx.AI，其他已核对清单内容与上一轮一致。
+2026-10-18 云端环境就绪后实际运行通过：三个生成器的 `--check`、69 份 YAML 严格解析、4 份 Loon / Shadowrocket Lazy / Routing INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、地区组及 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接、策略引用与循环检查。共通过 3,895 个域名断言、300 个地区筛选断言、45 个 Meta / Sites / Syntx / OpenAI.org / Jev 的 AI 优先路径检查、90 个功能 URL 正例和 45 个测试环境 / 自定义域名 / 伪后缀反例；正例包含本轮新纳入的 `auth.api.openai.org` 测试主机。每端现为 43 条精确域名、106 条后缀规则。两条新增后缀的主域、多级子域匹配，伪后缀不匹配；用户报告的 Sites 网站与 Meta 四个主机固定回归通过。
 
-OpenAI 官方 Codex 源码中的生产端点仍由现有 `chatgpt.com`、`openai.com` 后缀覆盖，包括实时调用路径；[Agent Identity 实现](https://github.com/openai/codex/blob/cc7ba33601286a751477832b01de7b6f8de0dd9c/codex-rs/agent-identity/src/lib.rs)明确将 `auth.api.openai.org` 和 `chatgpt-staging.com` 用于测试环境，本轮没有将其加入普通服务规则。[OpenAI Sites 官方示例](https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/data-analytics/src/analytics-app/handoff.test.mjs)及用户报告的网站均命中 AI，截图中的四个 Meta 主机回归通过。OpenAI、Canvas、Claude、GitHub、PayPal、Meta、Sora、Crixet、Syntx 官网资料及用户 Sites 页面共 10 次直接读取均被出站策略以 403 拒绝；未进行客户端原生导入、实际节点 / DNS / QUIC / 登录测试，也无法读取用户手机的规则缓存和当前策略选择。
+本轮完整读取并核对哈希的资料包括 50 份可信上游清单、15 份官方 GitHub 文件及两份对应合并提交的完整清单，核实了三条相关合并记录。12 次官网 / 官方文档 / Sites 页面直接请求均被出站策略以 403 拒绝。没有客户端可执行程序，未进行原生导入、实际节点 / DNS / QUIC / 登录测试，无法核实手机端规则缓存和当前 AI 策略选择；结构检查不能代替真机验证。五端 Lazy 和其他服务规则保持不变。
+
+2026-10-11 基于最新 master 的隔离云端快照实际运行通过：三个生成器的 `--check`、69 份 YAML 严格解析、4 份 Loon / Shadowrocket Lazy / Routing INI 段结构检查、90 份服务规则与源清单的语义比对，以及五端 Lazy 的 DNS、订阅占位、旁路、地区组、PayPal 限制、CN 默认 DIRECT、规则顺序、远程链接和策略引用 / 循环检查。共通过 3,845 个域名断言、300 个地区筛选断言和 30 个 Meta / Sites / Syntx 的 AI 优先路径检查；另通过 50 个功能 URL 正例和 30 个测试环境 / 自定义域名 / 伪后缀反例。2026-10-11 当时每端为 43 条精确域名、104 条后缀规则。完整读取的 50 份可信上游清单中，只有 AI 分类新增 Syntx.AI，其他已核对清单内容与上一轮一致。
+
+OpenAI 官方 Codex 源码中的生产端点仍由现有 `chatgpt.com`、`openai.com` 后缀覆盖，包括实时调用路径；[Agent Identity 实现](https://github.com/openai/codex/blob/cc7ba33601286a751477832b01de7b6f8de0dd9c/codex-rs/agent-identity/src/lib.rs)明确将 `auth.api.openai.org` 和 `chatgpt-staging.com` 用于测试环境，2026-10-11 当时未将其加入普通服务规则；2026-10-18 的 `openai.org` 后缀更新已覆盖前者。[OpenAI Sites 官方示例](https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/data-analytics/src/analytics-app/handoff.test.mjs)及用户报告的网站均命中 AI，截图中的四个 Meta 主机回归通过。OpenAI、Canvas、Claude、GitHub、PayPal、Meta、Sora、Crixet、Syntx 官网资料及用户 Sites 页面共 10 次直接读取均被出站策略以 403 拒绝；未进行客户端原生导入、实际节点 / DNS / QUIC / 登录测试，也无法读取用户手机的规则缓存和当前策略选择。
 
 2026-10-08 云端环境恢复后实际运行通过：三个生成器的 `--check`、69 份配置与规则 YAML 的严格解析（拒绝重复键）、Loon / Shadowrocket 四份 Lazy / Routing 的 INI 段结构检查、90 份服务规则与源清单的独立语义比对、五端 Lazy 的 DNS / 订阅占位 / 旁路设置、地区筛选样例与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接对应文件、策略引用及循环检查，以及 `git diff --check`。五端 AI 清单均为 146 条，语义一致；共通过 3,820 个域名匹配断言、300 个地区筛选断言，以及 25 个 Meta / Sites 主机在 AI 优先于 CN / 兜底的路径检查。截图里的四个 Meta 主机在原 master 清单均不匹配，在本次生成规则均匹配；精确主机的额外子域和伪后缀不匹配，`llama.com` 主域、API 与多级子域匹配，整个 Meta / Graph / 演示域名空间未被兜入 AI。GitHub Models 的两个推理路径及用户报告的 `robot-dog-pixel-home.yf233.chatgpt.site` 固定回归通过。源清单无重复或冗余覆盖，其他服务规则和五端 Lazy 配置未变。
 

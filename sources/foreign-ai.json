@@ -1,12 +1,12 @@
 {
   "name": "Foreign AI",
-  "updated": "2026-10-11",
+  "updated": "2026-10-18",
   "description": "常用国外 AI 服务的域名分流；不是全量网络依赖白名单。",
   "services": [
     {
       "id": "openai",
       "name": "OpenAI / ChatGPT / Codex / Sora / Sites / Crixet",
-      "updated": "2026-10-01",
+      "updated": "2026-10-18",
       "sources": [
         "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/openai",
         "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml",
@@ -14,7 +14,11 @@
         "https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/openai",
         "https://github.com/v2fly/domain-list-community/pull/3842",
         "https://github.com/v2fly/domain-list-community/pull/3221",
-        "https://github.com/openai/plugins/blob/5fd93af4cd0c623e020d0cc7e9ce178b4ac1f70f/plugins/data-analytics/src/analytics-app/handoff.test.mjs"
+        "https://github.com/openai/plugins/blob/5fd93af4cd0c623e020d0cc7e9ce178b4ac1f70f/plugins/data-analytics/src/analytics-app/handoff.test.mjs",
+        "https://github.com/v2fly/domain-list-community/blob/5b1678867da0afc35854f481c1749a39048952df/data/openai",
+        "https://github.com/v2fly/domain-list-community/pull/4149",
+        "https://github.com/openai/codex/blob/7b44ac1661433ae3a6f375fde873fa7123c935fe/codex-rs/cli/src/exec_server_command.rs",
+        "https://github.com/openai/codex/blob/7b44ac1661433ae3a6f375fde873fa7123c935fe/codex-rs/agent-identity/src/lib.rs"
       ],
       "domains": [
         "openaiapi-site.azureedge.net",
@@ -35,6 +39,7 @@
         "oaistatsig.com",
         "oaiusercontent.com",
         "openai.com",
+        "openai.org",
         "sora.com",
         "openai.com.cdn.cloudflare.net",
         "chatgpt.livekit.cloud",
@@ -456,6 +461,19 @@
       "suffixes": [
         "syntx.ai"
       ]
+    },
+    {
+      "id": "jev",
+      "name": "Jev / System One",
+      "updated": "2026-10-18",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/be747934e1bc2756b6fbad31bec98221d87f819f/data/category-ai-!cn",
+        "https://github.com/v2fly/domain-list-community/pull/4153"
+      ],
+      "domains": [],
+      "suffixes": [
+        "typesafe.ai"
+      ]
     }
   ],
   "notes": [
@@ -467,6 +485,7 @@
     "普通 Google/Microsoft/GitHub 登录、通用 CAPTCHA/支付/CDN 域名沿用用户现有分流。AI 规则不按 URL 路径区分共享域名。",
     "ChatGPT 的动态 Azure WebPubSub 正则和语音 IP 未纳入域名集；相关连接沿用现有兜底，未进行真机验证。",
     "2026-10-08 根据用户确认的 Meta AI / Muse 连接日志，精确收录 auth.meta.com、accountscenter.meta.com、meta.graph.meta.com、ar.graph.meta.com；上游 Meta 分类及官方账号/Graph 资料用于核对归属，这些主机也可能承载其他 Meta 功能。",
-    "Meta AI 组补充官方 Llama API、AI at Meta 和 SAM 演示站；只收录有明确来源的专属后缀或精确主机，不扩展到整个 meta.com、graph.meta.com、metademolab.com、共享 CDN 或设备服务。"
+    "Meta AI 组补充官方 Llama API、AI at Meta 和 SAM 演示站；只收录有明确来源的专属后缀或精确主机，不扩展到整个 meta.com、graph.meta.com、metademolab.com、共享 CDN 或设备服务。",
+    "2026-10-18 根据 v2fly 已合并的 OpenAI 分类及 Codex 自有主机校验补充 openai.org 后缀；其中 auth.api.openai.org 仍被官方标为 staging，也会随该后缀命中 AI，不将其描述为新增生产端点。"
   ]
 }
