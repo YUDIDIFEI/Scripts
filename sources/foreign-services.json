@@ -24,7 +24,12 @@
     },
     {
       "id": "PrimeVideo", "name": "Prime Video", "tier": "individual", "source": "primevideo",
-      "domains": [],
+      "updated": "2026-10-19",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/84394e467557d986c67341c90e36ca7e698d3860/data/primevideo",
+        "https://github.com/v2fly/domain-list-community/pull/4041"
+      ],
+      "domains": ["amazon.pv-cdn.net"],
       "suffixes": ["aiv-cdn.net", "amazonvideo.com", "prime-video.com", "primevideo.com", "primevideo.tv"]
     },
     {

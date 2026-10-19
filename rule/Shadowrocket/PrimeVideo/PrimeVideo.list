@@ -1,7 +1,8 @@
 # Prime Video - overseas routing rules
-# Updated: 2026-09-25 | Rules: 5
+# Updated: 2026-10-19 | Rules: 6
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+DOMAIN,amazon.pv-cdn.net
 DOMAIN-SUFFIX,aiv-cdn.net
 DOMAIN-SUFFIX,amazonvideo.com
 DOMAIN-SUFFIX,prime-video.com
