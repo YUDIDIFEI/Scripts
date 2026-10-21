@@ -1,6 +1,6 @@
 {
   "name": "Foreign AI",
-  "updated": "2026-10-18",
+  "updated": "2026-10-21",
   "description": "常用国外 AI 服务的域名分流；不是全量网络依赖白名单。",
   "services": [
     {
@@ -50,26 +50,37 @@
     {
       "id": "anthropic",
       "name": "Anthropic / Claude",
-      "updated": "2026-10-04",
+      "updated": "2026-10-21",
       "sources": [
         "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/anthropic",
         "https://code.claude.com/docs/en/desktop#network-access-requirements",
         "https://code.claude.com/docs/en/network-config#network-access-requirements",
         "https://github.com/v2fly/domain-list-community/blob/2c892a618f4e23c549d28edd0f3f75407521b1aa/data/anthropic",
-        "https://github.com/v2fly/domain-list-community/pull/4114"
+        "https://github.com/v2fly/domain-list-community/pull/4114",
+        "https://github.com/v2fly/domain-list-community/blob/bdf45acfdeaec2644257bb8947e0a0294276d5ef/data/anthropic",
+        "https://github.com/v2fly/domain-list-community/pull/4116"
       ],
       "domains": [
         "servd-anthropic-website.b-cdn.net"
       ],
       "suffixes": [
+        "ant.dev",
         "anthropic.com",
+        "anthropic.team",
+        "antspace.dev",
+        "chatbotclaude.com",
         "clau.de",
         "claude.ai",
         "claude.app",
         "claude.com",
         "claude.dev",
+        "claude.new",
+        "claude.site",
+        "claudeacademy.com",
         "claudemcpclient.com",
         "claudemcpcontent.com",
+        "claudepages.dev",
+        "claudestudio.com",
         "claudeusercontent.com"
       ]
     },
@@ -474,6 +485,19 @@
       "suffixes": [
         "typesafe.ai"
       ]
+    },
+    {
+      "id": "magnific",
+      "name": "Magnific",
+      "updated": "2026-10-21",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/435cb8725922d3d3c0e1684ff6224b59952a400d/data/category-ai-!cn",
+        "https://github.com/v2fly/domain-list-community/pull/4059"
+      ],
+      "domains": [],
+      "suffixes": [
+        "magnific.com"
+      ]
     }
   ],
   "notes": [
@@ -486,6 +510,7 @@
     "ChatGPT 的动态 Azure WebPubSub 正则和语音 IP 未纳入域名集；相关连接沿用现有兜底，未进行真机验证。",
     "2026-10-08 根据用户确认的 Meta AI / Muse 连接日志，精确收录 auth.meta.com、accountscenter.meta.com、meta.graph.meta.com、ar.graph.meta.com；上游 Meta 分类及官方账号/Graph 资料用于核对归属，这些主机也可能承载其他 Meta 功能。",
     "Meta AI 组补充官方 Llama API、AI at Meta 和 SAM 演示站；只收录有明确来源的专属后缀或精确主机，不扩展到整个 meta.com、graph.meta.com、metademolab.com、共享 CDN 或设备服务。",
-    "2026-10-18 根据 v2fly 已合并的 OpenAI 分类及 Codex 自有主机校验补充 openai.org 后缀；其中 auth.api.openai.org 仍被官方标为 staging，也会随该后缀命中 AI，不将其描述为新增生产端点。"
+    "2026-10-18 根据 v2fly 已合并的 OpenAI 分类及 Codex 自有主机校验补充 openai.org 后缀；其中 auth.api.openai.org 仍被官方标为 staging，也会随该后缀命中 AI，不将其描述为新增生产端点。",
+    "2026-10-21 根据 v2fly 已合并的 Anthropic 分类补充 9 个后缀，并新增 Magnific 的 magnific.com；claude.app 已有覆盖，不重复添加。Claude 新域名的服务归属依据为上游合并记录，未确认各域名已上线的具体功能或生产用途；不据名称推定为 Sites、Pages 或其他产品。"
   ]
 }

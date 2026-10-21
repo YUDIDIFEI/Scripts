@@ -1,8 +1,9 @@
 # 常见境外流媒体与应用 - overseas routing rules
-# Updated: 2026-09-25 | Rules: 36
+# Updated: 2026-10-21 | Rules: 37
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 payload:
+  - DOMAIN,d3stzm2eumvgb4.cloudfront.net
   - DOMAIN,hls-amt.itunes.apple.com
   - DOMAIN,hls.itunes.apple.com
   - DOMAIN,hulu.playback.edge.bamgrid.com

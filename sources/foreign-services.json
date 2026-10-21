@@ -94,7 +94,12 @@
     },
     {
       "id": "Common", "name": "常见境外流媒体与应用", "tier": "combined", "source": "common",
-      "domains": ["hls-amt.itunes.apple.com", "hls.itunes.apple.com", "hulu.playback.edge.bamgrid.com", "np-edge.itunes.apple.com", "play-edge.itunes.apple.com", "uts-api.itunes.apple.com"],
+      "updated": "2026-10-21",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/e8a386f3327444cdd2c3318b94a0abd3804e62f4/data/twitch",
+        "https://github.com/v2fly/domain-list-community/pull/3532"
+      ],
+      "domains": ["d3stzm2eumvgb4.cloudfront.net", "hls-amt.itunes.apple.com", "hls.itunes.apple.com", "hulu.playback.edge.bamgrid.com", "np-edge.itunes.apple.com", "play-edge.itunes.apple.com", "uts-api.itunes.apple.com"],
       "suffixes": ["fbcdn.net", "fbsbx.com", "hulu.com", "hulu.jp", "hulu.tv", "twitch.tv", "twitchcdn.net", "jtvnw.net", "ttvnw.net", "reddit.com", "redd.it", "redditmedia.com", "redditstatic.com", "pinterest.com", "pinimg.com", "pin.it", "tv.apple.com", "paramountplus.com", "pplusstatic.com", "peacocktv.com", "steamcommunity.com", "steampowered.com", "steamstatic.com", "steamcontent.com", "zoom.us", "zoom.com", "vimeo.com", "vimeocdn.com", "soundcloud.com", "sndcdn.com"]
     }
   ]

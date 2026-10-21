@@ -35,6 +35,8 @@ AI 维持一份聚合规则，不按平台拆分。规则库另提供 17 份主�
 
 2026-10-19 根据 v2fly 已合并的 [Prime Video 更新 #4041](https://github.com/v2fly/domain-list-community/pull/4041)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/84394e467557d986c67341c90e36ca7e698d3860/data/primevideo)，为五端 `PrimeVideo` 独立规则补充精确主机 `amazon.pv-cdn.net`，每端该清单现为 6 条规则。上游合并的是 `pv-cdn.net` 后缀，原始 PR 标题明确指向该 Amazon 主机；本仓库按现有证据收窄为精确匹配。其额外子域和其他 `pv-cdn.net` 主机沿用原有分流。Prime Video 官方帮助页的直接访问被出站策略以 403 拒绝，未声称完成官方归属逐项核实、播放或解锁测试。五端可选 `Routing` 片段已有 `PrimeVideo` 引用，手动启用该片段后走 `PROXY`；Lazy 仍只预置 AI、PayPal、GitHub，不自动加载 Prime Video。其他服务的更新日期及 AI 清单保持不变。
 
+2026-10-21 根据 v2fly 已合并的 [Twitch 更新 #3532](https://github.com/v2fly/domain-list-community/pull/3532)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/e8a386f3327444cdd2c3318b94a0abd3804e62f4/data/twitch)，为五端 `Common` 增加精确主机 `d3stzm2eumvgb4.cloudfront.net`。只匹配上游明确归入 Twitch 的这个分发主机，不扩展到 `cloudfront.net`、其他分发主机或其额外子域，也不把它加入 AI 或 Lazy。现有可选 Routing 片段的 `Common` 引用会将它送到 `PROXY`；只有手动启用该片段或对应规则时才生效。归属依据为上游合并分类，未进行 Twitch 播放或该 CDN 真机验证。
+
 PayPal 独立规则包含 `paypal.com`、`paypalobjects.com`、`paypal.me` 及已核实的 `paypal.ca`、`paypal.com.cn`、`paypal.com.hk`、`paypal.com.sg`、`paypal.hk`、`paypal.jp` 地区入口；匹配到这份规则的流量在五端完整配置中默认走 `美国手动`，不回退到其他地区或直连。GitHub 独立规则还覆盖官方博客 `github.blog`、短链接 `gh.io` 和 GitHub Enterprise Cloud 数据驻留域名 `ghe.com`。`Common` 合并 Hulu、Twitch、Reddit、Pinterest、Apple TV+、Paramount+、Peacock、Steam、Zoom、Vimeo、SoundCloud，以及部分 Meta 共用 CDN。共用 CDN 不能可靠地区分 Facebook、Instagram 与 WhatsApp，因此放在 `Common`。
 
 五端可选接入片段分别在 [Clash](config/Clash/Routing.yaml)、[Stash](config/Stash/Routing.yaml)、[Loon](config/Loon/Routing.lcf)、[Shadowrocket](config/Shadowrocket/Routing.conf)、[Egern](config/Egern/Routing.yaml)。这些片段保留完整服务规则，供手动挑选和合并，不会自动加载到懒人配置中。将需要的规则合并到现有配置时，`PROXY` 必须是已经存在的代理策略；片段中的 `国内分流` 默认 `DIRECT`，可改选 `PROXY`。五端片段均包含 LAN 远程直连规则，合并时将它放在应用规则之前、中国 IP 规则之前。PayPal 行使用 `美国手动`，现有配置也必须有这个组并选中美国节点。片段规则顺序是 **LAN 直连 → AI → 独立服务（含 PayPal）→ Common → 中国 IP 分流 → 其余代理**。Clash / Stash 使用 `MATCH,PROXY` 作为最终规则，Loon / Shadowrocket 使用 `FINAL,PROXY`，Egern 使用 `default: policy: PROXY`。已有的宽泛规则及兜底必须检查顺序，不能让它们提前截获这些服务。
@@ -50,7 +52,7 @@ python scripts/build_service_rules.py --check
 
 ## AI 聚合规则
 
-为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **27 类服务、149 条域名规则**。更新日期：2026-10-18。
+为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **28 类服务、159 条域名规则**。更新日期：2026-10-21。
 
 2026-09-30 根据 v2fly 于 2026-09-29 合入的 [Gemini Web 更新](https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9)和 [NotebookLM 更新](https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1)，补充 `geminiweb-pa.clients.google.com`、`geminiweb-pa.clients6.google.com`、`labstailwind.pa.googleapis.com`。三项均采用精确域名匹配，不扩展到整个 `clients.google.com`、`clients6.google.com` 或 `googleapis.com`；NotebookLM 上游后缀规则在这里收窄为精确主机。依据为已读取的[固定上游快照](https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind)，未找到 Google 官方对这三个具体主机的公开说明，未声称官方逐项确认或真机验证。此次未发现需要修改 Lazy 配置的可证实问题，五端配置保持不变。
 
@@ -71,7 +73,7 @@ python scripts/build_service_rules.py --check
 | 服务 | 域名规则数 |
 |---|---:|
 | OpenAI / ChatGPT / Codex / Sora / Sites / Crixet | 22 |
-| Anthropic / Claude | 10 |
+| Anthropic / Claude | 19 |
 | Google Gemini / AI Studio / NotebookLM / Code Assist | 46 |
 | GitHub Copilot / GitHub Models | 6 |
 | Perplexity | 5 |
@@ -97,8 +99,11 @@ python scripts/build_service_rules.py --check
 | Stability AI | 1 |
 | Syntx.AI | 1 |
 | Jev / System One | 1 |
+| Magnific | 1 |
 
 Google AI 包含 Gemini、AI Studio、NotebookLM、Jules、Flow、Opal、Antigravity、Stitch 及 Code Assist 的已收录端点。
+
+2026-10-21 根据 v2fly 已合并的 [Anthropic 更新 #4116](https://github.com/v2fly/domain-list-community/pull/4116)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/bdf45acfdeaec2644257bb8947e0a0294276d5ef/data/anthropic)，补充 `ant.dev`、`anthropic.team`、`antspace.dev`、`chatbotclaude.com`、`claude.new`、`claude.site`、`claudeacademy.com`、`claudepages.dev`、`claudestudio.com` 九条后缀；`claude.app` 已覆盖，不重复添加。服务归属依据为可信上游合并记录，未据名称推定 Sites、Pages、Studio 等具体产品功能，也未确认各域名已作为生产入口上线。根据 [Magnific 更新 #4059](https://github.com/v2fly/domain-list-community/pull/4059)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/435cb8725922d3d3c0e1684ff6224b59952a400d/data/category-ai-!cn)，新增 `magnific.com` 后缀。十条后缀的主域和多级子域进入 AI，伪后缀不匹配；未加入上游新增的 OpenAI 广告追踪项。Claude 文档及所尝试新域名官网的直接请求被出站策略以 403 拒绝，未声称官方网页实时核实或真机验证。五端 Lazy 配置保持不变。
 
 2026-10-18 根据 v2fly 已合并的 [OpenAI 更新 #4149](https://github.com/v2fly/domain-list-community/pull/4149)及[Jev 更新 #4153](https://github.com/v2fly/domain-list-community/pull/4153)，新增 `openai.org` 和 `typesafe.ai` 两条后缀。对应固定清单为 [OpenAI](https://github.com/v2fly/domain-list-community/blob/5b1678867da0afc35854f481c1749a39048952df/data/openai)和 [Jev / System One](https://github.com/v2fly/domain-list-community/blob/be747934e1bc2756b6fbad31bec98221d87f819f/data/category-ai-!cn)。Cursor 同日新增的 [`cursorvm.com`](https://github.com/v2fly/domain-list-community/pull/4155) 已被现有规则覆盖，无需重复添加。
 
@@ -239,6 +244,10 @@ python scripts/build_ai_rules.py --check
 客户端的定时刷新读取的是本仓库已发布版本。上游域名变化需要先人工核对，再更新清单并提交。
 
 ## 验证状态
+
+2026-10-21 基于固定 master 的隔离云端快照实际运行通过：三个生成器 `--check`、69 份 YAML 严格解析、4 份 INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、五个地区手动组与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接、策略引用及循环检查。AI 每端现为 43 条精确主机、116 条后缀，共 159 条；通过 4,145 个域名断言、300 个地区筛选断言、65 个 AI 优先路径检查、90 个功能 URL 正例和 45 个反例，包含用户 Meta / Sites 固定回归。十条新增后缀另通过 250 个主域 / 多级子域 / 伪后缀断言；Twitch CDN 通过 35 个精确主机 / 额外子域 / 伪后缀断言及五端可选 Common 路由、AI 隔离和 Lazy 范围检查。Prime Video 原有精确范围的 35 个断言与可选路由检查继续通过，`git diff --check` 通过。
+
+本轮完整读取并核对哈希的 50 份上游清单中，Anthropic、AI 分类、OpenAI 追踪项和 Twitch 有变化；15 份官方 GitHub 文件中三份 Codex 源码有更新，没有发现新增服务主机。除 Claude / Magnific AI 规则和 Common 的精确 Twitch 主机外，其他服务、生成器及五端 Lazy / Routing 配置未改动。16 次官网 / 官方文档 / Sites 直接请求均被出站策略以 403 拒绝；没有客户端可执行程序，未进行原生导入、真实节点 / DNS / QUIC / 登录 / 播放测试，也无法读取手机端规则缓存或当前 AI 组选择。
 
 2026-10-19 在固定 master 的独立云端工作区实际运行通过：三个生成器 `--check`、69 份 YAML 严格解析、4 份 INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、五个地区组、PayPal 限制、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接和策略引用 / 循环检查。AI 维持 27 类、149 条规则，3,895 个域名断言、300 个地区筛选断言、45 个 AI 优先路径检查、90 个功能 URL 正例及 45 个反例均通过，包含 Meta 四个主机和用户 Sites 网站回归。Prime Video 另通过 35 个精确主机 / 额外子域 / 伪后缀断言、5 份可选 Routing 的 PROXY 引用与顺序检查，以及 AI 和 Lazy 范围检查；只有 `amazon.pv-cdn.net` 新增匹配，父域和额外子域未扩大。
 
