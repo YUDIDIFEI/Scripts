@@ -94,13 +94,17 @@
     },
     {
       "id": "Common", "name": "常见境外流媒体与应用", "tier": "combined", "source": "common",
-      "updated": "2026-10-21",
+      "updated": "2026-10-23",
       "sources": [
         "https://github.com/v2fly/domain-list-community/blob/e8a386f3327444cdd2c3318b94a0abd3804e62f4/data/twitch",
-        "https://github.com/v2fly/domain-list-community/pull/3532"
+        "https://github.com/v2fly/domain-list-community/pull/3532",
+        "https://github.com/v2fly/domain-list-community/blob/f406839acb33fdf077abf3aa7d6561fce7eed58f/data/steam",
+        "https://github.com/v2fly/domain-list-community/pull/4174",
+        "https://github.com/ValveSoftware/Proton/blob/bc896217ffcd67f892f952b010f898fe7bd0f0a1/docker/README.md",
+        "https://github.com/ValveSoftware/Proton/blob/bc896217ffcd67f892f952b010f898fe7bd0f0a1/docs/DEBUGGING-WINDOWS.md"
       ],
       "domains": ["d3stzm2eumvgb4.cloudfront.net", "hls-amt.itunes.apple.com", "hls.itunes.apple.com", "hulu.playback.edge.bamgrid.com", "np-edge.itunes.apple.com", "play-edge.itunes.apple.com", "uts-api.itunes.apple.com"],
-      "suffixes": ["fbcdn.net", "fbsbx.com", "hulu.com", "hulu.jp", "hulu.tv", "twitch.tv", "twitchcdn.net", "jtvnw.net", "ttvnw.net", "reddit.com", "redd.it", "redditmedia.com", "redditstatic.com", "pinterest.com", "pinimg.com", "pin.it", "tv.apple.com", "paramountplus.com", "pplusstatic.com", "peacocktv.com", "steamcommunity.com", "steampowered.com", "steamstatic.com", "steamcontent.com", "zoom.us", "zoom.com", "vimeo.com", "vimeocdn.com", "soundcloud.com", "sndcdn.com"]
+      "suffixes": ["fbcdn.net", "fbsbx.com", "hulu.com", "hulu.jp", "hulu.tv", "twitch.tv", "twitchcdn.net", "jtvnw.net", "ttvnw.net", "reddit.com", "redd.it", "redditmedia.com", "redditstatic.com", "pinterest.com", "pinimg.com", "pin.it", "tv.apple.com", "paramountplus.com", "pplusstatic.com", "peacocktv.com", "steamcommunity.com", "steampowered.com", "steamstatic.com", "steamcontent.com", "steamos.cloud", "zoom.us", "zoom.com", "vimeo.com", "vimeocdn.com", "soundcloud.com", "sndcdn.com"]
     }
   ]
 }

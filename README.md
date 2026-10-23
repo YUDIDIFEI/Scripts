@@ -35,6 +35,8 @@ AI 维持一份聚合规则，不按平台拆分。规则库另提供 17 份主�
 
 2026-10-19 根据 v2fly 已合并的 [Prime Video 更新 #4041](https://github.com/v2fly/domain-list-community/pull/4041)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/84394e467557d986c67341c90e36ca7e698d3860/data/primevideo)，为五端 `PrimeVideo` 独立规则补充精确主机 `amazon.pv-cdn.net`，每端该清单现为 6 条规则。上游合并的是 `pv-cdn.net` 后缀，原始 PR 标题明确指向该 Amazon 主机；本仓库按现有证据收窄为精确匹配。其额外子域和其他 `pv-cdn.net` 主机沿用原有分流。Prime Video 官方帮助页的直接访问被出站策略以 403 拒绝，未声称完成官方归属逐项核实、播放或解锁测试。五端可选 `Routing` 片段已有 `PrimeVideo` 引用，手动启用该片段后走 `PROXY`；Lazy 仍只预置 AI、PayPal、GitHub，不自动加载 Prime Video。其他服务的更新日期及 AI 清单保持不变。
 
+2026-10-23 根据 v2fly 已合并的 [Steam 更新 #4174](https://github.com/v2fly/domain-list-community/pull/4174)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/f406839acb33fdf077abf3aa7d6561fce7eed58f/data/steam)，为五端 `Common` 增加 `steamos.cloud` 后缀，每端 Common 现为 38 条规则。Valve 官方 [Proton SDK 文档](https://github.com/ValveSoftware/Proton/blob/bc896217ffcd67f892f952b010f898fe7bd0f0a1/docker/README.md)使用 `gitlab.steamos.cloud` 和 `registry.gitlab.steamos.cloud`，[调试文档](https://github.com/ValveSoftware/Proton/blob/bc896217ffcd67f892f952b010f898fe7bd0f0a1/docs/DEBUGGING-WINDOWS.md)使用 `proton-archive.steamos.cloud`，与上游分类交叉核对。主域及多级子域进入 Common，伪后缀不匹配；现有可选 Routing 的 Common 引用将其送到 `PROXY`，Lazy 不自动加载 Common，AI 规则不收录该域名。SteamOS 官网直接请求被出站策略以 403 拒绝，未进行下载、登录或真机网络验证。其他服务及其更新日期保持不变。
+
 2026-10-21 根据 v2fly 已合并的 [Twitch 更新 #3532](https://github.com/v2fly/domain-list-community/pull/3532)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/e8a386f3327444cdd2c3318b94a0abd3804e62f4/data/twitch)，为五端 `Common` 增加精确主机 `d3stzm2eumvgb4.cloudfront.net`。只匹配上游明确归入 Twitch 的这个分发主机，不扩展到 `cloudfront.net`、其他分发主机或其额外子域，也不把它加入 AI 或 Lazy。现有可选 Routing 片段的 `Common` 引用会将它送到 `PROXY`；只有手动启用该片段或对应规则时才生效。归属依据为上游合并分类，未进行 Twitch 播放或该 CDN 真机验证。
 
 PayPal 独立规则包含 `paypal.com`、`paypalobjects.com`、`paypal.me` 及已核实的 `paypal.ca`、`paypal.com.cn`、`paypal.com.hk`、`paypal.com.sg`、`paypal.hk`、`paypal.jp` 地区入口；匹配到这份规则的流量在五端完整配置中默认走 `美国手动`，不回退到其他地区或直连。GitHub 独立规则还覆盖官方博客 `github.blog`、短链接 `gh.io` 和 GitHub Enterprise Cloud 数据驻留域名 `ghe.com`。`Common` 合并 Hulu、Twitch、Reddit、Pinterest、Apple TV+、Paramount+、Peacock、Steam、Zoom、Vimeo、SoundCloud，以及部分 Meta 共用 CDN。共用 CDN 不能可靠地区分 Facebook、Instagram 与 WhatsApp，因此放在 `Common`。
@@ -244,6 +246,10 @@ python scripts/build_ai_rules.py --check
 客户端的定时刷新读取的是本仓库已发布版本。上游域名变化需要先人工核对，再更新清单并提交。
 
 ## 验证状态
+
+2026-10-23 基于固定 master 的隔离云端快照实际运行通过：三个生成器 `--check`、69 份 YAML 严格解析、4 份 INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、五个地区手动组与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接、策略引用及循环检查。AI 保持 28 类、159 条规则，4,145 个域名断言、300 个地区筛选断言、65 个 AI 优先路径检查、90 个功能 URL 正例和 45 个反例通过，包含用户 Meta / Sites 固定回归。既有 Claude / Magnific、Twitch 和 Prime Video 精确范围检查继续通过；SteamOS 新后缀另通过 40 个主域 / 官方服务子域 / 多级子域 / 伪后缀断言，以及五端 Common 可选路由、AI 隔离和 Lazy 范围检查，`git diff --check` 通过。
+
+本轮完整读取并核对哈希的资料包括 50 份上游清单、一份合并提交清单、15 份原有官方 GitHub 文件及 5 份 Valve 官方文件。上游只有 Steam 新增后缀；两份 Codex 源码有更新，未发现新增服务主机。18 次官网 / 官方文档 / Sites 直接请求均被出站策略以 403 拒绝；没有客户端可执行程序，未进行原生导入、真实节点 / DNS / QUIC / 登录 / 播放或下载测试，也无法读取手机端规则缓存或当前 AI 组选择。此次没有发现需要改动五端 Lazy 的可证实问题，AI、Lazy / Routing 配置和生成器保持不变。
 
 2026-10-21 基于固定 master 的隔离云端快照实际运行通过：三个生成器 `--check`、69 份 YAML 严格解析、4 份 INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、五个地区手动组与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接、策略引用及循环检查。AI 每端现为 43 条精确主机、116 条后缀，共 159 条；通过 4,145 个域名断言、300 个地区筛选断言、65 个 AI 优先路径检查、90 个功能 URL 正例和 45 个反例，包含用户 Meta / Sites 固定回归。十条新增后缀另通过 250 个主域 / 多级子域 / 伪后缀断言；Twitch CDN 通过 35 个精确主机 / 额外子域 / 伪后缀断言及五端可选 Common 路由、AI 隔离和 Lazy 范围检查。Prime Video 原有精确范围的 35 个断言与可选路由检查继续通过，`git diff --check` 通过。
 

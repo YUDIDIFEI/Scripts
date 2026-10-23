@@ -1,5 +1,5 @@
 # 常见境外流媒体与应用 - overseas routing rules
-# Updated: 2026-10-21 | Rules: 37
+# Updated: 2026-10-23 | Rules: 38
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 domain_set:
@@ -31,6 +31,7 @@ domain_suffix_set:
   - soundcloud.com
   - steamcommunity.com
   - steamcontent.com
+  - steamos.cloud
   - steampowered.com
   - steamstatic.com
   - ttvnw.net

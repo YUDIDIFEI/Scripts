@@ -1,5 +1,5 @@
 # 常见境外流媒体与应用 - overseas routing rules
-# Updated: 2026-10-21 | Rules: 37
+# Updated: 2026-10-23 | Rules: 38
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 DOMAIN,d3stzm2eumvgb4.cloudfront.net
@@ -29,6 +29,7 @@ DOMAIN-SUFFIX,sndcdn.com
 DOMAIN-SUFFIX,soundcloud.com
 DOMAIN-SUFFIX,steamcommunity.com
 DOMAIN-SUFFIX,steamcontent.com
+DOMAIN-SUFFIX,steamos.cloud
 DOMAIN-SUFFIX,steampowered.com
 DOMAIN-SUFFIX,steamstatic.com
 DOMAIN-SUFFIX,ttvnw.net
