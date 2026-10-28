@@ -34,7 +34,13 @@
     },
     {
       "id": "Spotify", "name": "Spotify", "tier": "individual", "source": "spotify",
-      "domains": ["audio-ak-spotify-com.akamaized.net", "audio4-ak-spotify-com.akamaized.net", "heads-ak-spotify-com.akamaized.net", "heads4-ak-spotify-com.akamaized.net", "spotify.com.edgesuite.net"],
+      "updated": "2026-10-28",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/b769e3017845f8e672dccb51c37c731d84f94d62/data/spotify",
+        "https://github.com/v2fly/domain-list-community/pull/4192",
+        "https://github.com/Loyalsoldier/v2ray-rules-dat/issues/522"
+      ],
+      "domains": ["audio-ak-spotify-com.akamaized.net", "audio-ake.spotify.com.edgesuite.net", "audio4-ak-spotify-com.akamaized.net", "heads-ak-spotify-com.akamaized.net", "heads4-ak-spotify-com.akamaized.net", "spotify.com.edgesuite.net"],
       "suffixes": ["pscdn.co", "scdn.co", "spoti.fi", "spotify.com", "spotify.link", "spotifycdn.com", "spotifycdn.net"]
     },
     {

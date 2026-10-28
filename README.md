@@ -35,6 +35,8 @@ AI 维持一份聚合规则，不按平台拆分。规则库另提供 17 份主�
 
 2026-10-19 根据 v2fly 已合并的 [Prime Video 更新 #4041](https://github.com/v2fly/domain-list-community/pull/4041)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/84394e467557d986c67341c90e36ca7e698d3860/data/primevideo)，为五端 `PrimeVideo` 独立规则补充精确主机 `amazon.pv-cdn.net`，每端该清单现为 6 条规则。上游合并的是 `pv-cdn.net` 后缀，原始 PR 标题明确指向该 Amazon 主机；本仓库按现有证据收窄为精确匹配。其额外子域和其他 `pv-cdn.net` 主机沿用原有分流。Prime Video 官方帮助页的直接访问被出站策略以 403 拒绝，未声称完成官方归属逐项核实、播放或解锁测试。五端可选 `Routing` 片段已有 `PrimeVideo` 引用，手动启用该片段后走 `PROXY`；Lazy 仍只预置 AI、PayPal、GitHub，不自动加载 Prime Video。其他服务的更新日期及 AI 清单保持不变。
 
+2026-10-28 根据 v2fly 已合并的 [CDN 更新 #4192](https://github.com/v2fly/domain-list-community/pull/4192)、[固定 Spotify 清单](https://github.com/v2fly/domain-list-community/blob/b769e3017845f8e672dccb51c37c731d84f94d62/data/spotify)和其关联的[音频漏匹配报告 #522](https://github.com/Loyalsoldier/v2ray-rules-dat/issues/522)，为五端 Spotify 独立规则新增精确主机 `audio-ake.spotify.com.edgesuite.net`，每端 Spotify 现为 13 条规则。原有精确规则 `spotify.com.edgesuite.net` 不会匹配该主机。上游将该父域改为后缀，本仓库按具体报告收窄为补充精确主机；父域原有匹配及其他额外子域的行为保持不变，未扩展整个 `edgesuite.net`。Netflix 同次上游类型调整未带来已核实的新增具体主机，本轮保留原有精确匹配。现有可选 Routing 仍将 Spotify 送到 `PROXY`；Lazy 不自动加载 Spotify，AI 不收录此音频主机。直接请求被出站策略以 403 拒绝，未进行音频播放、账号或节点验证。其他服务的规则和更新日期保持不变。
+
 2026-10-23 根据 v2fly 已合并的 [Steam 更新 #4174](https://github.com/v2fly/domain-list-community/pull/4174)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/f406839acb33fdf077abf3aa7d6561fce7eed58f/data/steam)，为五端 `Common` 增加 `steamos.cloud` 后缀，每端 Common 现为 38 条规则。Valve 官方 [Proton SDK 文档](https://github.com/ValveSoftware/Proton/blob/bc896217ffcd67f892f952b010f898fe7bd0f0a1/docker/README.md)使用 `gitlab.steamos.cloud` 和 `registry.gitlab.steamos.cloud`，[调试文档](https://github.com/ValveSoftware/Proton/blob/bc896217ffcd67f892f952b010f898fe7bd0f0a1/docs/DEBUGGING-WINDOWS.md)使用 `proton-archive.steamos.cloud`，与上游分类交叉核对。主域及多级子域进入 Common，伪后缀不匹配；现有可选 Routing 的 Common 引用将其送到 `PROXY`，Lazy 不自动加载 Common，AI 规则不收录该域名。SteamOS 官网直接请求被出站策略以 403 拒绝，未进行下载、登录或真机网络验证。其他服务及其更新日期保持不变。
 
 2026-10-21 根据 v2fly 已合并的 [Twitch 更新 #3532](https://github.com/v2fly/domain-list-community/pull/3532)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/e8a386f3327444cdd2c3318b94a0abd3804e62f4/data/twitch)，为五端 `Common` 增加精确主机 `d3stzm2eumvgb4.cloudfront.net`。只匹配上游明确归入 Twitch 的这个分发主机，不扩展到 `cloudfront.net`、其他分发主机或其额外子域，也不把它加入 AI 或 Lazy。现有可选 Routing 片段的 `Common` 引用会将它送到 `PROXY`；只有手动启用该片段或对应规则时才生效。归属依据为上游合并分类，未进行 Twitch 播放或该 CDN 真机验证。
@@ -54,7 +56,7 @@ python scripts/build_service_rules.py --check
 
 ## AI 聚合规则
 
-为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **28 类服务、159 条域名规则**。更新日期：2026-10-21。
+为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **33 类服务、168 条域名规则**。更新日期：2026-10-28。
 
 2026-09-30 根据 v2fly 于 2026-09-29 合入的 [Gemini Web 更新](https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9)和 [NotebookLM 更新](https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1)，补充 `geminiweb-pa.clients.google.com`、`geminiweb-pa.clients6.google.com`、`labstailwind.pa.googleapis.com`。三项均采用精确域名匹配，不扩展到整个 `clients.google.com`、`clients6.google.com` 或 `googleapis.com`；NotebookLM 上游后缀规则在这里收窄为精确主机。依据为已读取的[固定上游快照](https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind)，未找到 Google 官方对这三个具体主机的公开说明，未声称官方逐项确认或真机验证。此次未发现需要修改 Lazy 配置的可证实问题，五端配置保持不变。
 
@@ -76,7 +78,7 @@ python scripts/build_service_rules.py --check
 |---|---:|
 | OpenAI / ChatGPT / Codex / Sora / Sites / Crixet | 22 |
 | Anthropic / Claude | 19 |
-| Google Gemini / AI Studio / NotebookLM / Code Assist | 46 |
+| Google Gemini / Workspace / AI Studio / NotebookLM / Code Assist | 49 |
 | GitHub Copilot / GitHub Models | 6 |
 | Perplexity | 5 |
 | xAI / Grok / Grokipedia | 4 |
@@ -93,7 +95,7 @@ python scripts/build_service_rules.py --check
 | Cohere | 2 |
 | Midjourney | 1 |
 | OpenRouter | 1 |
-| Meta AI / Muse / Llama / SAM | 12 |
+| Meta AI / Muse / Llama / SAM | 13 |
 | Civitai | 1 |
 | Suno | 2 |
 | Runway | 2 |
@@ -102,8 +104,23 @@ python scripts/build_service_rules.py --check
 | Syntx.AI | 1 |
 | Jev / System One | 1 |
 | Magnific | 1 |
+| Artificial Analysis | 1 |
+| Cline | 1 |
+| CommandCode | 1 |
+| Context7 | 1 |
+| Nous Research | 1 |
 
-Google AI 包含 Gemini、AI Studio、NotebookLM、Jules、Flow、Opal、Antigravity、Stitch 及 Code Assist 的已收录端点。
+Google AI 包含 Gemini、Workspace 侧栏、AI Studio、NotebookLM、Jules、Flow、Opal、Antigravity、Stitch 及 Code Assist 的已收录端点。
+
+2026-10-28 根据以下已合并上游记录，补充九条 AI 规则：
+
+| 功能 / 服务 | 新增规则 | 核对来源 |
+|---|---|---|
+| Gemini in Workspace（Gmail / Docs / Drive 侧栏） | 精确主机 `appsgenaiserver-pa.clients.google.com`、`appsgenaiserver-pa.clients6.google.com`、`appsgenaiserver-pa.googleapis.com` | [v2fly #4190](https://github.com/v2fly/domain-list-community/pull/4190)及[固定清单](https://github.com/v2fly/domain-list-community/blob/fa3cb96fbc210b8d6466251a1d71b4a6e63a9c85/data/google-deepmind) |
+| Meta AI 内容 | 后缀 `metaaiusercontent.com` | [v2fly #4195](https://github.com/v2fly/domain-list-community/pull/4195)及[固定清单](https://github.com/v2fly/domain-list-community/blob/420c0e7b880c107aa984b3b061997a815c1a0d62/data/meta) |
+| Artificial Analysis、Cline、CommandCode、Context7、Nous Research | 后缀 `artificialanalysis.ai`、`cline.bot`、`commandcode.ai`、`context7.com`、`nousresearch.com` | [v2fly #4194](https://github.com/v2fly/domain-list-community/pull/4194)及[固定清单](https://github.com/v2fly/domain-list-community/blob/3d8792f3d7caab5a11f3b411aaf173af438becd2/data/category-ai-!cn) |
+
+[Cline 官方说明](https://github.com/cline/cline/blob/f817e59f698f01487920c00ede2dbecad5c0fa50/README.md)另有 `docs.cline.bot` 入口，[Context7 官方说明](https://github.com/upstash/context7/blob/5c368c93ef923e457ac64957d80a1b6b12a9788f/README.md)使用 `context7.com` 和 `mcp.context7.com`。其余新增项按可信上游合并分类采纳。三个 Google 后端只做精确匹配，不扩展 `clients.google.com`、`clients6.google.com`、`googleapis.com` 或其额外子域；同一主机上的其他路径也会进入 AI，域名分流不能按 `/v1/genai/` 路径细分。六条新增后缀覆盖主域和多级子域，伪后缀不匹配。官网与 API 的直接请求被出站策略拒绝，上游评论中的响应属于上游报告，未作为本轮亲测结果；未进行真机联网验证。五端 Lazy 的应用预设与顺序保持不变。
 
 2026-10-21 根据 v2fly 已合并的 [Anthropic 更新 #4116](https://github.com/v2fly/domain-list-community/pull/4116)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/bdf45acfdeaec2644257bb8947e0a0294276d5ef/data/anthropic)，补充 `ant.dev`、`anthropic.team`、`antspace.dev`、`chatbotclaude.com`、`claude.new`、`claude.site`、`claudeacademy.com`、`claudepages.dev`、`claudestudio.com` 九条后缀；`claude.app` 已覆盖，不重复添加。服务归属依据为可信上游合并记录，未据名称推定 Sites、Pages、Studio 等具体产品功能，也未确认各域名已作为生产入口上线。根据 [Magnific 更新 #4059](https://github.com/v2fly/domain-list-community/pull/4059)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/435cb8725922d3d3c0e1684ff6224b59952a400d/data/category-ai-!cn)，新增 `magnific.com` 后缀。十条后缀的主域和多级子域进入 AI，伪后缀不匹配；未加入上游新增的 OpenAI 广告追踪项。Claude 文档及所尝试新域名官网的直接请求被出站策略以 403 拒绝，未声称官方网页实时核实或真机验证。五端 Lazy 配置保持不变。
 
@@ -246,6 +263,10 @@ python scripts/build_ai_rules.py --check
 客户端的定时刷新读取的是本仓库已发布版本。上游域名变化需要先人工核对，再更新清单并提交。
 
 ## 验证状态
+
+2026-10-28 在固定 master 的隔离云端快照实际运行通过：三个生成器 `--check`、69 份 YAML 严格解析、4 份 INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、五个地区手动组与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接、策略引用及循环检查。AI 每端为 46 条精确主机、122 条后缀，共 168 条；通过 4,370 个域名断言、300 个地区筛选断言、110 个 AI 优先路径检查、90 个功能 URL 正例和 45 个反例，包含用户 Meta / Sites 固定回归。新增 AI 另通过 150 个后缀边界和 75 个 Workspace 精确主机断言；Spotify 通过 35 个精确主机 / 额外子域 / 伪后缀断言及五端可选路由、AI 隔离和 Lazy 范围检查。此前 Claude、Magnific、Twitch、SteamOS 和 Prime Video 范围检查继续通过，`git diff --check` 通过。
+
+本轮完整读取并核对哈希的资料包括 50 份上游清单、4 份合并提交清单及 34 份官方 GitHub 文件，核实 4 条相关合并记录。官方 Codex 执行服务已拆分到新模块，本轮沿新位置核对，未发现需新增的生产服务域名。遥测标注变化未自动新增规则，也未将共享 CDN 父域类型变化直接照搬为宽泛后缀。28 次官网 / 官方文档 / Sites / API / 新增主机直接请求均被出站策略以 403 拒绝；没有客户端可执行程序，未进行原生导入、真实节点 / DNS / QUIC / 登录 / 播放或下载测试，也无法读取手机端规则缓存和当前 AI 组选择。五端 Lazy / Routing 配置、生成器及其他服务保持不变。
 
 2026-10-23 基于固定 master 的隔离云端快照实际运行通过：三个生成器 `--check`、69 份 YAML 严格解析、4 份 INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、五个地区手动组与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接、策略引用及循环检查。AI 保持 28 类、159 条规则，4,145 个域名断言、300 个地区筛选断言、65 个 AI 优先路径检查、90 个功能 URL 正例和 45 个反例通过，包含用户 Meta / Sites 固定回归。既有 Claude / Magnific、Twitch 和 Prime Video 精确范围检查继续通过；SteamOS 新后缀另通过 40 个主域 / 官方服务子域 / 多级子域 / 伪后缀断言，以及五端 Common 可选路由、AI 隔离和 Lazy 范围检查，`git diff --check` 通过。
 

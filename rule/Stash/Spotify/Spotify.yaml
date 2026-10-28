@@ -1,9 +1,10 @@
 # Spotify - overseas routing rules
-# Updated: 2026-09-25 | Rules: 12
+# Updated: 2026-10-28 | Rules: 13
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 payload:
   - DOMAIN,audio-ak-spotify-com.akamaized.net
+  - DOMAIN,audio-ake.spotify.com.edgesuite.net
   - DOMAIN,audio4-ak-spotify-com.akamaized.net
   - DOMAIN,heads-ak-spotify-com.akamaized.net
   - DOMAIN,heads4-ak-spotify-com.akamaized.net

@@ -1,6 +1,6 @@
 {
   "name": "Foreign AI",
-  "updated": "2026-10-21",
+  "updated": "2026-10-28",
   "description": "常用国外 AI 服务的域名分流；不是全量网络依赖白名单。",
   "services": [
     {
@@ -86,19 +86,25 @@
     },
     {
       "id": "google-deepmind",
-      "name": "Google Gemini / AI Studio / NotebookLM / Code Assist",
-      "updated": "2026-09-30",
+      "name": "Google Gemini / Workspace / AI Studio / NotebookLM / Code Assist",
+      "updated": "2026-10-28",
       "sources": [
         "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/google-deepmind",
         "https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind",
         "https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9",
-        "https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1"
+        "https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1",
+        "https://github.com/v2fly/domain-list-community/blob/fa3cb96fbc210b8d6466251a1d71b4a6e63a9c85/data/google-deepmind",
+        "https://github.com/v2fly/domain-list-community/pull/4190"
       ],
       "domains": [
         "ai.google.dev",
         "alkalicore-pa.clients6.google.com",
         "alkalimakersuite-pa.clients6.google.com",
-        "webchannel-alkalimakersuite-pa.clients6.google.com",
+        "antigravity-pa.googleapis.com",
+        "antigravity.googleapis.com",
+        "appsgenaiserver-pa.clients.google.com",
+        "appsgenaiserver-pa.clients6.google.com",
+        "appsgenaiserver-pa.googleapis.com",
         "cloudaicompanion.googleapis.com",
         "cloudcode-pa.googleapis.com",
         "daily-cloudcode-pa.googleapis.com",
@@ -107,8 +113,7 @@
         "labstailwind.pa.googleapis.com",
         "notebooklm-pa.googleapis.com",
         "notebooklm.googleapis.com",
-        "antigravity-pa.googleapis.com",
-        "antigravity.googleapis.com"
+        "webchannel-alkalimakersuite-pa.clients6.google.com"
       ],
       "suffixes": [
         "deepmind.com",
@@ -371,7 +376,7 @@
     {
       "id": "meta-ai",
       "name": "Meta AI / Muse / Llama / SAM",
-      "updated": "2026-10-08",
+      "updated": "2026-10-28",
       "sources": [
         "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn",
         "https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/category-ai-!cn",
@@ -384,7 +389,9 @@
         "https://github.com/facebookresearch/meta-agents-research-environments/blob/a9fd2edccb4bc7e22fbf45c8482a5fef30a2a5a4/docs/user_guide/llm_configuration.rst",
         "https://github.com/facebookresearch/sam2/blob/2b90b9f5ceec907a1c18123530e92e794ad901a4/README.md",
         "https://github.com/facebookresearch/sam-3d-objects/blob/f91db411c50efee93d8db7aeb323885650f6f722/README.md",
-        "https://github.com/facebookresearch/sam2/blob/2b90b9f5ceec907a1c18123530e92e794ad901a4/demo/frontend/src/demo/DemoConfig.tsx"
+        "https://github.com/facebookresearch/sam2/blob/2b90b9f5ceec907a1c18123530e92e794ad901a4/demo/frontend/src/demo/DemoConfig.tsx",
+        "https://github.com/v2fly/domain-list-community/blob/420c0e7b880c107aa984b3b061997a815c1a0d62/data/meta",
+        "https://github.com/v2fly/domain-list-community/pull/4195"
       ],
       "domains": [
         "accountscenter.meta.com",
@@ -399,6 +406,7 @@
       "suffixes": [
         "llama.com",
         "meta.ai",
+        "metaaiusercontent.com",
         "metaaivm.com",
         "muse.ai"
       ]
@@ -498,6 +506,73 @@
       "suffixes": [
         "magnific.com"
       ]
+    },
+    {
+      "id": "artificial-analysis",
+      "name": "Artificial Analysis",
+      "updated": "2026-10-28",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/3d8792f3d7caab5a11f3b411aaf173af438becd2/data/category-ai-!cn",
+        "https://github.com/v2fly/domain-list-community/pull/4194"
+      ],
+      "domains": [],
+      "suffixes": [
+        "artificialanalysis.ai"
+      ]
+    },
+    {
+      "id": "cline",
+      "name": "Cline",
+      "updated": "2026-10-28",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/3d8792f3d7caab5a11f3b411aaf173af438becd2/data/category-ai-!cn",
+        "https://github.com/v2fly/domain-list-community/pull/4194",
+        "https://github.com/cline/cline/blob/f817e59f698f01487920c00ede2dbecad5c0fa50/README.md"
+      ],
+      "domains": [],
+      "suffixes": [
+        "cline.bot"
+      ]
+    },
+    {
+      "id": "commandcode",
+      "name": "CommandCode",
+      "updated": "2026-10-28",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/3d8792f3d7caab5a11f3b411aaf173af438becd2/data/category-ai-!cn",
+        "https://github.com/v2fly/domain-list-community/pull/4194"
+      ],
+      "domains": [],
+      "suffixes": [
+        "commandcode.ai"
+      ]
+    },
+    {
+      "id": "context7",
+      "name": "Context7",
+      "updated": "2026-10-28",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/3d8792f3d7caab5a11f3b411aaf173af438becd2/data/category-ai-!cn",
+        "https://github.com/v2fly/domain-list-community/pull/4194",
+        "https://github.com/upstash/context7/blob/5c368c93ef923e457ac64957d80a1b6b12a9788f/README.md"
+      ],
+      "domains": [],
+      "suffixes": [
+        "context7.com"
+      ]
+    },
+    {
+      "id": "nous-research",
+      "name": "Nous Research",
+      "updated": "2026-10-28",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/3d8792f3d7caab5a11f3b411aaf173af438becd2/data/category-ai-!cn",
+        "https://github.com/v2fly/domain-list-community/pull/4194"
+      ],
+      "domains": [],
+      "suffixes": [
+        "nousresearch.com"
+      ]
     }
   ],
   "notes": [
@@ -511,6 +586,8 @@
     "2026-10-08 根据用户确认的 Meta AI / Muse 连接日志，精确收录 auth.meta.com、accountscenter.meta.com、meta.graph.meta.com、ar.graph.meta.com；上游 Meta 分类及官方账号/Graph 资料用于核对归属，这些主机也可能承载其他 Meta 功能。",
     "Meta AI 组补充官方 Llama API、AI at Meta 和 SAM 演示站；只收录有明确来源的专属后缀或精确主机，不扩展到整个 meta.com、graph.meta.com、metademolab.com、共享 CDN 或设备服务。",
     "2026-10-18 根据 v2fly 已合并的 OpenAI 分类及 Codex 自有主机校验补充 openai.org 后缀；其中 auth.api.openai.org 仍被官方标为 staging，也会随该后缀命中 AI，不将其描述为新增生产端点。",
-    "2026-10-21 根据 v2fly 已合并的 Anthropic 分类补充 9 个后缀，并新增 Magnific 的 magnific.com；claude.app 已有覆盖，不重复添加。Claude 新域名的服务归属依据为上游合并记录，未确认各域名已上线的具体功能或生产用途；不据名称推定为 Sites、Pages 或其他产品。"
+    "2026-10-21 根据 v2fly 已合并的 Anthropic 分类补充 9 个后缀，并新增 Magnific 的 magnific.com；claude.app 已有覆盖，不重复添加。Claude 新域名的服务归属依据为上游合并记录，未确认各域名已上线的具体功能或生产用途；不据名称推定为 Sites、Pages 或其他产品。",
+    "2026-10-28 根据 v2fly 已合并的 Gemini Workspace 更新，精确收录 appsgenaiserver-pa 的 clients.google.com、clients6.google.com 与 googleapis.com 三个主机；不扩展整个 Google API 域名空间，域名分流无法区分同一主机下的 AI 与其他路径。",
+    "2026-10-28 根据 v2fly 已合并分类补充 Meta AI 内容后缀 metaaiusercontent.com，以及 Artificial Analysis、Cline、CommandCode、Context7、Nous Research；Cline 与 Context7 另有官方仓库入口佐证。官网直接读取受出站策略限制，未声称完成实时官网或真机验证。"
   ]
 }
