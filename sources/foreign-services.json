@@ -45,8 +45,14 @@
     },
     {
       "id": "TikTok", "name": "TikTok", "tier": "individual", "source": "tiktok",
+      "updated": "2026-11-01",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/tiktok",
+        "https://github.com/v2fly/domain-list-community/pull/4219",
+        "https://github.com/tiktok/ttspc-server-sample/blob/6ad749ed4744fa48411539a9e4e2d7270ec8faf1/README.md"
+      ],
       "domains": ["p16-tiktokcdn-com.akamaized.net"],
-      "suffixes": ["muscdn.com", "musical.ly", "tik-tokapi.com", "tiktok.com", "tiktokcdn-eu.com", "tiktokcdn-us.com", "tiktokcdn.com", "tiktokd.net", "tiktokv.com", "tiktokv.eu", "tiktokv.us", "tiktokw.eu", "tiktokw.us", "ttcdn-us.com", "ttlivecdn.com", "ttwstatic.com"]
+      "suffixes": ["muscdn.com", "musical.ly", "tik-tokapi.com", "tiktok.com", "tiktokcdn-eu.com", "tiktokcdn-us.com", "tiktokcdn.com", "tiktokd.net", "tiktokshop.com", "tiktokstaticb.com", "tiktokv.com", "tiktokv.eu", "tiktokv.us", "tiktokvapp.com", "tiktokw.eu", "tiktokw.us", "ttcdn-us.com", "ttlivecdn.com", "ttwstatic.com"]
     },
     {
       "id": "Telegram", "name": "Telegram", "tier": "individual", "source": "telegram",
@@ -85,8 +91,14 @@
     },
     {
       "id": "Microsoft", "name": "Microsoft 通用服务", "tier": "individual", "source": "microsoft",
+      "updated": "2026-11-01",
+      "sources": [
+        "https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/microsoft",
+        "https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/bing",
+        "https://github.com/v2fly/domain-list-community/pull/4219"
+      ],
       "domains": [],
-      "suffixes": ["bing.com", "live.com", "microsoft.com", "microsoftonline.com", "msauth.net", "msftauth.net", "office.com", "office365.com", "outlook.com"]
+      "suffixes": ["bing.com", "bingstatic.com", "live.com", "microsoft.com", "microsoftonline.com", "msauth.net", "msftauth.net", "msftstatic.com", "office.com", "office365.com", "outlook.com"]
     },
     {
       "id": "Discord", "name": "Discord", "tier": "individual", "source": "discord",

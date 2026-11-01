@@ -1,5 +1,5 @@
 # TikTok - overseas routing rules
-# Updated: 2026-09-25 | Rules: 17
+# Updated: 2026-11-01 | Rules: 20
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 domain_set:
@@ -13,9 +13,12 @@ domain_suffix_set:
   - tiktokcdn-us.com
   - tiktokcdn.com
   - tiktokd.net
+  - tiktokshop.com
+  - tiktokstaticb.com
   - tiktokv.com
   - tiktokv.eu
   - tiktokv.us
+  - tiktokvapp.com
   - tiktokw.eu
   - tiktokw.us
   - ttcdn-us.com

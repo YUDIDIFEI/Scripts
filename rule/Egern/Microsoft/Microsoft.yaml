@@ -1,14 +1,16 @@
 # Microsoft 通用服务 - overseas routing rules
-# Updated: 2026-09-25 | Rules: 9
+# Updated: 2026-11-01 | Rules: 11
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 domain_suffix_set:
   - bing.com
+  - bingstatic.com
   - live.com
   - microsoft.com
   - microsoftonline.com
   - msauth.net
   - msftauth.net
+  - msftstatic.com
   - office.com
   - office365.com
   - outlook.com

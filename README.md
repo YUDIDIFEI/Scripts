@@ -35,6 +35,15 @@ AI 维持一份聚合规则，不按平台拆分。规则库另提供 17 份主�
 
 2026-10-19 根据 v2fly 已合并的 [Prime Video 更新 #4041](https://github.com/v2fly/domain-list-community/pull/4041)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/84394e467557d986c67341c90e36ca7e698d3860/data/primevideo)，为五端 `PrimeVideo` 独立规则补充精确主机 `amazon.pv-cdn.net`，每端该清单现为 6 条规则。上游合并的是 `pv-cdn.net` 后缀，原始 PR 标题明确指向该 Amazon 主机；本仓库按现有证据收窄为精确匹配。其额外子域和其他 `pv-cdn.net` 主机沿用原有分流。Prime Video 官方帮助页的直接访问被出站策略以 403 拒绝，未声称完成官方归属逐项核实、播放或解锁测试。五端可选 `Routing` 片段已有 `PrimeVideo` 引用，手动启用该片段后走 `PROXY`；Lazy 仍只预置 AI、PayPal、GitHub，不自动加载 Prime Video。其他服务的更新日期及 AI 清单保持不变。
 
+2026-11-01 根据 v2fly 已合并的 [服务域名更新 #4219](https://github.com/v2fly/domain-list-community/pull/4219)及固定提交中的 [TikTok](https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/tiktok)、[Microsoft](https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/microsoft)、[Bing](https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/bing) 清单，为五端独立规则补充以下后缀：
+
+| 独立规则 | 新增后缀 | 更新后规则数 |
+|---|---|---:|
+| TikTok | `tiktokshop.com`、`tiktokstaticb.com`、`tiktokvapp.com` | 20 |
+| Microsoft | `msftstatic.com`、`bingstatic.com` | 11 |
+
+Microsoft 上游清单包含 Bing 子清单，故同时核对本次新增的 `bingstatic.com`。[TikTok 官方服务端示例](https://github.com/tiktok/ttspc-server-sample/blob/6ad749ed4744fa48411539a9e4e2d7270ec8faf1/README.md)另有 `partner.tiktokshop.com`、`partner.us.tiktokshop.com` 入口；其余新增域名按可靠上游合并分类采纳，未声称官方网页逐项核实。主域和多级子域匹配，伪后缀不匹配。现有可选 Routing 片段将 TikTok、Microsoft 送到 `PROXY`；这五条规则不加入 AI，Lazy 不自动加载这两个服务。AI 仍为 33 类、168 条，其他服务及其更新日期保持不变。
+
 2026-10-28 根据 v2fly 已合并的 [CDN 更新 #4192](https://github.com/v2fly/domain-list-community/pull/4192)、[固定 Spotify 清单](https://github.com/v2fly/domain-list-community/blob/b769e3017845f8e672dccb51c37c731d84f94d62/data/spotify)和其关联的[音频漏匹配报告 #522](https://github.com/Loyalsoldier/v2ray-rules-dat/issues/522)，为五端 Spotify 独立规则新增精确主机 `audio-ake.spotify.com.edgesuite.net`，每端 Spotify 现为 13 条规则。原有精确规则 `spotify.com.edgesuite.net` 不会匹配该主机。上游将该父域改为后缀，本仓库按具体报告收窄为补充精确主机；父域原有匹配及其他额外子域的行为保持不变，未扩展整个 `edgesuite.net`。Netflix 同次上游类型调整未带来已核实的新增具体主机，本轮保留原有精确匹配。现有可选 Routing 仍将 Spotify 送到 `PROXY`；Lazy 不自动加载 Spotify，AI 不收录此音频主机。直接请求被出站策略以 403 拒绝，未进行音频播放、账号或节点验证。其他服务的规则和更新日期保持不变。
 
 2026-10-23 根据 v2fly 已合并的 [Steam 更新 #4174](https://github.com/v2fly/domain-list-community/pull/4174)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/f406839acb33fdf077abf3aa7d6561fce7eed58f/data/steam)，为五端 `Common` 增加 `steamos.cloud` 后缀，每端 Common 现为 38 条规则。Valve 官方 [Proton SDK 文档](https://github.com/ValveSoftware/Proton/blob/bc896217ffcd67f892f952b010f898fe7bd0f0a1/docker/README.md)使用 `gitlab.steamos.cloud` 和 `registry.gitlab.steamos.cloud`，[调试文档](https://github.com/ValveSoftware/Proton/blob/bc896217ffcd67f892f952b010f898fe7bd0f0a1/docs/DEBUGGING-WINDOWS.md)使用 `proton-archive.steamos.cloud`，与上游分类交叉核对。主域及多级子域进入 Common，伪后缀不匹配；现有可选 Routing 的 Common 引用将其送到 `PROXY`，Lazy 不自动加载 Common，AI 规则不收录该域名。SteamOS 官网直接请求被出站策略以 403 拒绝，未进行下载、登录或真机网络验证。其他服务及其更新日期保持不变。
@@ -263,6 +272,10 @@ python scripts/build_ai_rules.py --check
 客户端的定时刷新读取的是本仓库已发布版本。上游域名变化需要先人工核对，再更新清单并提交。
 
 ## 验证状态
+
+2026-11-01 在固定 master 的隔离云端快照实际运行通过：三个生成器 `--check`、69 份 YAML 严格解析、4 份 INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、五个地区手动组与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接、策略引用及循环检查。AI 的 4,370 个域名断言、300 个地区筛选断言、110 个优先路径检查、90 个功能 URL 正例及 45 个反例通过，包含用户 Meta / Sites 固定回归和既有 Workspace、Spotify 等范围检查。五条新增后缀另通过 125 个主域 / 多级子域 / 伪后缀断言、25 个 AI 隔离检查、10 项可选路由及 10 项 Lazy 范围检查，`git diff --check` 通过。
+
+本轮完整读取并核对哈希的资料包括 51 份上游清单（含新增检查的 Bing 子清单）及 35 份官方 GitHub 文件，并核实相关合并记录。Codex 更新涉及执行服务认证与默认 `chatgpt.com` 路径，现有规则已覆盖；本轮不新增 AI 域名。33 次官网 / 官方文档 / Sites / API / 新增主机直接请求均被出站策略以 403 拒绝；没有客户端可执行程序，未进行原生导入、真实节点 / DNS / QUIC / 登录 / 播放或下载测试，也无法读取手机端规则缓存和当前 AI 组选择。五端 Lazy / Routing 配置、AI 规则及生成器保持不变。
 
 2026-10-28 在固定 master 的隔离云端快照实际运行通过：三个生成器 `--check`、69 份 YAML 严格解析、4 份 INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、五个地区手动组与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接、策略引用及循环检查。AI 每端为 46 条精确主机、122 条后缀，共 168 条；通过 4,370 个域名断言、300 个地区筛选断言、110 个 AI 优先路径检查、90 个功能 URL 正例和 45 个反例，包含用户 Meta / Sites 固定回归。新增 AI 另通过 150 个后缀边界和 75 个 Workspace 精确主机断言；Spotify 通过 35 个精确主机 / 额外子域 / 伪后缀断言及五端可选路由、AI 隔离和 Lazy 范围检查。此前 Claude、Magnific、Twitch、SteamOS 和 Prime Video 范围检查继续通过，`git diff --check` 通过。
 

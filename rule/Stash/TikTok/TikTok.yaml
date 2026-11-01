@@ -1,5 +1,5 @@
 # TikTok - overseas routing rules
-# Updated: 2026-09-25 | Rules: 17
+# Updated: 2026-11-01 | Rules: 20
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
 payload:
@@ -12,9 +12,12 @@ payload:
   - DOMAIN-SUFFIX,tiktokcdn-us.com
   - DOMAIN-SUFFIX,tiktokcdn.com
   - DOMAIN-SUFFIX,tiktokd.net
+  - DOMAIN-SUFFIX,tiktokshop.com
+  - DOMAIN-SUFFIX,tiktokstaticb.com
   - DOMAIN-SUFFIX,tiktokv.com
   - DOMAIN-SUFFIX,tiktokv.eu
   - DOMAIN-SUFFIX,tiktokv.us
+  - DOMAIN-SUFFIX,tiktokvapp.com
   - DOMAIN-SUFFIX,tiktokw.eu
   - DOMAIN-SUFFIX,tiktokw.us
   - DOMAIN-SUFFIX,ttcdn-us.com
