@@ -65,7 +65,7 @@ python scripts/build_service_rules.py --check
 
 ## AI 聚合规则
 
-为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **33 类服务、168 条域名规则**。更新日期：2026-10-28。
+为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **33 类服务、170 条域名规则**。更新日期：2026-11-08。
 
 2026-09-30 根据 v2fly 于 2026-09-29 合入的 [Gemini Web 更新](https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9)和 [NotebookLM 更新](https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1)，补充 `geminiweb-pa.clients.google.com`、`geminiweb-pa.clients6.google.com`、`labstailwind.pa.googleapis.com`。三项均采用精确域名匹配，不扩展到整个 `clients.google.com`、`clients6.google.com` 或 `googleapis.com`；NotebookLM 上游后缀规则在这里收窄为精确主机。依据为已读取的[固定上游快照](https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind)，未找到 Google 官方对这三个具体主机的公开说明，未声称官方逐项确认或真机验证。此次未发现需要修改 Lazy 配置的可证实问题，五端配置保持不变。
 
@@ -88,9 +88,9 @@ python scripts/build_service_rules.py --check
 | OpenAI / ChatGPT / Codex / Sora / Sites / Crixet | 22 |
 | Anthropic / Claude | 19 |
 | Google Gemini / Workspace / AI Studio / NotebookLM / Code Assist | 49 |
-| GitHub Copilot / GitHub Models | 6 |
+| GitHub Copilot / GitHub Models | 7 |
 | Perplexity | 5 |
-| xAI / Grok / Grokipedia | 4 |
+| xAI / Grok / Grokipedia | 5 |
 | Poe | 2 |
 | Cursor | 5 |
 | Windsurf / Codeium | 4 |
@@ -120,6 +120,10 @@ python scripts/build_service_rules.py --check
 | Nous Research | 1 |
 
 Google AI 包含 Gemini、Workspace 侧栏、AI Studio、NotebookLM、Jules、Flow、Opal、Antigravity、Stitch 及 Code Assist 的已收录端点。
+
+2026-11-08 根据 v2fly 已合并的 [GitHub Copilot 更新 #4273](https://github.com/v2fly/domain-list-community/pull/4273)及[固定清单](https://github.com/v2fly/domain-list-community/blob/b72c53efae4ac7eb77fde0d5a0d58b8027750df0/data/github-copilot)，新增精确主机 `production-copilot-host-westus.webpubsub.azure.com`；根据 [xAI 更新 #4274](https://github.com/v2fly/domain-list-community/pull/4274)及[固定清单](https://github.com/v2fly/domain-list-community/blob/1d1049b54971c86c9a3a5467d238a6a2ad7baf46/data/xai)，新增 `grokbot.com` 后缀。每端 AI 现为 47 条精确主机、123 条后缀，共 170 条规则。Copilot 主机只做精确匹配，其额外子域、其他 WebPubSub 主机及父域不因此进入 AI；`grokbot.com` 的主域和多级子域进入 AI，伪后缀不匹配。
+
+这两项的服务归属依据为可靠上游合并记录；GitHub 官方文档、Grokbot 官网及新增 Copilot 主机的直接请求均被云端出站代理以 403 拒绝，未声称官方网页逐项核实、具体产品功能确认或真机连通测试。[Anthropic 同期新增项 #4268](https://github.com/v2fly/domain-list-community/pull/4268)均标为遥测：`http-intake.logs.us5.datadoghq.com` 是共享 Datadog 入口，`o1158394.ingest.us.sentry.io` 的合并说明引用旧版实现；本次维持通用遥测不纳入 AI 的范围。OpenAI / Sites / Meta 现有规则、其他服务清单、生成器和五端 Lazy / Routing 配置保持不变。客户端需刷新远程 AI 规则集，确认 AI 组选择了可用代理；命中 AI 后仍失败时，再排查节点或 DNS。
 
 2026-10-28 根据以下已合并上游记录，补充九条 AI 规则：
 
