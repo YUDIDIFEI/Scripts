@@ -91,13 +91,15 @@
     },
     {
       "id": "Microsoft", "name": "Microsoft 通用服务", "tier": "individual", "source": "microsoft",
-      "updated": "2026-11-01",
+      "updated": "2026-11-16",
       "sources": [
         "https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/microsoft",
         "https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/bing",
-        "https://github.com/v2fly/domain-list-community/pull/4219"
+        "https://github.com/v2fly/domain-list-community/pull/4219",
+        "https://github.com/v2fly/domain-list-community/blob/56f065177fdc7e314a928b403bd9a19e94d09e7d/data/microsoft-dev",
+        "https://github.com/v2fly/domain-list-community/pull/4282"
       ],
-      "domains": [],
+      "domains": ["dotnetcli.trafficmanager.net", "sundry-star-net-geo.trafficmanager.net"],
       "suffixes": ["bing.com", "bingstatic.com", "live.com", "microsoft.com", "microsoftonline.com", "msauth.net", "msftauth.net", "msftstatic.com", "office.com", "office365.com", "outlook.com"]
     },
     {

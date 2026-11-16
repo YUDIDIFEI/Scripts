@@ -1,7 +1,9 @@
 # Microsoft 通用服务 - overseas routing rules
-# Updated: 2026-11-01 | Rules: 11
+# Updated: 2026-11-16 | Rules: 13
 # Generated from sources/foreign-services.json; edit the source manifest.
 # Source and scope: README.md | License: THIRD_PARTY_NOTICES.md
+DOMAIN,dotnetcli.trafficmanager.net
+DOMAIN,sundry-star-net-geo.trafficmanager.net
 DOMAIN-SUFFIX,bing.com
 DOMAIN-SUFFIX,bingstatic.com
 DOMAIN-SUFFIX,live.com

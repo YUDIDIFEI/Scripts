@@ -35,6 +35,10 @@ AI 维持一份聚合规则，不按平台拆分。规则库另提供 17 份主�
 
 2026-10-19 根据 v2fly 已合并的 [Prime Video 更新 #4041](https://github.com/v2fly/domain-list-community/pull/4041)及[固定提交清单](https://github.com/v2fly/domain-list-community/blob/84394e467557d986c67341c90e36ca7e698d3860/data/primevideo)，为五端 `PrimeVideo` 独立规则补充精确主机 `amazon.pv-cdn.net`，每端该清单现为 6 条规则。上游合并的是 `pv-cdn.net` 后缀，原始 PR 标题明确指向该 Amazon 主机；本仓库按现有证据收窄为精确匹配。其额外子域和其他 `pv-cdn.net` 主机沿用原有分流。Prime Video 官方帮助页的直接访问被出站策略以 403 拒绝，未声称完成官方归属逐项核实、播放或解锁测试。五端可选 `Routing` 片段已有 `PrimeVideo` 引用，手动启用该片段后走 `PROXY`；Lazy 仍只预置 AI、PayPal、GitHub，不自动加载 Prime Video。其他服务的更新日期及 AI 清单保持不变。
 
+2026-11-16 根据 v2fly 已合并的 [Microsoft 开发下载更新 #4282](https://github.com/v2fly/domain-list-community/pull/4282)及[固定 Microsoft Dev 清单](https://github.com/v2fly/domain-list-community/blob/56f065177fdc7e314a928b403bd9a19e94d09e7d/data/microsoft-dev)，为五端 `Microsoft` 独立规则补充精确主机 `dotnetcli.trafficmanager.net`、`sundry-star-net-geo.trafficmanager.net`。每端 Microsoft 现为 2 条精确主机、11 条后缀，共 13 条规则。上游将 VS Code 的精确条目从 Microsoft 移至 Microsoft Dev 分类；本仓库的 `microsoft.com` 后缀已经覆盖 `vscode.download.prss.microsoft.com` 和 `builds.dotnet.microsoft.com`，不重复添加这两个下载主机。
+
+两个 Traffic Manager 别名的归属与 CNAME 观测依据为上述可靠上游合并记录；本轮未亲测 DNS 记录。上游也说明它们可能承载其他下载，不把它们描述为 VS Code / .NET 独占端点。只匹配这两个主机，其额外子域、其他 Traffic Manager 主机与 `trafficmanager.net` 父域不因此匹配；不扩展共享云服务后缀。相关官方文档及新增主机的直接请求被云端出站代理以 403 拒绝，未声称实时官网核实、DNS 或下载验证。已有可选 Routing 片段将 Microsoft 送到 `PROXY`，先于 CN；Lazy 不自动加载 Microsoft，两个主机不加入 AI。五端 Lazy / Routing、AI、其他服务与生成器保持不变，客户端需刷新使用中的 Microsoft 远程规则集。
+
 2026-11-01 根据 v2fly 已合并的 [服务域名更新 #4219](https://github.com/v2fly/domain-list-community/pull/4219)及固定提交中的 [TikTok](https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/tiktok)、[Microsoft](https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/microsoft)、[Bing](https://github.com/v2fly/domain-list-community/blob/1daade8c4bb957d21d1f5c09c2b050d699e8e96c/data/bing) 清单，为五端独立规则补充以下后缀：
 
 | 独立规则 | 新增后缀 | 更新后规则数 |
