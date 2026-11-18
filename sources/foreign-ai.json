@@ -1,6 +1,6 @@
 {
   "name": "Foreign AI",
-  "updated": "2026-11-08",
+  "updated": "2026-11-18",
   "description": "常用国外 AI 服务的域名分流；不是全量网络依赖白名单。",
   "services": [
     {
@@ -304,13 +304,17 @@
     {
       "id": "elevenlabs",
       "name": "ElevenLabs",
+      "updated": "2026-11-18",
       "sources": [
-        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/elevenlabs"
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/elevenlabs",
+        "https://github.com/v2fly/domain-list-community/blob/178b9452b28a254a97d24e56c84babbe3e3e3dda/data/elevenlabs",
+        "https://github.com/v2fly/domain-list-community/pull/4305"
       ],
       "domains": [],
       "suffixes": [
         "elevenlabs.com",
-        "elevenlabs.io"
+        "elevenlabs.io",
+        "elevenlabsusercontent.com"
       ]
     },
     {
@@ -596,6 +600,7 @@
     "2026-10-28 根据 v2fly 已合并的 Gemini Workspace 更新，精确收录 appsgenaiserver-pa 的 clients.google.com、clients6.google.com 与 googleapis.com 三个主机；不扩展整个 Google API 域名空间，域名分流无法区分同一主机下的 AI 与其他路径。",
     "2026-10-28 根据 v2fly 已合并分类补充 Meta AI 内容后缀 metaaiusercontent.com，以及 Artificial Analysis、Cline、CommandCode、Context7、Nous Research；Cline 与 Context7 另有官方仓库入口佐证。官网直接读取受出站策略限制，未声称完成实时官网或真机验证。",
     "2026-11-08 根据 v2fly 已合并的 GitHub Copilot 与 xAI 更新，精确收录 production-copilot-host-westus.webpubsub.azure.com 并补充 grokbot.com 后缀；不扩展整个 webpubsub.azure.com 或其他 Azure 主机。服务归属依据为上游合并记录，官网与官方域名文档的直接访问受出站策略限制，未确认新域名对应的具体产品功能或完成真机联网验证。",
-    "2026-11-08 复核 Anthropic 新增的 http-intake.logs.us5.datadoghq.com 与 o1158394.ingest.us.sentry.io：上游均标为 telemetry，前者为共享 Datadog 入口，后者的合并说明引用旧版实现；维持通用遥测不纳入 AI 的范围，不因上游新增而自动收录。"
+    "2026-11-08 复核 Anthropic 新增的 http-intake.logs.us5.datadoghq.com 与 o1158394.ingest.us.sentry.io：上游均标为 telemetry，前者为共享 Datadog 入口，后者的合并说明引用旧版实现；维持通用遥测不纳入 AI 的范围，不因上游新增而自动收录。",
+    "2026-11-18 根据 v2fly 已合并的 ElevenLabs 分类新增 elevenlabsusercontent.com 后缀，覆盖主域及多级子域；CDN 服务归属依据为上游合并记录，官方文档及域名的直接请求受出站策略限制，未声称实时官网核实、内容访问或真机联网验证。"
   ]
 }

@@ -69,7 +69,7 @@ python scripts/build_service_rules.py --check
 
 ## AI 聚合规则
 
-为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **33 类服务、170 条域名规则**。更新日期：2026-11-08。
+为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **33 类服务、171 条域名规则**。更新日期：2026-11-18。
 
 2026-09-30 根据 v2fly 于 2026-09-29 合入的 [Gemini Web 更新](https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9)和 [NotebookLM 更新](https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1)，补充 `geminiweb-pa.clients.google.com`、`geminiweb-pa.clients6.google.com`、`labstailwind.pa.googleapis.com`。三项均采用精确域名匹配，不扩展到整个 `clients.google.com`、`clients6.google.com` 或 `googleapis.com`；NotebookLM 上游后缀规则在这里收窄为精确主机。依据为已读取的[固定上游快照](https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind)，未找到 Google 官方对这三个具体主机的公开说明，未声称官方逐项确认或真机验证。此次未发现需要修改 Lazy 配置的可证实问题，五端配置保持不变。
 
@@ -102,7 +102,7 @@ python scripts/build_service_rules.py --check
 | Hugging Face | 3 |
 | Groq | 1 |
 | Cerebras | 1 |
-| ElevenLabs | 2 |
+| ElevenLabs | 3 |
 | Microsoft Copilot | 9 |
 | Mistral / Le Chat | 1 |
 | Cohere | 2 |
@@ -124,6 +124,10 @@ python scripts/build_service_rules.py --check
 | Nous Research | 1 |
 
 Google AI 包含 Gemini、Workspace 侧栏、AI Studio、NotebookLM、Jules、Flow、Opal、Antigravity、Stitch 及 Code Assist 的已收录端点。
+
+2026-11-18 根据 v2fly 已合并的 [ElevenLabs CDN 更新 #4305](https://github.com/v2fly/domain-list-community/pull/4305)及[固定清单](https://github.com/v2fly/domain-list-community/blob/178b9452b28a254a97d24e56c84babbe3e3e3dda/data/elevenlabs)，新增 `elevenlabsusercontent.com` 后缀。主域和多级子域进入 AI，`not-elevenlabsusercontent.com`、`elevenlabsusercontent.com.example.org` 不匹配；`elevenlabs.com` 和 `elevenlabs.io` 保持原有覆盖。每端 AI 现为 47 条精确主机、124 条后缀，共 171 条规则。
+
+该域名的 ElevenLabs CDN 归属依据为可靠上游合并记录；域名与 ElevenLabs 官方文档的直接请求均被云端出站代理以 403 拒绝，未声称完成官网实时核实、内容访问或真机联网验证。Codex 最新隧道代码采用 HTTP/3 与 HTTP/2 传输，仍使用已有 `codex-portals.api.openai.com` 网关，不因此增加冗余域名；HTTP/2 使用同一受信任目标，系统代理或自定义端点不自动归入 AI。五端 Lazy / Routing、生成器及其他服务清单保持不变；客户端需刷新远程 AI 规则，并确认 AI 策略组选用了可用代理。
 
 2026-11-08 根据 v2fly 已合并的 [GitHub Copilot 更新 #4273](https://github.com/v2fly/domain-list-community/pull/4273)及[固定清单](https://github.com/v2fly/domain-list-community/blob/b72c53efae4ac7eb77fde0d5a0d58b8027750df0/data/github-copilot)，新增精确主机 `production-copilot-host-westus.webpubsub.azure.com`；根据 [xAI 更新 #4274](https://github.com/v2fly/domain-list-community/pull/4274)及[固定清单](https://github.com/v2fly/domain-list-community/blob/1d1049b54971c86c9a3a5467d238a6a2ad7baf46/data/xai)，新增 `grokbot.com` 后缀。每端 AI 现为 47 条精确主机、123 条后缀，共 170 条规则。Copilot 主机只做精确匹配，其额外子域、其他 WebPubSub 主机及父域不因此进入 AI；`grokbot.com` 的主域和多级子域进入 AI，伪后缀不匹配。
 
