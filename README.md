@@ -69,7 +69,7 @@ python scripts/build_service_rules.py --check
 
 ## AI 聚合规则
 
-为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **33 类服务、171 条域名规则**。更新日期：2026-11-18。
+为 Clash / Mihomo、Loon、Stash、Shadowrocket、Egern 分别提供可远程引用的规则集。五份文件来自同一清单，当前覆盖 **33 类服务、177 条域名规则**。更新日期：2026-11-20。
 
 2026-09-30 根据 v2fly 于 2026-09-29 合入的 [Gemini Web 更新](https://github.com/v2fly/domain-list-community/commit/ed196cf96f289275116f9a1cc120870f872bd1f9)和 [NotebookLM 更新](https://github.com/v2fly/domain-list-community/commit/ae6df175a4239b8138cbd9c16c9f09ca92e491f1)，补充 `geminiweb-pa.clients.google.com`、`geminiweb-pa.clients6.google.com`、`labstailwind.pa.googleapis.com`。三项均采用精确域名匹配，不扩展到整个 `clients.google.com`、`clients6.google.com` 或 `googleapis.com`；NotebookLM 上游后缀规则在这里收窄为精确主机。依据为已读取的[固定上游快照](https://github.com/v2fly/domain-list-community/blob/2d71342eea1720da57261b55663c9d55619e9b1c/data/google-deepmind)，未找到 Google 官方对这三个具体主机的公开说明，未声称官方逐项确认或真机验证。此次未发现需要修改 Lazy 配置的可证实问题，五端配置保持不变。
 
@@ -92,7 +92,7 @@ python scripts/build_service_rules.py --check
 | OpenAI / ChatGPT / Codex / Sora / Sites / Crixet | 22 |
 | Anthropic / Claude | 19 |
 | Google Gemini / Workspace / AI Studio / NotebookLM / Code Assist | 49 |
-| GitHub Copilot / GitHub Models | 7 |
+| GitHub Copilot / GitHub Models | 13 |
 | Perplexity | 5 |
 | xAI / Grok / Grokipedia | 5 |
 | Poe | 2 |
@@ -124,6 +124,17 @@ python scripts/build_service_rules.py --check
 | Nous Research | 1 |
 
 Google AI 包含 Gemini、Workspace 侧栏、AI Studio、NotebookLM、Jules、Flow、Opal、Antigravity、Stitch 及 Code Assist 的已收录端点。
+
+2026-11-20 完整读取 [GitHub Copilot 官方网络清单](https://docs.github.com/en/copilot/reference/copilot-allowlist-reference)及其[固定源码快照](https://github.com/github/docs/blob/16d03ddd1bd51eab7407b4ba632200618e6655c2/content/copilot/reference/copilot-allowlist-reference.md)，补齐浏览器云会话 WebSocket 的六个精确主机：
+
+- `production-copilot-host-austriaeast.webpubsub.azure.com`
+- `production-copilot-host-centralus-02.webpubsub.azure.com`
+- `production-copilot-host-centralus.webpubsub.azure.com`
+- `production-copilot-host-eastasia.webpubsub.azure.com`
+- `production-copilot-host-westus3.webpubsub.azure.com`
+- `production-copilot-host.webpubsub.azure.com`
+
+官方列出的 `production-copilot-host-westus.webpubsub.azure.com` 已收录，不重复添加。每端 AI 现为 53 条精确主机、124 条后缀，共 177 条规则。新增主机的额外子域、伪后缀、其他 WebPubSub 主机及 Azure 父域不因此进入 AI；共享实验/遥测、通用 Foundry 模型下载与动态存储通配符沿用既有分流。五端 Lazy / Routing、生成器和其他服务清单保持不变。客户端需刷新正在使用的 AI 远程规则集，确认 AI 组选择了可用代理；若已命中 AI 却选了 DIRECT，应调整策略选择，代理后仍失败则继续排查节点、DNS 和 WebSocket 支持。
 
 2026-11-18 根据 v2fly 已合并的 [ElevenLabs CDN 更新 #4305](https://github.com/v2fly/domain-list-community/pull/4305)及[固定清单](https://github.com/v2fly/domain-list-community/blob/178b9452b28a254a97d24e56c84babbe3e3e3dda/data/elevenlabs)，新增 `elevenlabsusercontent.com` 后缀。主域和多级子域进入 AI，`not-elevenlabsusercontent.com`、`elevenlabsusercontent.com.example.org` 不匹配；`elevenlabs.com` 和 `elevenlabs.io` 保持原有覆盖。每端 AI 现为 47 条精确主机、124 条后缀，共 171 条规则。
 
@@ -284,6 +295,10 @@ python scripts/build_ai_rules.py --check
 客户端的定时刷新读取的是本仓库已发布版本。上游域名变化需要先人工核对，再更新清单并提交。
 
 ## 验证状态
+
+2026-11-20 在固定 master 的隔离云端快照实际运行通过：三个生成器的生成与 `--check`、69 份 YAML 严格解析、4 份 INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、地区组与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接及策略引用/循环检查。4,595 个域名断言、300 个地区筛选断言、110 个 AI 优先路径检查、90 个功能 URL 正例和 45 个反例通过；六个新增 Copilot 主机另通过 210 个精确范围断言和 30 个 AI 优先路径检查，原有 West US、共享父域隔离、用户 Sites / Meta 及既有服务回归均通过，`git diff --check` 通过。
+
+本轮完整读取并核对哈希的资料包括 52 份上游清单与 51 份官方 GitHub 文件。通过网页工具读取了 [OpenAI 网络要求](https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps)、[Sites 说明](https://help.openai.com/en/articles/20001339-creating-and-using-chatgpt-sites)、[Dots 入门](https://help.openai.com/en/articles/20001530-getting-started-with-your-dot)、[Prism 说明](https://openai.com/index/introducing-prism/)、[Claude Desktop 网络要求](https://code.claude.com/docs/en/desktop#network-access-requirements)与 [Meta Muse 公告](https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/)，这些资料中的第一方功能入口已由现有规则覆盖，不将第三方插件、通用 CDN 或自定义网站域名自动归入 AI。云端执行环境的 42 次直接 HTTP 请求在沙箱外重试后仍被出站代理以 403 拒绝，这与网页工具的资料读取结果分开记录。没有客户端可执行程序，未进行原生导入、真实节点、DNS、WebSocket / QUIC 或产品联网测试，也无法读取用户设备上的规则缓存和当前 AI 策略选择；五端 Lazy / Routing 无需修改。
 
 2026-11-01 在固定 master 的隔离云端快照实际运行通过：三个生成器 `--check`、69 份 YAML 严格解析、4 份 INI 段结构检查、90 份服务规则与源清单比对，以及五端 Lazy 的 DNS、订阅占位、旁路、五个地区手动组与 REJECT 默认、PayPal 仅美国手动或 REJECT、CN 默认 DIRECT、LAN → AI → PayPal → GitHub → CN → PROXY 顺序、远程链接、策略引用及循环检查。AI 的 4,370 个域名断言、300 个地区筛选断言、110 个优先路径检查、90 个功能 URL 正例及 45 个反例通过，包含用户 Meta / Sites 固定回归和既有 Workspace、Spotify 等范围检查。五条新增后缀另通过 125 个主域 / 多级子域 / 伪后缀断言、25 个 AI 隔离检查、10 项可选路由及 10 项 Lazy 范围检查，`git diff --check` 通过。
 
